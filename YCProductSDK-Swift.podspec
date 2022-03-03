@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "YCProductSDK-Swift"
-  spec.version      = "1.0.2"
+  spec.version      = "1.0.3"
   spec.summary      = "YCProductSDK-Swift 是玉成创新提供给第三方二次开发App的iOS工具包"
 
   # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ Pod::Spec.new do |spec|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
     SDK是深圳市玉成创新科技有限公司提供给用户用于开发控制或使用蓝牙设备的工具包, 提供了大量的API，方便用户二次开发。
-    需要注意的，此SDK包不包含主控升级的SDK，需要额外导入。
+    需要注意的是，此SDK包只支持真机使用，不包含主控升级的SDK，需要额外导入。
                    DESC
 
   spec.homepage     = "https://github.com/LiuHuiYang/YCProductSDK-Swift.git"
@@ -67,7 +67,8 @@ Pod::Spec.new do |spec|
 
   # spec.platform     = :ios
   spec.platform     = :ios, "9.0"
-
+  # 只支持真机
+  spec.pod_target_xcconfig = { 'VALID_ARCHS[sdk=iphonesimulator*]' => '' }
   #  When using multiple platforms
   # spec.ios.deployment_target = "5.0"
   # spec.osx.deployment_target = "10.7"
