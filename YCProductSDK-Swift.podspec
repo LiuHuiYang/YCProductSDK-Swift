@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "YCProductSDK-Swift"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.1"
   spec.summary      = "YCProductSDK-Swift 是玉成创新提供给第三方二次开发App的iOS工具包"
 
   # This description is used to generate tags and improve search results.
@@ -95,7 +95,7 @@ Pod::Spec.new do |spec|
   spec.source_files  = "YCProductSDK-Swift/YCProductSDK.framework/Headers/*.{h,m}"
   spec.exclude_files = "Example"
 
-  spec.vendored_frameworks = 'FogV3/FogV3.framework'
+  spec.vendored_frameworks = 'YCProductSDK-Swift/YCProductSDK.framework'
   
   # 这个可以不写
   # spec.public_header_files = "YCProductSDK-Swift/YCProductSDK.framework/Headers/YCProductSDK-Swift.h"
