@@ -1,0 +1,6 @@
+framework module Pods_YCProductSDK {
+  umbrella header "Pods-YCProductSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
