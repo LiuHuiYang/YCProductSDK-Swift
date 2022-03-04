@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "YCProductSDK-Swift"
-  spec.version      = "1.0.3"
+  spec.version      = "1.0.4"
   spec.summary      = "YCProductSDK-Swift 是玉成创新提供给第三方二次开发App的iOS工具包"
 
   # This description is used to generate tags and improve search results.
@@ -68,7 +68,7 @@ Pod::Spec.new do |spec|
   # spec.platform     = :ios
   spec.platform     = :ios, "9.0"
   # 只支持真机
-  spec.pod_target_xcconfig = { 'VALID_ARCHS[sdk=iphonesimulator*]' => '' }
+  spec.pod_target_xcconfig = { 'VALID_ARCHS' => 'armv7 arm64' }
   #  When using multiple platforms
   # spec.ios.deployment_target = "5.0"
   # spec.osx.deployment_target = "10.7"
