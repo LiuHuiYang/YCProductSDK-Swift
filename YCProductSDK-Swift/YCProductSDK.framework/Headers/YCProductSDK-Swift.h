@@ -1402,6 +1402,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 + (YCProduct * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 /// 外设管理器状态
 @property (nonatomic) enum YCProductState centralManagerState;
+/// 启动回连标记 (固件升级可能会用上)
+@property (nonatomic) BOOL isReconnectEnable;
 /// 当前的连接的外设
 @property (nonatomic, readonly, strong) CBPeripheral * _Nullable currentPeripheral;
 /// 当前连接的所有的外设 (保留参数，扩展使用)
@@ -4754,6 +4756,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 + (YCProduct * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 /// 外设管理器状态
 @property (nonatomic) enum YCProductState centralManagerState;
+/// 启动回连标记 (固件升级可能会用上)
+@property (nonatomic) BOOL isReconnectEnable;
 /// 当前的连接的外设
 @property (nonatomic, readonly, strong) CBPeripheral * _Nullable currentPeripheral;
 /// 当前连接的所有的外设 (保留参数，扩展使用)

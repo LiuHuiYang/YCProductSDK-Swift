@@ -36,13 +36,14 @@
 		CA1F854B275DB4640060C475 /* YCAppControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1F8549275DB4640060C475 /* YCAppControlViewController.xib */; };
 		CA1F854F275DC17F0060C475 /* YCSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F854D275DC17F0060C475 /* YCSettingViewController.swift */; };
 		CA1F8550275DC17F0060C475 /* YCSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1F854E275DC17F0060C475 /* YCSettingViewController.xib */; };
-		CA53BFD427886C3100FE2003 /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA53BFD327886C3100FE2003 /* YCProductSDK.framework */; };
 		CA5DB45F27562F36008AFB6F /* YCCollectDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DB45D27562F36008AFB6F /* YCCollectDataViewController.swift */; };
 		CA5DB46027562F36008AFB6F /* YCCollectDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB45E27562F36008AFB6F /* YCCollectDataViewController.xib */; };
 		CA5DB46D27564DE2008AFB6F /* YCWatchFaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DB46B27564DE2008AFB6F /* YCWatchFaceViewController.swift */; };
 		CA5DB46E27564DE2008AFB6F /* YCWatchFaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */; };
 		CA5DB47027571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
 		CA5DB47127571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
+		CA85018B27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */; };
+		CA85018C27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */; };
 		CAB7B83E27579D2B001B53A7 /* YCECGShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */; };
 		CAB7B83F27579D2B001B53A7 /* YCECGShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */; };
 		CAC2B7E0277D69AE00CF3247 /* ecg_tip.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */; };
@@ -94,12 +95,12 @@
 		CA1F8549275DB4640060C475 /* YCAppControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCAppControlViewController.xib; sourceTree = "<group>"; };
 		CA1F854D275DC17F0060C475 /* YCSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCSettingViewController.swift; sourceTree = "<group>"; };
 		CA1F854E275DC17F0060C475 /* YCSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCSettingViewController.xib; sourceTree = "<group>"; };
-		CA53BFD327886C3100FE2003 /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CA5DB45D27562F36008AFB6F /* YCCollectDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCCollectDataViewController.swift; sourceTree = "<group>"; };
 		CA5DB45E27562F36008AFB6F /* YCCollectDataViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCCollectDataViewController.xib; sourceTree = "<group>"; };
 		CA5DB46B27564DE2008AFB6F /* YCWatchFaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCWatchFaceViewController.swift; sourceTree = "<group>"; };
 		CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCWatchFaceViewController.xib; sourceTree = "<group>"; };
 		CA5DB46F27571E4E008AFB6F /* customE80.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = customE80.bin; sourceTree = "<group>"; };
+		CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGShowViewController.swift; sourceTree = "<group>"; };
 		CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGShowViewController.xib; sourceTree = "<group>"; };
 		CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ecg_tip.m4a; sourceTree = "<group>"; };
@@ -115,7 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19914F0ACEF80BB6D38EE68F /* libPods-SwiftDemo.a in Frameworks */,
-				CA53BFD427886C3100FE2003 /* YCProductSDK.framework in Frameworks */,
+				CA85018B27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC71D1AEEF0D8A8693B1B7D1 /* libPods-ObjcDemo.a in Frameworks */,
+				CA85018C27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +148,6 @@
 		CA15816A2754C65C0073C514 = {
 			isa = PBXGroup;
 			children = (
-				CA53BFD327886C3100FE2003 /* YCProductSDK.framework */,
 				CA1581842754C6B20073C514 /* SwiftDemo */,
 				CA15820A2754E0440073C514 /* ObjcDemo */,
 				CA1581752754C65C0073C514 /* Products */,
@@ -167,6 +168,7 @@
 		CA1581842754C6B20073C514 /* SwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */,
 				CA1581852754C6B20073C514 /* AppDelegate.swift */,
 				CA1581872754C6B20073C514 /* SceneDelegate.swift */,
 				CA1581892754C6B20073C514 /* ViewController.swift */,
@@ -719,6 +721,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SwiftDemo",
 				);
 				INFOPLIST_FILE = SwiftDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -749,6 +752,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SwiftDemo",
 				);
 				INFOPLIST_FILE = SwiftDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -774,6 +778,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = JQ97STDGA6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SwiftDemo",
+				);
 				INFOPLIST_FILE = ObjcDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -798,6 +806,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = JQ97STDGA6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SwiftDemo",
+				);
 				INFOPLIST_FILE = ObjcDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
