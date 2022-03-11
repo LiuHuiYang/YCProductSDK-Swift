@@ -428,6 +428,18 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceBasicInfo")
 @property (nonatomic, readonly) uint8_t protocolMajorVersion;
 /// 通信协议子版本(内部使用)
 @property (nonatomic, readonly) uint8_t protocolSubversion;
+/// 血压固件版本
+@property (nonatomic, readonly, copy) NSString * _Nonnull bloodPressureFirmwarelVersion;
+/// 血压固件主版本
+@property (nonatomic, readonly) uint8_t bloodPressureFirmwareMajorVersion;
+/// 血压固件子版本
+@property (nonatomic, readonly) uint8_t bloodPressureFirmwareSubversion;
+/// tp固件版本
+@property (nonatomic, readonly, copy) NSString * _Nonnull touchPanelFirmwarelVersion;
+/// tp固件主版本
+@property (nonatomic, readonly) uint8_t touchPanelFirmwareMajorVersion;
+/// tp固件子版本
+@property (nonatomic, readonly) uint8_t touchPanelFirmwareSubversion;
 /// 显示信息
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -3782,6 +3794,18 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceBasicInfo")
 @property (nonatomic, readonly) uint8_t protocolMajorVersion;
 /// 通信协议子版本(内部使用)
 @property (nonatomic, readonly) uint8_t protocolSubversion;
+/// 血压固件版本
+@property (nonatomic, readonly, copy) NSString * _Nonnull bloodPressureFirmwarelVersion;
+/// 血压固件主版本
+@property (nonatomic, readonly) uint8_t bloodPressureFirmwareMajorVersion;
+/// 血压固件子版本
+@property (nonatomic, readonly) uint8_t bloodPressureFirmwareSubversion;
+/// tp固件版本
+@property (nonatomic, readonly, copy) NSString * _Nonnull touchPanelFirmwarelVersion;
+/// tp固件主版本
+@property (nonatomic, readonly) uint8_t touchPanelFirmwareMajorVersion;
+/// tp固件子版本
+@property (nonatomic, readonly) uint8_t touchPanelFirmwareSubversion;
 /// 显示信息
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
