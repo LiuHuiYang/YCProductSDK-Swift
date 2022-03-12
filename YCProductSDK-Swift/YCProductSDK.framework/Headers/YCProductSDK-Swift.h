@@ -924,7 +924,7 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceTimeType, closed) {
 };
 
 
-/// 设备版本信息
+/// 版本信息
 SWIFT_CLASS("_TtC12YCProductSDK19YCDeviceVersionInfo")
 @interface YCDeviceVersionInfo : NSObject
 /// 版本
@@ -4288,7 +4288,7 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceTimeType, closed) {
 };
 
 
-/// 设备版本信息
+/// 版本信息
 SWIFT_CLASS("_TtC12YCProductSDK19YCDeviceVersionInfo")
 @interface YCDeviceVersionInfo : NSObject
 /// 版本
