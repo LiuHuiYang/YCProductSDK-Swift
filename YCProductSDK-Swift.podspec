@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "YCProductSDK-Swift"
-  spec.version      = "1.0.6"
+  spec.version      = "1.0.7"
   spec.summary      = "YCProductSDK-Swift 是玉成创新提供给第三方二次开发App的iOS工具包"
 
   # This description is used to generate tags and improve search results.
