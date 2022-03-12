@@ -401,6 +401,7 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceAntiLostType, closed) {
   YCDeviceAntiLostTypeLongDistance = 3,
 };
 
+@class YCDeviceVersionInfo;
 enum YCDeviceBatterystate : uint8_t;
 
 /// 基本信息
@@ -408,12 +409,8 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceBasicInfo")
 @interface YCDeviceBasicInfo : NSObject
 /// 设备ID
 @property (nonatomic, readonly) uint16_t deviceID;
-/// 固件版本
-@property (nonatomic, readonly, copy) NSString * _Nonnull firmwareVersion;
-/// 固件主版本
-@property (nonatomic, readonly) uint8_t firmwareMajorVersion;
-/// 固件子版本
-@property (nonatomic, readonly) uint8_t firmwareSubversion;
+/// 主控MCU
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull mcuFirmware;
 /// 电池状态
 @property (nonatomic, readonly) enum YCDeviceBatterystate batterystatus;
 /// 电池电量
@@ -422,24 +419,12 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceBasicInfo")
 @property (nonatomic, readonly) BOOL isBind;
 /// 是否需要同步 (保留参数)
 @property (nonatomic, readonly) BOOL needSync;
-/// 通信协议版本 (内部使用)
-@property (nonatomic, readonly, copy) NSString * _Nonnull protocolVersion;
-/// 通信协议主版本(内部使用)
-@property (nonatomic, readonly) uint8_t protocolMajorVersion;
-/// 通信协议子版本(内部使用)
-@property (nonatomic, readonly) uint8_t protocolSubversion;
-/// 血压固件版本
-@property (nonatomic, readonly, copy) NSString * _Nonnull bloodPressureFirmwarelVersion;
-/// 血压固件主版本
-@property (nonatomic, readonly) uint8_t bloodPressureFirmwareMajorVersion;
-/// 血压固件子版本
-@property (nonatomic, readonly) uint8_t bloodPressureFirmwareSubversion;
-/// tp固件版本
-@property (nonatomic, readonly, copy) NSString * _Nonnull touchPanelFirmwarelVersion;
-/// tp固件主版本
-@property (nonatomic, readonly) uint8_t touchPanelFirmwareMajorVersion;
-/// tp固件子版本
-@property (nonatomic, readonly) uint8_t touchPanelFirmwareSubversion;
+/// 内部通讯通讯协议版本(内部使用)
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull innerProtocol;
+/// 血压固件信息
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull bloodPressureFirmware;
+/// TP固件信息
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull touchPanelFirmware;
 /// 显示信息
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -938,6 +923,19 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceTimeType, closed) {
   YCDeviceTimeTypeHour12 = 1,
 };
 
+
+/// 设备版本信息
+SWIFT_CLASS("_TtC12YCProductSDK19YCDeviceVersionInfo")
+@interface YCDeviceVersionInfo : NSObject
+/// 版本
+@property (nonatomic, readonly, copy) NSString * _Nonnull version;
+/// 主版本
+@property (nonatomic, readonly) uint8_t majorVersion;
+/// 子版本
+@property (nonatomic, readonly) uint8_t subVersion;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 /// 3.5.2.9 左右手佩戴设置
 typedef SWIFT_ENUM(uint8_t, YCDeviceWearingPositionType, closed) {
   YCDeviceWearingPositionTypeLeft = 0,
@@ -1435,6 +1433,26 @@ enum YCProductLogLevel : NSInteger;
 + (void)setLogLevel:(enum YCProductLogLevel)level;
 @end
 
+enum YCQueryHealthDataType : uint8_t;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 查询健康数据
+/// \param peripheral 当前设备
+///
+/// \param datatType 数据类型
+///
+/// \param completion 调用结果
+///
++ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除健康数据
+/// \param peripheral 当前连接的设备
+///
+/// \param datatType 删除的数据类型
+///
+/// \param completion 删除是否成功
+///
++ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1484,25 +1502,11 @@ enum YCProductLogLevel : NSInteger;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
 @end
 
-enum YCQueryHealthDataType : uint8_t;
+
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询健康数据
-/// \param peripheral 当前设备
-///
-/// \param datatType 数据类型
-///
-/// \param completion 调用结果
-///
-+ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除健康数据
-/// \param peripheral 当前连接的设备
-///
-/// \param datatType 删除的数据类型
-///
-/// \param completion 删除是否成功
-///
-+ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 清理队列
+- (void)clearQueue;
 @end
 
 
@@ -1520,32 +1524,6 @@ enum YCQueryHealthDataType : uint8_t;
 ///
 + (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 清理队列
-- (void)clearQueue;
-@end
-
-@class NSError;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 连接设备
-/// \param peripheral <#peripheral description#>
-///
-+ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
-/// 断开连接
-/// \param peripheral <#peripheral description#>
-///
-+ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
-/// 开始扫描设备
-/// \param delayTime 延时停止，默认3秒
-///
-/// \param completion 返回结果
-///
-+ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
-@end
-
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1573,6 +1551,26 @@ enum YCQueryHealthDataType : uint8_t;
 + (void)sendAddressBook:(CBPeripheral * _Nullable)peripheral phone:(NSString * _Nonnull)phone name:(NSString * _Nonnull)name completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
+@class NSError;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 连接设备
+/// \param peripheral <#peripheral description#>
+///
++ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
+/// 断开连接
+/// \param peripheral <#peripheral description#>
+///
++ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
+/// 开始扫描设备
+/// \param delayTime 延时停止，默认3秒
+///
+/// \param completion 返回结果
+///
++ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
+@end
+
+
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 外设固件升级
@@ -1587,6 +1585,41 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 下载进度
 ///
 + (void)embeddedPeripheralFirmwareUpgrade:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable firmwareType:(enum YCEmbeddedPeripheralFirmwareType)firmwareType data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+@class CBCharacteristic;
+@class CBService;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
+/// 接收到外设的数据
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// 发现外设特征下的服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param service <#service description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+/// 发现外设服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
 @end
 
 @class CBCentralManager;
@@ -1628,41 +1661,6 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param central <#central description#>
 ///
 - (void)centralManagerDidUpdateState:(CBCentralManager * _Nonnull)central;
-@end
-
-@class CBCharacteristic;
-@class CBService;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
-/// 接收到外设的数据
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// 发现外设特征下的服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param service <#service description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
-/// 发现外设服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
 @end
 
 
@@ -3767,6 +3765,7 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceAntiLostType, closed) {
   YCDeviceAntiLostTypeLongDistance = 3,
 };
 
+@class YCDeviceVersionInfo;
 enum YCDeviceBatterystate : uint8_t;
 
 /// 基本信息
@@ -3774,12 +3773,8 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceBasicInfo")
 @interface YCDeviceBasicInfo : NSObject
 /// 设备ID
 @property (nonatomic, readonly) uint16_t deviceID;
-/// 固件版本
-@property (nonatomic, readonly, copy) NSString * _Nonnull firmwareVersion;
-/// 固件主版本
-@property (nonatomic, readonly) uint8_t firmwareMajorVersion;
-/// 固件子版本
-@property (nonatomic, readonly) uint8_t firmwareSubversion;
+/// 主控MCU
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull mcuFirmware;
 /// 电池状态
 @property (nonatomic, readonly) enum YCDeviceBatterystate batterystatus;
 /// 电池电量
@@ -3788,24 +3783,12 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceBasicInfo")
 @property (nonatomic, readonly) BOOL isBind;
 /// 是否需要同步 (保留参数)
 @property (nonatomic, readonly) BOOL needSync;
-/// 通信协议版本 (内部使用)
-@property (nonatomic, readonly, copy) NSString * _Nonnull protocolVersion;
-/// 通信协议主版本(内部使用)
-@property (nonatomic, readonly) uint8_t protocolMajorVersion;
-/// 通信协议子版本(内部使用)
-@property (nonatomic, readonly) uint8_t protocolSubversion;
-/// 血压固件版本
-@property (nonatomic, readonly, copy) NSString * _Nonnull bloodPressureFirmwarelVersion;
-/// 血压固件主版本
-@property (nonatomic, readonly) uint8_t bloodPressureFirmwareMajorVersion;
-/// 血压固件子版本
-@property (nonatomic, readonly) uint8_t bloodPressureFirmwareSubversion;
-/// tp固件版本
-@property (nonatomic, readonly, copy) NSString * _Nonnull touchPanelFirmwarelVersion;
-/// tp固件主版本
-@property (nonatomic, readonly) uint8_t touchPanelFirmwareMajorVersion;
-/// tp固件子版本
-@property (nonatomic, readonly) uint8_t touchPanelFirmwareSubversion;
+/// 内部通讯通讯协议版本(内部使用)
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull innerProtocol;
+/// 血压固件信息
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull bloodPressureFirmware;
+/// TP固件信息
+@property (nonatomic, readonly, strong) YCDeviceVersionInfo * _Nonnull touchPanelFirmware;
 /// 显示信息
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -4304,6 +4287,19 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceTimeType, closed) {
   YCDeviceTimeTypeHour12 = 1,
 };
 
+
+/// 设备版本信息
+SWIFT_CLASS("_TtC12YCProductSDK19YCDeviceVersionInfo")
+@interface YCDeviceVersionInfo : NSObject
+/// 版本
+@property (nonatomic, readonly, copy) NSString * _Nonnull version;
+/// 主版本
+@property (nonatomic, readonly) uint8_t majorVersion;
+/// 子版本
+@property (nonatomic, readonly) uint8_t subVersion;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 /// 3.5.2.9 左右手佩戴设置
 typedef SWIFT_ENUM(uint8_t, YCDeviceWearingPositionType, closed) {
   YCDeviceWearingPositionTypeLeft = 0,
@@ -4801,6 +4797,26 @@ enum YCProductLogLevel : NSInteger;
 + (void)setLogLevel:(enum YCProductLogLevel)level;
 @end
 
+enum YCQueryHealthDataType : uint8_t;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 查询健康数据
+/// \param peripheral 当前设备
+///
+/// \param datatType 数据类型
+///
+/// \param completion 调用结果
+///
++ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除健康数据
+/// \param peripheral 当前连接的设备
+///
+/// \param datatType 删除的数据类型
+///
+/// \param completion 删除是否成功
+///
++ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -4850,25 +4866,11 @@ enum YCProductLogLevel : NSInteger;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
 @end
 
-enum YCQueryHealthDataType : uint8_t;
+
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询健康数据
-/// \param peripheral 当前设备
-///
-/// \param datatType 数据类型
-///
-/// \param completion 调用结果
-///
-+ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除健康数据
-/// \param peripheral 当前连接的设备
-///
-/// \param datatType 删除的数据类型
-///
-/// \param completion 删除是否成功
-///
-+ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 清理队列
+- (void)clearQueue;
 @end
 
 
@@ -4886,32 +4888,6 @@ enum YCQueryHealthDataType : uint8_t;
 ///
 + (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 清理队列
-- (void)clearQueue;
-@end
-
-@class NSError;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 连接设备
-/// \param peripheral <#peripheral description#>
-///
-+ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
-/// 断开连接
-/// \param peripheral <#peripheral description#>
-///
-+ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
-/// 开始扫描设备
-/// \param delayTime 延时停止，默认3秒
-///
-/// \param completion 返回结果
-///
-+ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
-@end
-
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -4939,6 +4915,26 @@ enum YCQueryHealthDataType : uint8_t;
 + (void)sendAddressBook:(CBPeripheral * _Nullable)peripheral phone:(NSString * _Nonnull)phone name:(NSString * _Nonnull)name completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
+@class NSError;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 连接设备
+/// \param peripheral <#peripheral description#>
+///
++ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
+/// 断开连接
+/// \param peripheral <#peripheral description#>
+///
++ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
+/// 开始扫描设备
+/// \param delayTime 延时停止，默认3秒
+///
+/// \param completion 返回结果
+///
++ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
+@end
+
+
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 外设固件升级
@@ -4953,6 +4949,41 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 下载进度
 ///
 + (void)embeddedPeripheralFirmwareUpgrade:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable firmwareType:(enum YCEmbeddedPeripheralFirmwareType)firmwareType data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+@class CBCharacteristic;
+@class CBService;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
+/// 接收到外设的数据
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// 发现外设特征下的服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param service <#service description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+/// 发现外设服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
 @end
 
 @class CBCentralManager;
@@ -4994,41 +5025,6 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param central <#central description#>
 ///
 - (void)centralManagerDidUpdateState:(CBCentralManager * _Nonnull)central;
-@end
-
-@class CBCharacteristic;
-@class CBService;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
-/// 接收到外设的数据
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// 发现外设特征下的服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param service <#service description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
-/// 发现外设服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
 @end
 
 
