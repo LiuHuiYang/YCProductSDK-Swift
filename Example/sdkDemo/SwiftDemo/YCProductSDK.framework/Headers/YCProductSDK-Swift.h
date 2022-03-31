@@ -1421,6 +1421,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 /// 初始化配置
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+/// 回连
+- (void)reconnectedDevice;
 @end
 
 
@@ -1587,41 +1589,6 @@ enum YCQueryHealthDataType : uint8_t;
 + (void)embeddedPeripheralFirmwareUpgrade:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable firmwareType:(enum YCEmbeddedPeripheralFirmwareType)firmwareType data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
-@class CBCharacteristic;
-@class CBService;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
-/// 接收到外设的数据
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// 发现外设特征下的服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param service <#service description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
-/// 发现外设服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
-@end
-
 @class CBCentralManager;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBCentralManagerDelegate>
@@ -1707,6 +1674,41 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 删除结果
 ///
 + (void)deleteCollectData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCCollectDataType)dataType index:(uint16_t)index completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+@class CBCharacteristic;
+@class CBService;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
+/// 接收到外设的数据
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// 发现外设特征下的服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param service <#service description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+/// 发现外设服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
 @end
 
 
@@ -4785,6 +4787,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 /// 初始化配置
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+/// 回连
+- (void)reconnectedDevice;
 @end
 
 
@@ -4951,41 +4955,6 @@ enum YCQueryHealthDataType : uint8_t;
 + (void)embeddedPeripheralFirmwareUpgrade:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable firmwareType:(enum YCEmbeddedPeripheralFirmwareType)firmwareType data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
-@class CBCharacteristic;
-@class CBService;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
-/// 接收到外设的数据
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// \param peripheral <#peripheral description#>
-///
-/// \param characteristic <#characteristic description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-/// 发现外设特征下的服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param service <#service description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
-/// 发现外设服务
-/// \param peripheral <#peripheral description#>
-///
-/// \param error <#error description#>
-///
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
-@end
-
 @class CBCentralManager;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBCentralManagerDelegate>
@@ -5071,6 +5040,41 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 删除结果
 ///
 + (void)deleteCollectData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCCollectDataType)dataType index:(uint16_t)index completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+@class CBCharacteristic;
+@class CBService;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBPeripheralDelegate>
+/// 接收到外设的数据
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// \param peripheral <#peripheral description#>
+///
+/// \param characteristic <#characteristic description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+/// 发现外设特征下的服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param service <#service description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+/// 发现外设服务
+/// \param peripheral <#peripheral description#>
+///
+/// \param error <#error description#>
+///
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
 @end
 
 
