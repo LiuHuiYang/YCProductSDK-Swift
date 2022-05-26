@@ -95,7 +95,7 @@ class YCWatchFaceViewController: UIViewController {
                 
                 // 显示表盘信息
                 // Display watch face information
-                if info.localCount > 0 {
+                if info.dials.count > 0 {
                     
                     var detail = "[\n"
                     for item in info.dials {
