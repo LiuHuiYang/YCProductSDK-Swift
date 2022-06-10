@@ -1436,15 +1436,39 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 - (void)reconnectedDevice;
 @end
 
-
 enum YCProductLogLevel : NSInteger;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 设置SDK的日志
+/// 设置SDK的日志开关
 /// \param level 日志等级
 ///
-+ (void)setLogLevel:(enum YCProductLogLevel)level;
+/// \param isEnableSaveToFile 是否保存到文件
+///
++ (void)setLogLevel:(enum YCProductLogLevel)level isEnableLogSave:(BOOL)isEnableLogSave;
 @end
+
+
+enum YCQueryHealthDataType : uint8_t;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 查询健康数据
+/// \param peripheral 当前设备
+///
+/// \param datatType 数据类型
+///
+/// \param completion 调用结果
+///
++ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除健康数据
+/// \param peripheral 当前连接的设备
+///
+/// \param datatType 删除的数据类型
+///
+/// \param completion 删除是否成功
+///
++ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1487,39 +1511,13 @@ enum YCProductLogLevel : NSInteger;
 ///
 /// \param blueColor 0 ~ 255
 ///
+/// \param isFlipColor 是否要翻转颜色
+///
 ///
 /// returns:
 /// 表盘文件
-+ (NSData * _Nonnull)generateCustomDialData:(NSData * _Nonnull)dialData backgroundImage:(UIImage * _Nullable)backgroundImage thumbnail:(UIImage * _Nullable)thumbnail timePosition:(CGPoint)timePosition redColor:(uint8_t)redColor greenColor:(uint8_t)greenColor blueColor:(uint8_t)blueColor SWIFT_WARN_UNUSED_RESULT;
++ (NSData * _Nonnull)generateCustomDialData:(NSData * _Nonnull)dialData backgroundImage:(UIImage * _Nullable)backgroundImage thumbnail:(UIImage * _Nullable)thumbnail timePosition:(CGPoint)timePosition redColor:(uint8_t)redColor greenColor:(uint8_t)greenColor blueColor:(uint8_t)blueColor isFlipColor:(BOOL)isFlipColor SWIFT_WARN_UNUSED_RESULT;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-enum YCQueryHealthDataType : uint8_t;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询健康数据
-/// \param peripheral 当前设备
-///
-/// \param datatType 数据类型
-///
-/// \param completion 调用结果
-///
-+ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除健康数据
-/// \param peripheral 当前连接的设备
-///
-/// \param datatType 删除的数据类型
-///
-/// \param completion 删除是否成功
-///
-+ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 清理队列
-- (void)clearQueue;
 @end
 
 
@@ -1538,23 +1536,10 @@ enum YCQueryHealthDataType : uint8_t;
 + (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
-@class NSError;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 连接设备
-/// \param peripheral <#peripheral description#>
-///
-+ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
-/// 断开连接
-/// \param peripheral <#peripheral description#>
-///
-+ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
-/// 开始扫描设备
-/// \param delayTime 延时停止，默认3秒
-///
-/// \param completion 返回结果
-///
-+ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
+/// 清理队列
+- (void)clearQueue;
 @end
 
 
@@ -1581,6 +1566,25 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 结果
 ///
 + (void)sendAddressBook:(CBPeripheral * _Nullable)peripheral phone:(NSString * _Nonnull)phone name:(NSString * _Nonnull)name completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+@class NSError;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 连接设备
+/// \param peripheral <#peripheral description#>
+///
++ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
+/// 断开连接
+/// \param peripheral <#peripheral description#>
+///
++ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
+/// 开始扫描设备
+/// \param delayTime 延时停止，默认3秒
+///
+/// \param completion 返回结果
+///
++ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
 @end
 
 
@@ -1644,6 +1648,18 @@ enum YCQueryHealthDataType : uint8_t;
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 下载UI文件
+/// \param peripheral 连接的设备
+///
+/// \param data UI数据
+///
+/// \param completion 下载进度
+///
++ (void)downloadUIFile:(CBPeripheral * _Nullable)peripheral data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 查询本地历史采集数据的基本信息
 /// \param peripheral 连接设备
 ///
@@ -1674,18 +1690,6 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 删除结果
 ///
 + (void)deleteCollectData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCCollectDataType)dataType index:(uint16_t)index completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 下载UI文件
-/// \param peripheral 连接的设备
-///
-/// \param data UI数据
-///
-/// \param completion 下载进度
-///
-+ (void)downloadUIFile:(CBPeripheral * _Nullable)peripheral data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 @class CBCharacteristic;
@@ -2970,6 +2974,8 @@ SWIFT_CLASS("_TtC12YCProductSDK29YCProductFunctionSupportItems")
 @property (nonatomic, readonly) BOOL isSupportInformationTypeViber;
 /// 其它消息推送
 @property (nonatomic, readonly) BOOL isSupportInformationTypeOther;
+/// 自定义表盘颜色翻转
+@property (nonatomic, readonly) BOOL isFlipCustomDialColor;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -2977,7 +2983,37 @@ SWIFT_CLASS("_TtC12YCProductSDK29YCProductFunctionSupportItems")
 typedef SWIFT_ENUM(NSInteger, YCProductLogLevel, open) {
   YCProductLogLevelOff = 0,
   YCProductLogLevelNormal = 1,
+  YCProductLogLevelError = 2,
 };
+
+
+/// 日志管理器
+SWIFT_CLASS("_TtC12YCProductSDK19YCProductLogManager")
+@interface YCProductLogManager : NSObject
+/// 全局对象
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProductLogManager * _Nonnull shared;)
++ (YCProductLogManager * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// 日志文件路径
+@property (nonatomic, readonly, copy) NSString * _Nonnull logFilePath;
+/// 初始化
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface YCProductLogManager (SWIFT_EXTENSION(YCProductSDK))
+/// 读取日志文件中的数据
+///
+/// returns:
+/// <#description#>
++ (NSString * _Nullable)readLogFileData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface YCProductLogManager (SWIFT_EXTENSION(YCProductSDK))
+/// 清除日志内容
++ (void)clear;
+@end
 
 /// 操作状态标示
 typedef SWIFT_ENUM(NSInteger, YCProductState, open) {
@@ -3134,6 +3170,39 @@ typedef SWIFT_ENUM(uint8_t, YCRealTimeDataType, open) {
   YCRealTimeDataTypeSportMode = 6,
   YCRealTimeDataTypeCombinedData = 7,
 };
+
+
+/// 实时综合数据
+SWIFT_CLASS("_TtC12YCProductSDK35YCReceivedComprehensiveDataModeInfo")
+@interface YCReceivedComprehensiveDataModeInfo : NSObject
+/// 步数
+@property (nonatomic, readonly) NSInteger step;
+/// 距离
+@property (nonatomic, readonly) NSInteger distance;
+/// 卡路里
+@property (nonatomic, readonly) NSInteger calories;
+/// 心率值
+@property (nonatomic, readonly) NSInteger heartRate;
+/// 收缩压
+@property (nonatomic, readonly) NSInteger systolicBloodPressure;
+/// 舒张压
+@property (nonatomic, readonly) NSInteger diastolicBloodPressure;
+/// 血氧值
+@property (nonatomic, readonly) NSInteger bloodOxygen;
+/// 呼吸率值
+@property (nonatomic, readonly) NSInteger respirationRate;
+/// 温度
+@property (nonatomic, readonly) double temperature;
+/// 佩戴状态(是否已佩戴)
+@property (nonatomic, readonly) BOOL isWorn;
+/// 电池电量
+@property (nonatomic, readonly) NSInteger batteryPower;
+/// 脉博波信号的峰峰值间期
+@property (nonatomic, readonly) NSInteger ppi;
+/// 打印字符串
+@property (nonatomic, readonly, copy) NSString * _Nonnull toString;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 /// 接收到的实时数据的响应
