@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         listView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableView.self))
         
         // 初始化
-        YCProduct.setLogLevel(.normal, isEnableLogSave: true)
+        YCProduct.setLogLevel(.normal)
         _ = YCProduct.shared
          
         // 增加通知

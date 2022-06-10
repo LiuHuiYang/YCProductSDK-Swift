@@ -18,7 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [YCProduct setLogLevel:YCProductLogLevelNormal];
+    [YCProduct setLogLevel:YCProductLogLevelNormal
+           isEnableLogSave:YES];
     [YCProduct shared];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivceData:) name:YCProduct.receivedRealTimeNotification object:nil];

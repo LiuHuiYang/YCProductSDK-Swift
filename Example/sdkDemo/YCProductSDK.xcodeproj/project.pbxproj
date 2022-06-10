@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		19914F0ACEF80BB6D38EE68F /* libPods-SwiftDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E870874FA04E877CD9D2884B /* libPods-SwiftDemo.a */; };
-		CA02D1E2285360F1000EF283 /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA02D1E1285360F1000EF283 /* YCProductSDK.framework */; };
 		CA1581862754C6B20073C514 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1581852754C6B20073C514 /* AppDelegate.swift */; };
 		CA1581882754C6B20073C514 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1581872754C6B20073C514 /* SceneDelegate.swift */; };
 		CA15818A2754C6B20073C514 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1581892754C6B20073C514 /* ViewController.swift */; };
@@ -43,6 +42,8 @@
 		CA5DB46E27564DE2008AFB6F /* YCWatchFaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */; };
 		CA5DB47027571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
 		CA5DB47127571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
+		CA85018B27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */; };
+		CA85018C27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */; };
 		CAB7B83E27579D2B001B53A7 /* YCECGShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */; };
 		CAB7B83F27579D2B001B53A7 /* YCECGShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */; };
 		CAC2B7E0277D69AE00CF3247 /* ecg_tip.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */; };
@@ -56,7 +57,6 @@
 		A75B1B61EE37F0A3F5C14301 /* Pods-ObjcDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjcDemo.release.xcconfig"; path = "Target Support Files/Pods-ObjcDemo/Pods-ObjcDemo.release.xcconfig"; sourceTree = "<group>"; };
 		AA999FD1E4B8A9FF39FE17CC /* Pods-ObjcDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjcDemo.debug.xcconfig"; path = "Target Support Files/Pods-ObjcDemo/Pods-ObjcDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C8C475C791BC3BEBB8BE75EB /* Pods-SwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDemo.release.xcconfig"; path = "Target Support Files/Pods-SwiftDemo/Pods-SwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
-		CA02D1E1285360F1000EF283 /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CA1581832754C6B20073C514 /* SwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1581852754C6B20073C514 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA1581872754C6B20073C514 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +100,7 @@
 		CA5DB46B27564DE2008AFB6F /* YCWatchFaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCWatchFaceViewController.swift; sourceTree = "<group>"; };
 		CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCWatchFaceViewController.xib; sourceTree = "<group>"; };
 		CA5DB46F27571E4E008AFB6F /* customE80.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = customE80.bin; sourceTree = "<group>"; };
+		CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGShowViewController.swift; sourceTree = "<group>"; };
 		CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGShowViewController.xib; sourceTree = "<group>"; };
 		CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ecg_tip.m4a; sourceTree = "<group>"; };
@@ -115,7 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19914F0ACEF80BB6D38EE68F /* libPods-SwiftDemo.a in Frameworks */,
-				CA02D1E2285360F1000EF283 /* YCProductSDK.framework in Frameworks */,
+				CA85018B27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC71D1AEEF0D8A8693B1B7D1 /* libPods-ObjcDemo.a in Frameworks */,
+				CA85018C27D9F0EE00C95BCC /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +168,7 @@
 		CA1581842754C6B20073C514 /* SwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
-				CA02D1E1285360F1000EF283 /* YCProductSDK.framework */,
+				CA85018A27D9F0EE00C95BCC /* YCProductSDK.framework */,
 				CA1581852754C6B20073C514 /* AppDelegate.swift */,
 				CA1581872754C6B20073C514 /* SceneDelegate.swift */,
 				CA1581892754C6B20073C514 /* ViewController.swift */,
