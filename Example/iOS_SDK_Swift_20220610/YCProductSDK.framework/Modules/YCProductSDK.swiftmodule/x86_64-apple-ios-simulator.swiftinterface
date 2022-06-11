@@ -1288,7 +1288,7 @@ public func computeRepeatValue(_ repeat: Swift.Set<YCProductSDK.YCDeviceWeekRepe
 public func repeatWeekValueToSet(_ repeat: Swift.UInt8) -> Swift.Set<YCProductSDK.YCDeviceWeekRepeat>
 public func stringToUInt(_ string: Swift.String) -> Swift.UInt
 extension YCProductSDK.YCProduct {
-  @objc public static func setLogLevel(_ level: YCProductSDK.YCProductLogLevel = .off, isEnableLogSave: Swift.Bool = false)
+  @objc public static func setLogLevel(_ printLevel: YCProductSDK.YCProductLogLevel = .off, saveLevel: YCProductSDK.YCProductLogLevel = .off)
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class YCProductLogManager : ObjectiveC.NSObject {
   @objc public static let shared: YCProductSDK.YCProductLogManager

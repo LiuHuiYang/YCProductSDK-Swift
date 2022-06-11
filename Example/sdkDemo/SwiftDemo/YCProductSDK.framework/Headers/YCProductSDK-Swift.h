@@ -1439,12 +1439,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 enum YCProductLogLevel : NSInteger;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 设置SDK的日志开关
-/// \param level 日志等级
+/// 设置SDK的日志等级开关(默认都是关闭)
+/// \param printLevel 控制台打印日志等级
 ///
-/// \param isEnableSaveToFile 是否保存到文件
+/// \param saveLevel 保存日志等级
 ///
-+ (void)setLogLevel:(enum YCProductLogLevel)level isEnableLogSave:(BOOL)isEnableLogSave;
++ (void)setLogLevel:(enum YCProductLogLevel)printLevel saveLevel:(enum YCProductLogLevel)saveLevel;
 @end
 
 

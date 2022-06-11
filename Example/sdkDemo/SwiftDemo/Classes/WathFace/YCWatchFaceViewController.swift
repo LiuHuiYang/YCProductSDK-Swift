@@ -175,7 +175,8 @@ extension YCWatchFaceViewController {
             timePosition: CGPoint(x: 120, y: 120),
             redColor: 255,
             greenColor: 0,
-            blueColor: 0
+            blueColor: 0,
+            isFlipColor: YCProduct.shared.currentPeripheral?.supportItems.isFlipCustomDialColor ?? false
         ) as NSData
         
         
