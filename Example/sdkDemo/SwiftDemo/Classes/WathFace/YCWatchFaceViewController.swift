@@ -95,7 +95,7 @@ class YCWatchFaceViewController: UIViewController {
                 
                 // 显示表盘信息
                 // Display watch face information
-                if info.dials.count > 0 {
+                if info.localCount > 0 {
                     
                     var detail = "[\n"
                     for item in info.dials {
@@ -175,8 +175,7 @@ extension YCWatchFaceViewController {
             timePosition: CGPoint(x: 120, y: 120),
             redColor: 255,
             greenColor: 0,
-            blueColor: 0,
-            isFlipColor: YCProduct.shared.currentPeripheral?.supportItems.isFlipCustomDialColor ?? false
+            blueColor: 0
         ) as NSData
         
         
