@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+@import YCProductSDK;
 
 @interface AppDelegate ()
 
@@ -15,7 +16,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [YCProduct setLogLevel:YCProductLogLevelNormal
+                 saveLevel:YCProductLogLevelNormal];
+    [YCProduct shared];
+    
     return YES;
 }
 

@@ -9,17 +9,17 @@ import UIKit
 @_exported import YCProductSDK
 import _Concurrency
 extension CoreBluetooth.CBPeripheral {
-  public var supportItems: YCProductSDK.YCProductFunctionSupportItems {
-    get
+  @objc dynamic public var supportItems: YCProductSDK.YCProductFunctionSupportItems {
+    @objc get
   }
-  public var mcu: YCProductSDK.YCDeviceMCUType {
-    get
+  @objc dynamic public var mcu: YCProductSDK.YCDeviceMCUType {
+    @objc get
   }
-  public var rssiValue: Swift.Int {
-    get
+  @objc dynamic public var rssiValue: Swift.Int {
+    @objc get
   }
-  public var macAddress: Swift.String {
-    get
+  @objc dynamic public var macAddress: Swift.String {
+    @objc get
   }
   @objc override dynamic open var description: Swift.String {
     @objc get

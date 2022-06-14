@@ -216,9 +216,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@class YCProductFunctionSupportItems;
+enum YCDeviceMCUType : uint8_t;
 @class NSString;
 
 @interface CBPeripheral (SWIFT_EXTENSION(YCProductSDK))
+/// 支持功能列表
+@property (nonatomic, readonly, strong) YCProductFunctionSupportItems * _Nonnull supportItems;
+/// 获取硬件平台
+@property (nonatomic, readonly) enum YCDeviceMCUType mcu;
+/// 信号值
+@property (nonatomic, readonly) NSInteger rssiValue;
+/// mac地址
+@property (nonatomic, readonly, copy) NSString * _Nonnull macAddress;
 /// 打印信息
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end

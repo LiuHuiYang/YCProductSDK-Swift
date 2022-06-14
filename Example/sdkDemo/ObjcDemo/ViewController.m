@@ -15,21 +15,26 @@
 
 @implementation ViewController
 
+- (void)dealloc {
+    
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [YCProduct setLogLevel:YCProductLogLevelNormal];
-    [YCProduct shared];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivceData:) name:YCProduct.receivedRealTimeNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bleStateChanged:) name:YCProduct.deviceStateNotification object:nil];
 }
 
 - (void)receivceData:(NSNotification *)ntf {
     
     NSDictionary *info = ntf.userInfo;
    
-      
-    NSString *key = [NSString stringWithFormat:@"%d", YCReceivedRealTimeDataTypeEcg];
+    NSString *key =
+        [NSString stringWithFormat:@"%d", YCReceivedRealTimeDataTypeEcg];
   
     YCReceivedDeviceReportInfo *reportData = [info objectForKey:key];
     
@@ -38,6 +43,15 @@
     NSLog(@"%@", ecgData);
      
 }
+
+- (void)bleStateChanged:(NSNotification *)ntf {
+
+    NSDictionary *info = ntf.userInfo;
+    
+    id s = info[YCProduct.connecteStateKey];
+    
+}
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     

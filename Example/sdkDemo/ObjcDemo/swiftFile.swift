@@ -7,5 +7,3 @@
 
 import Foundation
 
-// 导入Swit库
-import YCProductSDK
