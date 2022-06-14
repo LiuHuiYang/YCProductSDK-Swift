@@ -48,8 +48,9 @@
 
     NSDictionary *info = ntf.userInfo;
     
-    id s = info[YCProduct.connecteStateKey];
+    CBPeripheral *obj = info[YCProduct.connectDeviceKey];
     
+    NSLog(@" == %@", obj.name);
 }
 
 

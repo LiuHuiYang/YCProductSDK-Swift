@@ -761,6 +761,7 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceMCUType, open) {
   YCDeviceMCUTypeNrf52832 = 0,
   YCDeviceMCUTypeRtk8762c = 1,
   YCDeviceMCUTypeRtk8762d = 2,
+  YCDeviceMCUTypeJl701n = 3,
 };
 
 /// 马达震动类型
@@ -1781,30 +1782,6 @@ enum YCQueryHealthDataType : uint8_t;
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 状态的key
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull connecteStateKey;)
-+ (NSString * _Nonnull)connecteStateKey SWIFT_WARN_UNUSED_RESULT;
-/// 心电电极状态
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull ecgElectrodesStateKey;)
-+ (NSString * _Nonnull)ecgElectrodesStateKey SWIFT_WARN_UNUSED_RESULT;
-/// 光电传感器状态
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull photoelectricSensorStateKey;)
-+ (NSString * _Nonnull)photoelectricSensorStateKey SWIFT_WARN_UNUSED_RESULT;
-/// 设备状态变化的通知
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull deviceStateNotification;)
-+ (NSNotificationName _Nonnull)deviceStateNotification SWIFT_WARN_UNUSED_RESULT;
-/// 接收实时数据的通知
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull receivedRealTimeNotification;)
-+ (NSNotificationName _Nonnull)receivedRealTimeNotification SWIFT_WARN_UNUSED_RESULT;
-/// 设备控制通知
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull deviceControlNotification;)
-+ (NSNotificationName _Nonnull)deviceControlNotification SWIFT_WARN_UNUSED_RESULT;
-/// 取消操作
-+ (void)cancel;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 查询闹钟
 /// \param peripheral 连接设备
 ///
@@ -1852,6 +1829,36 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _
 + (void)deleteDeviceSchedule:(CBPeripheral * _Nullable)peripheral scheduleIndex:(uint8_t)scheduleIndex eventIndex:(uint8_t)eventIndex eventType:(enum YCDevcieScheduleEventType)eventType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 查询日程
 + (void)queryDeviceScheduleInfo:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 状态的key
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull connecteStateKey;)
++ (NSString * _Nonnull)connecteStateKey SWIFT_WARN_UNUSED_RESULT;
+/// 连接设备的key
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull connectDeviceKey;)
++ (NSString * _Nonnull)connectDeviceKey SWIFT_WARN_UNUSED_RESULT;
+/// 连接状态的ObjcKey(补充OC的过渡参数)
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull connecteStateKeyObjc;)
++ (NSString * _Nonnull)connecteStateKeyObjc SWIFT_WARN_UNUSED_RESULT;
+/// 心电电极状态
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull ecgElectrodesStateKey;)
++ (NSString * _Nonnull)ecgElectrodesStateKey SWIFT_WARN_UNUSED_RESULT;
+/// 光电传感器状态
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull photoelectricSensorStateKey;)
++ (NSString * _Nonnull)photoelectricSensorStateKey SWIFT_WARN_UNUSED_RESULT;
+/// 设备状态变化的通知
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull deviceStateNotification;)
++ (NSNotificationName _Nonnull)deviceStateNotification SWIFT_WARN_UNUSED_RESULT;
+/// 接收实时数据的通知
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull receivedRealTimeNotification;)
++ (NSNotificationName _Nonnull)receivedRealTimeNotification SWIFT_WARN_UNUSED_RESULT;
+/// 设备控制通知
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull deviceControlNotification;)
++ (NSNotificationName _Nonnull)deviceControlNotification SWIFT_WARN_UNUSED_RESULT;
+/// 取消操作
++ (void)cancel;
 @end
 
 

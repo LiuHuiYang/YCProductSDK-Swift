@@ -1183,6 +1183,8 @@ extension YCProductSDK.YCProductUserConfiguration {
 }
 extension YCProductSDK.YCProduct {
   @objc public static let connecteStateKey: Swift.String
+  @objc public static let connectDeviceKey: Swift.String
+  @objc public static let connecteStateKeyObjc: Swift.String
   @objc public static let ecgElectrodesStateKey: Swift.String
   @objc public static let photoelectricSensorStateKey: Swift.String
   @objc public static let deviceStateNotification: Foundation.Notification.Name
@@ -2084,6 +2086,7 @@ extension YCProductSDK.YCProduct {
   case nrf52832 = 0
   case rtk8762c
   case rtk8762d
+  case jl701n
   public var toString: Swift.String {
     get
   }
