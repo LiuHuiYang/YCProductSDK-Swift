@@ -706,6 +706,9 @@ extension YCProductSDK.YCProductUserConfiguration {
   @objc public var modeCalories: Swift.UInt16 {
     get
   }
+  @objc public var ppi: Swift.Int {
+    get
+  }
   @objc public var toString: Swift.String {
     @objc get
   }

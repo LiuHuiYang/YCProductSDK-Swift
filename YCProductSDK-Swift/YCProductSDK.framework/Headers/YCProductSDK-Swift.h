@@ -3214,7 +3214,7 @@ SWIFT_CLASS("_TtC12YCProductSDK35YCReceivedComprehensiveDataModeInfo")
 @property (nonatomic, readonly) BOOL isWorn;
 /// 电池电量
 @property (nonatomic, readonly) NSInteger batteryPower;
-/// 脉博波信号的峰峰值间期
+/// 脉博波信号的峰峰值间期(单位: 微秒)
 @property (nonatomic, readonly) NSInteger ppi;
 /// 打印字符串
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
@@ -3262,6 +3262,8 @@ SWIFT_CLASS("_TtC12YCProductSDK28YCReceivedMonitoringModeInfo")
 @property (nonatomic, readonly) uint16_t modeDistance;
 /// 模式卡路里 (单位:千卡)
 @property (nonatomic, readonly) uint16_t modeCalories;
+/// 脉博波信号的峰峰值间期(单位: 微秒)
+@property (nonatomic, readonly) NSInteger ppi;
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
