@@ -1481,7 +1481,6 @@ enum YCQueryHealthDataType : uint8_t;
 @end
 
 
-
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 预置表盘下载任务
 /// \param peripheral 连接的设备
@@ -1530,6 +1529,7 @@ enum YCQueryHealthDataType : uint8_t;
 + (NSData * _Nonnull)generateCustomDialData:(NSData * _Nonnull)dialData backgroundImage:(UIImage * _Nullable)backgroundImage thumbnail:(UIImage * _Nullable)thumbnail timePosition:(CGPoint)timePosition redColor:(uint8_t)redColor greenColor:(uint8_t)greenColor blueColor:(uint8_t)blueColor isFlipColor:(BOOL)isFlipColor SWIFT_WARN_UNUSED_RESULT;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
 @end
+
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -3032,6 +3032,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProductLog
 + (void)clear;
 @end
 
+
+@interface YCProductLogManager (SWIFT_EXTENSION(YCProductSDK))
+- (void)exceptionLogWithData;
+@end
+
 /// 操作状态标示
 typedef SWIFT_ENUM(NSInteger, YCProductState, open) {
   YCProductStateUnknow = 0,
@@ -3214,7 +3219,7 @@ SWIFT_CLASS("_TtC12YCProductSDK35YCReceivedComprehensiveDataModeInfo")
 @property (nonatomic, readonly) BOOL isWorn;
 /// 电池电量
 @property (nonatomic, readonly) NSInteger batteryPower;
-/// 脉博波信号的峰峰值间期
+/// 脉博波信号的峰峰值间期(单位: 微秒)
 @property (nonatomic, readonly) NSInteger ppi;
 /// 打印字符串
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
@@ -3262,6 +3267,8 @@ SWIFT_CLASS("_TtC12YCProductSDK28YCReceivedMonitoringModeInfo")
 @property (nonatomic, readonly) uint16_t modeDistance;
 /// 模式卡路里 (单位:千卡)
 @property (nonatomic, readonly) uint16_t modeCalories;
+/// 脉博波信号的峰峰值间期(单位: 微秒)
+@property (nonatomic, readonly) NSInteger ppi;
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

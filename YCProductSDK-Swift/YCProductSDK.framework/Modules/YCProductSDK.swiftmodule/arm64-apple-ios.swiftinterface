@@ -2394,6 +2394,9 @@ extension YCProductSDK.YCProduct {
   @objc override dynamic public init()
   @objc deinit
 }
+extension YCProductSDK.YCProductLogManager {
+  @objc dynamic public func exceptionLogWithData()
+}
 extension YCProductSDK.YCProduct {
   @objc public static func setDeviceTime(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, year: Swift.UInt16, month: Swift.UInt8, day: Swift.UInt8, hour: Swift.UInt8, minute: Swift.UInt8, second: Swift.UInt8, weekDay: YCProductSDK.YCWeekDay, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func isHour12Format() -> Swift.Bool

@@ -1481,7 +1481,6 @@ enum YCQueryHealthDataType : uint8_t;
 @end
 
 
-
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 预置表盘下载任务
 /// \param peripheral 连接的设备
@@ -1530,6 +1529,7 @@ enum YCQueryHealthDataType : uint8_t;
 + (NSData * _Nonnull)generateCustomDialData:(NSData * _Nonnull)dialData backgroundImage:(UIImage * _Nullable)backgroundImage thumbnail:(UIImage * _Nullable)thumbnail timePosition:(CGPoint)timePosition redColor:(uint8_t)redColor greenColor:(uint8_t)greenColor blueColor:(uint8_t)blueColor isFlipColor:(BOOL)isFlipColor SWIFT_WARN_UNUSED_RESULT;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
 @end
+
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -3030,6 +3030,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProductLog
 @interface YCProductLogManager (SWIFT_EXTENSION(YCProductSDK))
 /// 清除日志内容
 + (void)clear;
+@end
+
+
+@interface YCProductLogManager (SWIFT_EXTENSION(YCProductSDK))
+- (void)exceptionLogWithData;
 @end
 
 /// 操作状态标示
