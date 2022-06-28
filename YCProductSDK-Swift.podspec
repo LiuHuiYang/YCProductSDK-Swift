@@ -92,7 +92,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "YCProductSDK-Swift/YCProductSDK.framework/Headers/*.{h,m}"
+  spec.source_files  = "YCProductSDK-Swift/YCProductSDK.framework/**"
   # spec.exclude_files = "Example"
 
   spec.vendored_frameworks = 'YCProductSDK-Swift/YCProductSDK.framework'
