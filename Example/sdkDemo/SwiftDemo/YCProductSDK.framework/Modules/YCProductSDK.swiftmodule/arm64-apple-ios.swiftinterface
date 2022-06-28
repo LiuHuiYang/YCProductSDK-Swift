@@ -1303,7 +1303,7 @@ extension YCProductSDK.YCProduct {
   @objc deinit
 }
 extension YCProductSDK.YCProductLogManager {
-  public static func write<T>(_ level: YCProductSDK.YCProductLogLevel = .normal, message: T, bleData: Foundation.Data? = nil)
+  public static func write<T>(_ level: YCProductSDK.YCProductLogLevel = .normal, message: T, file: Swift.String = #file, method: Swift.String = #function, line: Swift.Int = #line, bleData: Foundation.Data? = nil)
   @objc public static func readLogFileData() -> Swift.String?
 }
 extension YCProductSDK.YCProductLogManager {
@@ -2394,9 +2394,6 @@ extension YCProductSDK.YCProduct {
   @objc override dynamic public init()
   @objc deinit
 }
-extension YCProductSDK.YCProductLogManager {
-  @objc dynamic public func exceptionLogWithData()
-}
 extension YCProductSDK.YCProduct {
   @objc public static func setDeviceTime(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, year: Swift.UInt16, month: Swift.UInt8, day: Swift.UInt8, hour: Swift.UInt8, minute: Swift.UInt8, second: Swift.UInt8, weekDay: YCProductSDK.YCWeekDay, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func isHour12Format() -> Swift.Bool
@@ -2412,6 +2409,7 @@ extension YCProductSDK.YCProduct {
   @objc public static func setDeviceAntiLost(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, antiLostType: YCProductSDK.YCDeviceAntiLostType = .middleDistance, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceAntiLost(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, antiLostType: YCProductSDK.YCDeviceAntiLostType = .middleDistance, rssi: Swift.Int8, delay: Swift.UInt8, supportDisconnectDelay: Swift.Bool, repeat: Swift.Bool, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceWearingPosition(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, wearingPosition: YCProductSDK.YCDeviceWearingPositionType = .left, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func setDeviceInfoPush(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, infoPushType: Foundation.NSSet, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   public static func setDeviceInfoPush(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, infoPushType: Swift.Set<YCProductSDK.YCDeviceInfoPushType>, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceHeartRateAlarm(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, maxHeartRate: Swift.UInt8, minHeartRate: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceHeartRateMonitoringMode(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, interval: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)

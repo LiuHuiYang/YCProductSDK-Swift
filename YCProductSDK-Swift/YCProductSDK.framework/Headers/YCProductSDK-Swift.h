@@ -1481,6 +1481,7 @@ enum YCQueryHealthDataType : uint8_t;
 @end
 
 
+
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 预置表盘下载任务
 /// \param peripheral 连接的设备
@@ -1529,7 +1530,6 @@ enum YCQueryHealthDataType : uint8_t;
 + (NSData * _Nonnull)generateCustomDialData:(NSData * _Nonnull)dialData backgroundImage:(UIImage * _Nullable)backgroundImage thumbnail:(UIImage * _Nullable)thumbnail timePosition:(CGPoint)timePosition redColor:(uint8_t)redColor greenColor:(uint8_t)greenColor blueColor:(uint8_t)blueColor isFlipColor:(BOOL)isFlipColor SWIFT_WARN_UNUSED_RESULT;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
 @end
-
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -2261,6 +2261,7 @@ enum YCWarningInformationType : uint8_t;
 @end
 
 enum YCWeekDay : uint8_t;
+@class NSSet;
 enum YCSettingTemperatureModeType : uint8_t;
 enum YCTemperatureType : uint8_t;
 
@@ -2399,6 +2400,16 @@ enum YCTemperatureType : uint8_t;
 /// returns:
 /// <#description#>
 + (void)setDeviceWearingPosition:(CBPeripheral * _Nullable)peripheral wearingPosition:(enum YCDeviceWearingPositionType)wearingPosition completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 设置消息提醒类型(Objc)
+/// \param peripheral 连接设备
+///
+/// \param isEnable 是否开启
+///
+/// \param infoPushType 消息类型成员数组 YCDeviceInfoPushType 成员 [NSSet setWithObjects:@(YCDeviceInfoPushTypeQq), @(YCDeviceInfoPushTypeWechat), … , nil]
+///
+/// \param completion 结果
+///
++ (void)setDeviceInfoPush:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable infoPushType:(NSSet * _Nonnull)infoPushType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 心率报警
 /// \param peripheral 连接设备
 ///
@@ -3030,11 +3041,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProductLog
 @interface YCProductLogManager (SWIFT_EXTENSION(YCProductSDK))
 /// 清除日志内容
 + (void)clear;
-@end
-
-
-@interface YCProductLogManager (SWIFT_EXTENSION(YCProductSDK))
-- (void)exceptionLogWithData;
 @end
 
 /// 操作状态标示

@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "YCProductSDK-Swift"
-  spec.version      = "0.2.2"
+  spec.version      = "0.2.3"
   spec.summary      = "YCProductSDK-Swift 是玉成创新提供给第三方二次开发App的iOS工具包"
 
   # This description is used to generate tags and improve search results.
@@ -67,7 +67,7 @@ Pod::Spec.new do |spec|
 
   # spec.platform     = :ios
   spec.platform     = :ios, "9.0"
-  spec.pod_target_xcconfig = { 'VALID_ARCHS' => 'armv7 arm64' }
+  # spec.pod_target_xcconfig = { 'VALID_ARCHS' => 'armv7 arm64' }
   #  When using multiple platforms
   # spec.ios.deployment_target = "5.0"
   # spec.osx.deployment_target = "10.7"
@@ -119,7 +119,7 @@ Pod::Spec.new do |spec|
   #
 
   # spec.framework  = "SomeFramework"
-  spec.frameworks = "Foundation", "CoreBluetooth"
+  # spec.frameworks = "Foundation", "CoreBluetooth"
 
   # spec.library   = "iconv"
   # spec.libraries = "iconv", "xml2"
