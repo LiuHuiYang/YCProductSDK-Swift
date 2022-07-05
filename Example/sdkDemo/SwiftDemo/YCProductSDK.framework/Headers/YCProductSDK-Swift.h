@@ -262,6 +262,7 @@ typedef SWIFT_ENUM(uint8_t, YCAppControlMeasureHealthDataType, open) {
   YCAppControlMeasureHealthDataTypeBloodOxygen = 2,
   YCAppControlMeasureHealthDataTypeRespirationRate = 3,
   YCAppControlMeasureHealthDataTypeBodyTemperature = 4,
+  YCAppControlMeasureHealthDataTypeBloodSugar = 5,
   YCAppControlMeasureHealthDataTypeUnknow = 0xFF,
 };
 
@@ -1416,6 +1417,7 @@ typedef SWIFT_ENUM(uint8_t, YCMeasurementDataWritebackType, open) {
   YCMeasurementDataWritebackTypeBloodOxygen = 2,
   YCMeasurementDataWritebackTypeRespirationRate = 3,
   YCMeasurementDataWritebackTypeHrv = 4,
+  YCMeasurementDataWritebackTypeBloodSugar = 5,
 };
 
 /// 个人信息类型
@@ -1782,57 +1784,6 @@ enum YCQueryHealthDataType : uint8_t;
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询闹钟
-/// \param peripheral 连接设备
-///
-/// \param completion 闹钟信息
-///
-+ (void)queryDeviceAlarmInfo:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除闹钟
-/// \param peripheral 连接设备
-///
-/// \param hour 小时
-///
-/// \param minute 分钟
-///
-/// \param completion 结果
-///
-+ (void)deleteDeviceAlarm:(CBPeripheral * _Nullable)peripheral hour:(uint8_t)hour minute:(uint8_t)minute completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 事件开关
-/// \param peripheral 连接
-///
-/// \param isEnable 是否开启
-///
-/// \param completion 设置结果
-///
-+ (void)setDeviceEventEnable:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除事件
-/// \param peripheral 连接设备
-///
-/// \param eventID 事件id
-///
-/// \param completion 结果
-///
-+ (void)deleteDeviceEvent:(CBPeripheral * _Nullable)peripheral eventID:(uint8_t)eventID completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 查询事件
-/// \param peripheral 连接设备
-///
-/// \param completion 结果
-///
-+ (void)queryDeviceEventnfo:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-+ (void)setDeviceScheduleEnable:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 增加新的日程
-+ (void)addDeviceSchedule:(CBPeripheral * _Nullable)peripheral scheduleEnable:(BOOL)scheduleEnable scheduleIndex:(uint8_t)scheduleIndex eventIndex:(uint8_t)eventIndex eventType:(enum YCDevcieScheduleEventType)eventType eventEnable:(BOOL)eventEnable eventTime:(NSInteger)eventTime eventName:(NSString * _Nonnull)eventName completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 修改日程
-+ (void)modifyDeviceSchedule:(CBPeripheral * _Nullable)peripheral scheduleEnable:(BOOL)scheduleEnable scheduleIndex:(uint8_t)scheduleIndex eventIndex:(uint8_t)eventIndex eventType:(enum YCDevcieScheduleEventType)eventType eventEnable:(BOOL)eventEnable eventTime:(NSInteger)eventTime eventName:(NSString * _Nonnull)eventName completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除日程
-+ (void)deleteDeviceSchedule:(CBPeripheral * _Nullable)peripheral scheduleIndex:(uint8_t)scheduleIndex eventIndex:(uint8_t)eventIndex eventType:(enum YCDevcieScheduleEventType)eventType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 查询日程
-+ (void)queryDeviceScheduleInfo:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 状态的key
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull connecteStateKey;)
 + (NSString * _Nonnull)connecteStateKey SWIFT_WARN_UNUSED_RESULT;
@@ -1859,6 +1810,132 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _
 + (NSNotificationName _Nonnull)deviceControlNotification SWIFT_WARN_UNUSED_RESULT;
 /// 取消操作
 + (void)cancel;
+@end
+
+@class NSSet;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 查询闹钟
+/// \param peripheral 连接设备
+///
+/// \param completion 闹钟信息
+///
++ (void)queryDeviceAlarmInfo:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 添加闹钟
+/// \param peripheral 连接设备
+///
+/// \param alarmType 闹钟类型
+///
+/// \param hour 小时  0 ~ 23
+///
+/// \param minute 分钟 0 ~ 59
+///
+/// \param repeat 重复时间 YCDeviceWeekRepeat
+///
+/// \param snoozeTime 贪睡时长 0~59分钟
+///
+/// \param completion 设置结果
+///
++ (void)addDeviceAlarm:(CBPeripheral * _Nullable)peripheral alarmType:(enum YCDeviceAlarmType)alarmType hour:(uint8_t)hour minute:(uint8_t)minute repeat:(NSSet * _Nonnull)repeat snoozeTime:(uint8_t)snoozeTime completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除闹钟
+/// \param peripheral 连接设备
+///
+/// \param hour 小时
+///
+/// \param minute 分钟
+///
+/// \param completion 结果
+///
++ (void)deleteDeviceAlarm:(CBPeripheral * _Nullable)peripheral hour:(uint8_t)hour minute:(uint8_t)minute completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 修改闹钟
+/// \param peripheral 连接设备
+///
+/// \param oldHour 闹钟原来的小时
+///
+/// \param oldMinute 闹钟原来的分钟
+///
+/// \param hour 闹钟新的小时
+///
+/// \param minute 闹钟新的分钟
+///
+/// \param alarmType 闹钟类型
+///
+/// \param repeat 重复时间 YCDeviceWeekRepeat
+///
+/// \param snoozeTime 贪睡时长
+///
+/// \param completion 结果
+///
++ (void)modifyDeviceAlarm:(CBPeripheral * _Nullable)peripheral oldHour:(uint8_t)oldHour oldMinute:(uint8_t)oldMinute hour:(uint8_t)hour minute:(uint8_t)minute alarmType:(enum YCDeviceAlarmType)alarmType repeat:(NSSet * _Nonnull)repeat snoozeTime:(uint8_t)snoozeTime completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 事件开关
+/// \param peripheral 连接
+///
+/// \param isEnable 是否开启
+///
+/// \param completion 设置结果
+///
++ (void)setDeviceEventEnable:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 添加事件
+/// \param peripheral 连接设备
+///
+/// \param name 事件名称
+///
+/// \param isEnable 当前事件是否使能
+///
+/// \param hour 事件小时 0 ~ 23
+///
+/// \param minute 事件分钟 0 ~ 59
+///
+/// \param interval 重复提醒间隔
+///
+/// \param repeat 重复星期 YCDeviceWeekRepeat
+///
+/// \param completion 结果
+///
++ (void)addDeviceEvent:(CBPeripheral * _Nullable)peripheral name:(NSString * _Nonnull)name isEnable:(BOOL)isEnable hour:(uint8_t)hour minute:(uint8_t)minute interval:(enum YCDeviceEventInterval)interval repeat:(NSSet * _Nonnull)repeat completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除事件
+/// \param peripheral 连接设备
+///
+/// \param eventID 事件id
+///
+/// \param completion 结果
+///
++ (void)deleteDeviceEvent:(CBPeripheral * _Nullable)peripheral eventID:(uint8_t)eventID completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 修改事件
+/// \param peripheral 连接设备
+///
+/// \param name 事件名称
+///
+/// \param eventID 事件id
+///
+/// \param isEnable 是否开启
+///
+/// \param hour 事件的小时
+///
+/// \param minute 事件的分钟
+///
+/// \param interval 时间的间隔
+///
+/// \param repeat 重复
+///
+/// \param completion 结果
+///
++ (void)modifyDeviceEvent:(CBPeripheral * _Nullable)peripheral name:(NSString * _Nonnull)name eventID:(uint8_t)eventID isEnable:(BOOL)isEnable hour:(uint8_t)hour minute:(uint8_t)minute interval:(enum YCDeviceEventInterval)interval repeat:(NSSet * _Nonnull)repeat completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 查询事件
+/// \param peripheral 连接设备
+///
+/// \param completion 结果
+///
++ (void)queryDeviceEventnfo:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
++ (void)setDeviceScheduleEnable:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 增加新的日程
++ (void)addDeviceSchedule:(CBPeripheral * _Nullable)peripheral scheduleEnable:(BOOL)scheduleEnable scheduleIndex:(uint8_t)scheduleIndex eventIndex:(uint8_t)eventIndex eventType:(enum YCDevcieScheduleEventType)eventType eventEnable:(BOOL)eventEnable eventTime:(NSInteger)eventTime eventName:(NSString * _Nonnull)eventName completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 修改日程
++ (void)modifyDeviceSchedule:(CBPeripheral * _Nullable)peripheral scheduleEnable:(BOOL)scheduleEnable scheduleIndex:(uint8_t)scheduleIndex eventIndex:(uint8_t)eventIndex eventType:(enum YCDevcieScheduleEventType)eventType eventEnable:(BOOL)eventEnable eventTime:(NSInteger)eventTime eventName:(NSString * _Nonnull)eventName completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除日程
++ (void)deleteDeviceSchedule:(CBPeripheral * _Nullable)peripheral scheduleIndex:(uint8_t)scheduleIndex eventIndex:(uint8_t)eventIndex eventType:(enum YCDevcieScheduleEventType)eventType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 查询日程
++ (void)queryDeviceScheduleInfo:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 
@@ -2261,7 +2338,6 @@ enum YCWarningInformationType : uint8_t;
 @end
 
 enum YCWeekDay : uint8_t;
-@class NSSet;
 enum YCSettingTemperatureModeType : uint8_t;
 enum YCTemperatureType : uint8_t;
 
@@ -2380,6 +2456,32 @@ enum YCTemperatureType : uint8_t;
 /// \param completion <#completion description#>
 ///
 + (void)setDeviceUnit:(CBPeripheral * _Nullable)peripheral distance:(enum YCDeviceDistanceType)distance weight:(enum YCDeviceWeightType)weight temperature:(enum YCDeviceTemperatureType)temperature timeFormat:(enum YCDeviceTimeType)timeFormat completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 久坐提醒
+/// \param peripheral 连接时间
+///
+/// \param startHour1 开始时间1 小时 0 ~ 23
+///
+/// \param startMinute1 开始时间1 分钟: 0 ~ 59
+///
+/// \param endHour1 结束时间1 小时 0 ~ 23
+///
+/// \param endMinute1 结束时间1 分钟: 0 ~ 59
+///
+/// \param startHour2 开始时间2 小时 0 ~ 23
+///
+/// \param startMinute2 开始时间2 分钟: 0 ~ 59
+///
+/// \param endHour2 结束时间2 小时 0 ~ 23
+///
+/// \param endMinute2 结束时间2 分钟: 0 ~ 59
+///
+/// \param interval 15 ~ 45 分钟
+///
+/// \param repeat 重复值  <YCDeviceWeekRepeat>
+///
+/// \param completion 设置结果
+///
++ (void)setDeviceSedentary:(CBPeripheral * _Nullable)peripheral startHour1:(uint8_t)startHour1 startMinute1:(uint8_t)startMinute1 endHour1:(uint8_t)endHour1 endMinute1:(uint8_t)endMinute1 startHour2:(uint8_t)startHour2 startMinute2:(uint8_t)startMinute2 endHour2:(uint8_t)endHour2 endMinute2:(uint8_t)endMinute2 interval:(uint8_t)interval repeat:(NSSet * _Nonnull)repeat completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 防丢设置
 /// \param peripheral 连接设备
 ///
@@ -2547,6 +2649,18 @@ enum YCTemperatureType : uint8_t;
 /// \param completion 设置结果
 ///
 + (void)setDeviceTheme:(CBPeripheral * _Nullable)peripheral index:(uint8_t)index completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 睡眠提醒时间
+/// \param peripheral 连接设备
+///
+/// \param hour 小时 0 ~ 23
+///
+/// \param minute 分钟: 0 ~ 59
+///
+/// \param repeat 重复 YCDeviceWeekRepeat
+///
+/// \param completion 设置结果
+///
++ (void)setDeviceSleepReminder:(CBPeripheral * _Nullable)peripheral hour:(uint8_t)hour minute:(uint8_t)minute repeat:(NSSet * _Nonnull)repeat completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 数据采集配置
 /// \param peripheral 连接设备
 ///

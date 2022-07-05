@@ -1684,6 +1684,7 @@ extension YCProductSDK.YCProduct {
   case bloodOxygen
   case respirationRate
   case hrv
+  case bloodSugar
   public init?(rawValue: Swift.UInt8)
   public typealias RawValue = Swift.UInt8
   public var rawValue: Swift.UInt8 {
@@ -1706,6 +1707,7 @@ extension YCProductSDK.YCProduct {
   case bloodOxygen
   case respirationRate
   case bodyTemperature
+  case bloodSugar
   case unknow = 0xFF
   public init?(rawValue: Swift.UInt8)
   public typealias RawValue = Swift.UInt8
@@ -2405,6 +2407,7 @@ extension YCProductSDK.YCProduct {
   @objc public static func setDeviceEffectiveStepsGoal(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, effectiveSteps: Swift.UInt32, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceUserInfo(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, height: Swift.UInt8, weight: Swift.UInt8, gender: YCProductSDK.YCDeviceGender, age: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceUnit(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, distance: YCProductSDK.YCDeviceDistanceType = .km, weight: YCProductSDK.YCDeviceWeightType = .kg, temperature: YCProductSDK.YCDeviceTemperatureType = .celsius, timeFormat: YCProductSDK.YCDeviceTimeType = .hour24, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func setDeviceSedentary(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, startHour1: Swift.UInt8, startMinute1: Swift.UInt8, endHour1: Swift.UInt8, endMinute1: Swift.UInt8, startHour2: Swift.UInt8, startMinute2: Swift.UInt8, endHour2: Swift.UInt8, endMinute2: Swift.UInt8, interval: Swift.UInt8, repeat: Foundation.NSSet, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   public static func setDeviceSedentary(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, startHour1: Swift.UInt8, startMinute1: Swift.UInt8, endHour1: Swift.UInt8, endMinute1: Swift.UInt8, startHour2: Swift.UInt8, startMinute2: Swift.UInt8, endHour2: Swift.UInt8, endMinute2: Swift.UInt8, interval: Swift.UInt8, repeat: Swift.Set<YCProductSDK.YCDeviceWeekRepeat>, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceAntiLost(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, antiLostType: YCProductSDK.YCDeviceAntiLostType = .middleDistance, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceAntiLost(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, antiLostType: YCProductSDK.YCDeviceAntiLostType = .middleDistance, rssi: Swift.Int8, delay: Swift.UInt8, supportDisconnectDelay: Swift.Bool, repeat: Swift.Bool, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
@@ -2425,6 +2428,7 @@ extension YCProductSDK.YCProduct {
   @objc public static func setDeviceName(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, name: Swift.String, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceSensorSamplingRate(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, ppg: Swift.UInt16, ecg: Swift.UInt16, gSensor: Swift.UInt16, tempeatureSensor: Swift.UInt16, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceTheme(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, index: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func setDeviceSleepReminder(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, hour: Swift.UInt8, minute: Swift.UInt8, repeat: Foundation.NSSet, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   public static func setDeviceSleepReminder(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, hour: Swift.UInt8, minute: Swift.UInt8, repeat: Swift.Set<YCProductSDK.YCDeviceWeekRepeat>, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceDataCollection(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, dataType: YCProductSDK.YCDeviceDataCollectionType, acquisitionTime: Swift.UInt8, acquisitionInterval: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceBloodPressureMonitoringMode(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, interval: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
@@ -2454,12 +2458,16 @@ extension YCProductSDK.YCProduct {
 }
 extension YCProductSDK.YCProduct {
   @objc public static func queryDeviceAlarmInfo(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func addDeviceAlarm(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, alarmType: YCProductSDK.YCDeviceAlarmType, hour: Swift.UInt8, minute: Swift.UInt8, repeat: Foundation.NSSet, snoozeTime: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   public static func addDeviceAlarm(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, alarmType: YCProductSDK.YCDeviceAlarmType, hour: Swift.UInt8, minute: Swift.UInt8, repeat: Swift.Set<YCProductSDK.YCDeviceWeekRepeat>, snoozeTime: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func deleteDeviceAlarm(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, hour: Swift.UInt8, minute: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func modifyDeviceAlarm(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, oldHour: Swift.UInt8, oldMinute: Swift.UInt8, hour: Swift.UInt8, minute: Swift.UInt8, alarmType: YCProductSDK.YCDeviceAlarmType, repeat: Foundation.NSSet, snoozeTime: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   public static func modifyDeviceAlarm(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, oldHour: Swift.UInt8, oldMinute: Swift.UInt8, hour: Swift.UInt8, minute: Swift.UInt8, alarmType: YCProductSDK.YCDeviceAlarmType, repeat: Swift.Set<YCProductSDK.YCDeviceWeekRepeat>, snoozeTime: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceEventEnable(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func addDeviceEvent(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, name: Swift.String, isEnable: Swift.Bool, hour: Swift.UInt8, minute: Swift.UInt8, interval: YCProductSDK.YCDeviceEventInterval, repeat: Foundation.NSSet, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   public static func addDeviceEvent(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, name: Swift.String, isEnable: Swift.Bool, hour: Swift.UInt8, minute: Swift.UInt8, interval: YCProductSDK.YCDeviceEventInterval, repeat: Swift.Set<YCProductSDK.YCDeviceWeekRepeat>, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func deleteDeviceEvent(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, eventID: Swift.UInt8, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func modifyDeviceEvent(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, name: Swift.String, eventID: Swift.UInt8, isEnable: Swift.Bool, hour: Swift.UInt8, minute: Swift.UInt8, interval: YCProductSDK.YCDeviceEventInterval, repeat: Foundation.NSSet, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   public static func modifyDeviceEvent(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, name: Swift.String, eventID: Swift.UInt8, isEnable: Swift.Bool, hour: Swift.UInt8, minute: Swift.UInt8, interval: YCProductSDK.YCDeviceEventInterval, repeat: Swift.Set<YCProductSDK.YCDeviceWeekRepeat>, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func queryDeviceEventnfo(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
   @objc public static func setDeviceScheduleEnable(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
