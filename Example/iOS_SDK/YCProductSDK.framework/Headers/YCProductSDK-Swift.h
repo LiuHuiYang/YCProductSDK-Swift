@@ -376,10 +376,22 @@ typedef SWIFT_ENUM(uint8_t, YCDevcieScheduleEventType, open) {
   YCDevcieScheduleEventTypeCustomize = 8,
 };
 
+enum YCDeviceAlarmType : uint8_t;
 
 /// 闹钟信息
 SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceAlarmInfo")
 @interface YCDeviceAlarmInfo : NSObject
+/// 设备允许的最多闹钟数量
+@property (nonatomic, readonly) uint8_t limitCount;
+/// 闹钟类型
+@property (nonatomic, readonly) enum YCDeviceAlarmType alarmType;
+/// 闹钟中的小时 (24小时制)
+@property (nonatomic, readonly) uint8_t hour;
+/// 闹钟中的分钟
+@property (nonatomic, readonly) uint8_t minute;
+/// 贪睡时间 min
+@property (nonatomic, readonly) uint8_t snoozeTime;
+@property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

@@ -2176,27 +2176,27 @@ extension YCProductSDK.YCProduct {
     get
   }
 }
-@_inheritsConvenienceInitializers @objc public class YCDeviceAlarmInfo : ObjectiveC.NSObject {
-  public var limitCount: Swift.UInt8 {
+@objc @_inheritsConvenienceInitializers @objcMembers public class YCDeviceAlarmInfo : ObjectiveC.NSObject {
+  @objc public var limitCount: Swift.UInt8 {
     get
   }
-  public var alarmType: YCProductSDK.YCDeviceAlarmType {
+  @objc public var alarmType: YCProductSDK.YCDeviceAlarmType {
     get
   }
-  public var hour: Swift.UInt8 {
+  @objc public var hour: Swift.UInt8 {
     get
   }
-  public var minute: Swift.UInt8 {
+  @objc public var minute: Swift.UInt8 {
     get
   }
   public var `repeat`: Swift.Set<YCProductSDK.YCDeviceWeekRepeat> {
     get
   }
-  public var snoozeTime: Swift.UInt8 {
+  @objc public var snoozeTime: Swift.UInt8 {
     get
   }
-  public var toString: Swift.String {
-    get
+  @objc public var toString: Swift.String {
+    @objc get
   }
   @objc override dynamic public init()
   @objc deinit
