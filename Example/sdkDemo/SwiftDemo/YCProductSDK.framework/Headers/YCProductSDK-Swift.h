@@ -517,6 +517,8 @@ SWIFT_CLASS("_TtC12YCProductSDK57YCDeviceControlEmbeddedPeripheralFirmwareUpgrad
 @property (nonatomic, readonly) enum YCEmbeddedPeripheralFirmwareType firmwareType;
 /// 是否成功
 @property (nonatomic, readonly) BOOL isSuccess;
+/// 显示
+@property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -526,6 +528,7 @@ SWIFT_CLASS("_TtC12YCProductSDK42YCDeviceControlMeasureHealthDataResultInfo")
 @interface YCDeviceControlMeasureHealthDataResultInfo : NSObject
 @property (nonatomic, readonly) enum YCAppControlMeasureHealthDataResult state;
 @property (nonatomic, readonly) enum YCAppControlMeasureHealthDataType dataType;
+@property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -543,6 +546,8 @@ SWIFT_CLASS("_TtC12YCProductSDK37YCDeviceControlReportWarningValueInfo")
 @property (nonatomic, readonly) enum YCAppControlMeasureHealthDataType dataType;
 /// 值的集合
 @property (nonatomic, readonly, copy) NSArray<NSNumber *> * _Nonnull values;
+/// 显示
+@property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -554,6 +559,7 @@ SWIFT_CLASS("_TtC12YCProductSDK35YCDeviceControlSportModeControlInfo")
 @interface YCDeviceControlSportModeControlInfo : NSObject
 @property (nonatomic, readonly) enum YCDeviceSportState state;
 @property (nonatomic, readonly) enum YCDeviceSportType sportType;
+@property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -578,6 +584,7 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceControlType, open) {
   YCDeviceControlTypeHealthDataMeasurementResult = 0x0E,
   YCDeviceControlTypeReportWarningValue = 0x0F,
   YCDeviceControlTypeDeviceFirmwareDownloadState = 0x11,
+  YCDeviceControlTypePpi = 0x12,
 };
 
 
@@ -2524,25 +2531,17 @@ enum YCTemperatureType : uint8_t;
 /// \param completion 设置结果
 ///
 + (void)setDeviceHeartRateAlarm:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable maxHeartRate:(uint8_t)maxHeartRate minHeartRate:(uint8_t)minHeartRate completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 心率监测
-/// <ul>
-///   <li>
-///     Parameters:
-///   </li>
-///   <li>
-///     peripheral: 连接设备
-///   </li>
-///   <li>
-///     isEnable: 是否使能
-///   </li>
-///   <li>
-///     interval: 监测间隔 1 ~ 60分钟
-///   </li>
-///   <li>
-///     completion: 设置结果
-///   </li>
-/// </ul>
-+ (void)setDeviceHeartRateMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 健康监测
+/// \param peripheral 连接设备
+///
+/// \param isEnable 是否使能
+///
+/// \param interval 监测间隔 1 ~ 60分钟
+///
+/// \param completion <#completion description#>
+///
++ (void)setDeviceHealthMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
++ (void)setDeviceHeartRateMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion SWIFT_DEPRECATED_MSG("use func setDeviceHealthMonitoringMode instand of it", "setDeviceHealthMonitoringMode:isEnable:interval:completion:");
 + (void)setDeviceFindPhone:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 恢复出厂设置
 /// \param peripheral 连接设备
@@ -2675,25 +2674,7 @@ enum YCTemperatureType : uint8_t;
 /// \param completion 设置成功
 ///
 + (void)setDeviceDataCollection:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable dataType:(enum YCDeviceDataCollectionType)dataType acquisitionTime:(uint8_t)acquisitionTime acquisitionInterval:(uint8_t)acquisitionInterval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 血压监测模式设置
-/// <ul>
-///   <li>
-///     Parameters:
-///   </li>
-///   <li>
-///     peripheral: 连接设备
-///   </li>
-///   <li>
-///     isEnable: 是否使能
-///   </li>
-///   <li>
-///     interval: 间隔 1 ~ 60分钟
-///   </li>
-///   <li>
-///     completion: 设置结果
-///   </li>
-/// </ul>
-+ (void)setDeviceBloodPressureMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
++ (void)setDeviceBloodPressureMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion SWIFT_DEPRECATED_MSG("No need to use this method");
 + (void)setDeviceTemperatureMode:(CBPeripheral * _Nullable)peripheral mode:(enum YCSettingTemperatureModeType)mode temperature:(int8_t)temperature completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 温度报警
 /// \param peripheral 连接设备
@@ -2713,16 +2694,7 @@ enum YCTemperatureType : uint8_t;
 /// \param completion 设置结果
 ///
 + (void)setDeviceTemperatureAlarm:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable temperatureType:(enum YCTemperatureType)temperatureType highTemperatureIntegerValue:(uint8_t)highTemperatureIntegerValue highTemperatureDecimalValue:(uint8_t)highTemperatureDecimalValue lowTemperatureIntegerValue:(int8_t)lowTemperatureIntegerValue lowTemperatureDecimalValue:(uint8_t)lowTemperatureDecimalValue completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 温度监测
-/// \param peripheral 连接设备
-///
-/// \param isEnable 是否开启
-///
-/// \param interval 监测间隔 1 ~ 60分钟
-///
-/// \param completion 设置结果
-///
-+ (void)setDeviceTemperatureMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
++ (void)setDeviceTemperatureMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion SWIFT_DEPRECATED_MSG("use func setDeviceHealthMonitoringMode instand of it", "setDeviceHealthMonitoringMode:isEnable:interval:completion:");
 /// 息屏时间设置
 /// \param peripheral 连接设备
 ///
@@ -3354,6 +3326,8 @@ SWIFT_CLASS("_TtC12YCProductSDK26YCReceivedDeviceReportInfo")
 @property (nonatomic, readonly, strong) CBPeripheral * _Nullable device;
 /// 结果
 @property (nonatomic, readonly) id _Nullable data;
+/// 结果描述
+@property (nonatomic, readonly, copy) NSString * _Nonnull dataDescription;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

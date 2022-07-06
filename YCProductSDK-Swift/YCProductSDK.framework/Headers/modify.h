@@ -17,7 +17,6 @@ typedef struct
     int height;
     int size;
     int radius;
-    int bg_radius; // 背景图片的半径
 } bmp_info_t;
 
 
