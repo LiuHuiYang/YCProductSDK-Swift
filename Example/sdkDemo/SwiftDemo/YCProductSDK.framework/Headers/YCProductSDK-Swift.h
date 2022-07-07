@@ -377,6 +377,7 @@ typedef SWIFT_ENUM(uint8_t, YCDevcieScheduleEventType, open) {
 };
 
 enum YCDeviceAlarmType : uint8_t;
+@class NSNumber;
 
 /// 闹钟信息
 SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceAlarmInfo")
@@ -389,6 +390,8 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceAlarmInfo")
 @property (nonatomic, readonly) uint8_t hour;
 /// 闹钟中的分钟
 @property (nonatomic, readonly) uint8_t minute;
+/// 重复时间集合(和 repeat` 取值相同) YCDeviceWeekRepeat 类型
+@property (nonatomic, readonly, copy) NSArray<NSNumber *> * _Nonnull repeatArray;
 /// 贪睡时间 min
 @property (nonatomic, readonly) uint8_t snoozeTime;
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
@@ -682,6 +685,8 @@ SWIFT_CLASS("_TtC12YCProductSDK17YCDeviceEventInfo")
 @property (nonatomic, readonly) uint8_t hour;
 /// 分钟
 @property (nonatomic, readonly) uint8_t minute;
+/// 重复时间集合(和 repeat` 取值相同) YCDeviceWeekRepeat 类型
+@property (nonatomic, readonly, copy) NSArray<NSNumber *> * _Nonnull repeatArray;
 /// 间隔
 @property (nonatomic, readonly) enum YCDeviceEventInterval interval;
 /// 名称
@@ -1637,7 +1642,6 @@ enum YCQueryHealthDataType : uint8_t;
 @end
 
 @class CBCentralManager;
-@class NSNumber;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK)) <CBCentralManagerDelegate>
 /// 连接设备
@@ -3207,6 +3211,8 @@ SWIFT_CLASS("_TtC12YCProductSDK26YCProductUserConfiguration")
 @property (nonatomic, readonly) uint8_t endHour2;
 @property (nonatomic, readonly) uint8_t endMinute2;
 @property (nonatomic, readonly) uint8_t sedentaryReminderInterval;
+/// 重复时间集合(和 sedentaryReminderRepeat` 取值相同) YCDeviceWeekRepeat 类型
+@property (nonatomic, readonly, copy) NSArray<NSNumber *> * _Nonnull sedentaryReminderRepeatArray;
 @property (nonatomic, readonly) enum YCDeviceAntiLostType antiLostType;
 @property (nonatomic, readonly) int8_t rssi;
 @property (nonatomic, readonly) uint8_t antiLostDelay;

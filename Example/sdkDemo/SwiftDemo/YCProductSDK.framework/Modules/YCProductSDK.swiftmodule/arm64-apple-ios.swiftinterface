@@ -95,6 +95,9 @@ extension CoreBluetooth.CBPeripheral {
   public var sedentaryReminderRepeat: Swift.Set<YCProductSDK.YCDeviceWeekRepeat> {
     get
   }
+  @objc public var sedentaryReminderRepeatArray: [Foundation.NSNumber] {
+    @objc get
+  }
   @objc public var antiLostType: YCProductSDK.YCDeviceAntiLostType {
     get
   }
@@ -2192,6 +2195,9 @@ extension YCProductSDK.YCProduct {
   public var `repeat`: Swift.Set<YCProductSDK.YCDeviceWeekRepeat> {
     get
   }
+  @objc public var repeatArray: [Foundation.NSNumber] {
+    @objc get
+  }
   @objc public var snoozeTime: Swift.UInt8 {
     get
   }
@@ -2216,6 +2222,9 @@ extension YCProductSDK.YCProduct {
   }
   public var `repeat`: Swift.Set<YCProductSDK.YCDeviceWeekRepeat> {
     get
+  }
+  @objc public var repeatArray: [Foundation.NSNumber] {
+    @objc get
   }
   @objc public var interval: YCProductSDK.YCDeviceEventInterval {
     get
