@@ -233,14 +233,6 @@ enum YCDeviceMCUType : uint8_t;
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
-/// 报警类型
-typedef SWIFT_ENUM(uint8_t, YCAlarmLevelType, open) {
-  YCAlarmLevelTypeBodyTemperature = 0,
-  YCAlarmLevelTypeAmbientTemperature = 1,
-  YCAlarmLevelTypeHeartRate = 2,
-  YCAlarmLevelTypeBloodPressure = 3,
-};
-
 /// App 启动测量数据的测量方式
 typedef SWIFT_ENUM(uint8_t, YCAppControlHealthDataMeasureType, open) {
   YCAppControlHealthDataMeasureTypeOff = 0,
@@ -504,6 +496,8 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceBreathScreenInterval, open) {
   YCDeviceBreathScreenIntervalTen = 1,
   YCDeviceBreathScreenIntervalFifteen = 2,
   YCDeviceBreathScreenIntervalThirty = 3,
+  YCDeviceBreathScreenIntervalTwenty = 4,
+  YCDeviceBreathScreenIntervalTwentyFive = 5,
 };
 
 /// 设备允许连接状态
@@ -850,6 +844,16 @@ SWIFT_CLASS("_TtC12YCProductSDK18YCDeviceScreenInfo")
 @property (nonatomic, readonly, copy) NSString * _Nonnull toString;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+/// 3.5.2.34 亮屏时间
+typedef SWIFT_ENUM(uint8_t, YCDeviceScreenTimeInterval, open) {
+  YCDeviceScreenTimeIntervalFiveSeconds = 0,
+  YCDeviceScreenTimeIntervalTenSeconds = 1,
+  YCDeviceScreenTimeIntervalFifteenSeconds = 2,
+  YCDeviceScreenTimeIntervalThirtySeconds = 3,
+  YCDeviceScreenTimeIntervalTwentySeconds = 4,
+  YCDeviceScreenTimeIntervalTwentyFiveSeconds = 5,
+};
 
 /// 数据存储
 typedef SWIFT_ENUM(uint8_t, YCDeviceSenserSaveDataType, open) {
@@ -1444,6 +1448,13 @@ typedef SWIFT_ENUM(uint8_t, YCMeasurementDataWritebackType, open) {
   YCMeasurementDataWritebackTypeBloodSugar = 5,
 };
 
+/// 马达震动强度等级
+typedef SWIFT_ENUM(uint8_t, YCMotorVibrationStrengthLevel, open) {
+  YCMotorVibrationStrengthLevelNone = 0,
+  YCMotorVibrationStrengthLevelLevel1 = 1,
+  YCMotorVibrationStrengthLevelLevel2 = 2,
+};
+
 /// 个人信息类型
 typedef SWIFT_ENUM(uint8_t, YCPersonalInfoType, open) {
   YCPersonalInfoTypeInsurance = 0,
@@ -1485,6 +1496,7 @@ enum YCProductLogLevel : NSInteger;
 @end
 
 
+
 enum YCQueryHealthDataType : uint8_t;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1505,7 +1517,6 @@ enum YCQueryHealthDataType : uint8_t;
 ///
 + (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
-
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1559,6 +1570,12 @@ enum YCQueryHealthDataType : uint8_t;
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 清理队列
+- (void)clearQueue;
+@end
+
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 开始ECG测量
 /// \param peripheral 连接设备
 ///
@@ -1571,12 +1588,6 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 是否关闭成功
 ///
 + (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 清理队列
-- (void)clearQueue;
 @end
 
 
@@ -2692,6 +2703,18 @@ enum YCTemperatureType : uint8_t;
 + (void)setDeviceDataCollection:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable dataType:(enum YCDeviceDataCollectionType)dataType acquisitionTime:(uint8_t)acquisitionTime acquisitionInterval:(uint8_t)acquisitionInterval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 + (void)setDeviceBloodPressureMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion SWIFT_DEPRECATED_MSG("No need to use this method");
 + (void)setDeviceTemperatureMode:(CBPeripheral * _Nullable)peripheral mode:(enum YCSettingTemperatureModeType)mode temperature:(int8_t)temperature completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 设置机主信息
+/// \param peripheral 已连接设备
+///
+/// \param name 姓名
+///
+/// \param className 班级
+///
+/// \param identifier 身份标示
+///
+/// \param completion 设置结果
+///
++ (void)setDeviceOwnerInfo:(CBPeripheral * _Nullable)peripheral name:(NSString * _Nonnull)name className:(NSString * _Nonnull)className identifier:(NSString * _Nonnull)identifier completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 温度报警
 /// \param peripheral 连接设备
 ///
@@ -2711,14 +2734,15 @@ enum YCTemperatureType : uint8_t;
 ///
 + (void)setDeviceTemperatureAlarm:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable temperatureType:(enum YCTemperatureType)temperatureType highTemperatureIntegerValue:(uint8_t)highTemperatureIntegerValue highTemperatureDecimalValue:(uint8_t)highTemperatureDecimalValue lowTemperatureIntegerValue:(int8_t)lowTemperatureIntegerValue lowTemperatureDecimalValue:(uint8_t)lowTemperatureDecimalValue completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 + (void)setDeviceTemperatureMonitoringMode:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable interval:(uint8_t)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion SWIFT_DEPRECATED_MSG("use func setDeviceHealthMonitoringMode instand of it", "setDeviceHealthMonitoringMode:isEnable:interval:completion:");
-/// 息屏时间设置
++ (void)setDeviceBreathScreen:(CBPeripheral * _Nullable)peripheral interval:(enum YCDeviceBreathScreenInterval)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion SWIFT_DEPRECATED_MSG("use setDeviceScreenTime instand of it", "setDeviceScreenTime:interval:completion:");
+/// 亮屏时间设置
 /// \param peripheral 连接设备
 ///
 /// \param interval 时间间隔
 ///
 /// \param completion 设置结果
 ///
-+ (void)setDeviceBreathScreen:(CBPeripheral * _Nullable)peripheral interval:(enum YCDeviceBreathScreenInterval)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
++ (void)setDeviceScreenTime:(CBPeripheral * _Nullable)peripheral interval:(enum YCDeviceScreenTimeInterval)interval completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 环境光监测模式设置
 /// \param peripheral 连接设备
 ///
@@ -2895,7 +2919,14 @@ enum YCTemperatureType : uint8_t;
 /// \param completion 设置结果
 ///
 + (void)setDeviceMotorVibrationTime:(CBPeripheral * _Nullable)peripheral mode:(enum YCDeviceMotorVibrationType)mode time:(uint32_t)time completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-+ (void)setDeviceAlarmLevel:(CBPeripheral * _Nullable)peripheral alarmType:(enum YCAlarmLevelType)alarmType highLevelIntegerValue:(int8_t)highLevelIntegerValue highLevelDecimalValue:(int8_t)highLevelDecimalValue middleLevelIntegerValue:(int8_t)middleLevelIntegerValue middleLevelDecimalValue:(int8_t)middleLevelDecimalValue lowLevelIntegerValue:(int8_t)lowLevelIntegerValue lowLeveelDecimalValue:(int8_t)lowLeveelDecimalValue completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 设置马达震动等级
+/// \param peripheral 连接设备
+///
+/// \param level 震动等级
+///
+/// \param completion 设置结果
+///
++ (void)setDeviceMotorVibrationStrength:(CBPeripheral * _Nullable)peripheral level:(enum YCMotorVibrationStrengthLevel)level completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 
@@ -3106,6 +3137,12 @@ SWIFT_CLASS("_TtC12YCProductSDK29YCProductFunctionSupportItems")
 @property (nonatomic, readonly) BOOL isSupportInformationTypeOther;
 /// 自定义表盘颜色翻转
 @property (nonatomic, readonly) BOOL isFlipCustomDialColor;
+/// 手表亮度调节五档
+@property (nonatomic, readonly) BOOL isSupportFiveSpeedBrightness;
+/// 震动强度设置
+@property (nonatomic, readonly) BOOL isSupportVibrationIntensitySetting;
+/// 亮屏时间设置
+@property (nonatomic, readonly) BOOL isSupportScreenTimeSetting;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -3238,7 +3275,9 @@ SWIFT_CLASS("_TtC12YCProductSDK26YCProductUserConfiguration")
 /// 肤色设置
 @property (nonatomic, readonly) enum YCDeviceSkinColorLevel skinColor;
 /// 息屏时间
-@property (nonatomic, readonly) enum YCDeviceBreathScreenInterval breathScreenInterval;
+@property (nonatomic, readonly) enum YCDeviceBreathScreenInterval breathScreenInterval SWIFT_DEPRECATED_MSG("use YCDeviceScreenTimeInterval instand of it");
+/// 亮屏时间
+@property (nonatomic, readonly) enum YCDeviceScreenTimeInterval screenTimeInterval;
 /// 蓝牙断开提醒
 @property (nonatomic, readonly) BOOL deviceDisconnectedReminderEnable;
 /// 上传提醒开关
