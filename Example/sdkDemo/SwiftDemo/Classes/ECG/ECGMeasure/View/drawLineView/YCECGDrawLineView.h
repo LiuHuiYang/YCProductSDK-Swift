@@ -11,7 +11,7 @@
 /// 设置每一个格子的宽度 是 1mm  (1pt == 0.16mm)
 #define CELL_SIZE (6.25)
 
-/// 每个大图中的不格数
+/// 每个大图中的格子数
 #define CELL_GROUP_COUNT (5) 
 
 /// ECG采样频率

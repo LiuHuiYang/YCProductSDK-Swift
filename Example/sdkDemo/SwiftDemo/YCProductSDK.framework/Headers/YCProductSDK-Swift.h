@@ -500,6 +500,29 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceBreathScreenInterval, open) {
   YCDeviceBreathScreenIntervalTwentyFive = 5,
 };
 
+
+/// 精准血压测量结束测量返回信息
+SWIFT_CLASS("_TtC12YCProductSDK54YCDeviceControlAccurateBloodPressureMeasurementEndInfo")
+@interface YCDeviceControlAccurateBloodPressureMeasurementEndInfo : NSObject
+/// 是否结束
+@property (nonatomic, readonly) BOOL isSuccess;
+/// 测量收缩压
+@property (nonatomic, readonly) uint8_t measureSystolicBloodPressure;
+/// 测量舒张压
+@property (nonatomic, readonly) uint8_t measureDiastolicBloodPressure;
+/// 测量心率
+@property (nonatomic, readonly) uint8_t measureHeartRate;
+/// 用户输入收缩压
+@property (nonatomic, readonly) uint8_t inputSystolicBloodPressure;
+/// 用户输入舒张压
+@property (nonatomic, readonly) uint8_t inputDiastolicBloodPressure;
+/// 用户输入心率
+@property (nonatomic, readonly) uint8_t inputHeartRate;
+/// 字符串表示
+@property (nonatomic, readonly, copy) NSString * _Nonnull toString;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 /// 设备允许连接状态
 typedef SWIFT_ENUM(uint8_t, YCDeviceControlAllowConnectionState, open) {
   YCDeviceControlAllowConnectionStateAgree = 0,
@@ -592,6 +615,7 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceControlType, open) {
   YCDeviceControlTypeSwitchWatchFace = 0x0D,
   YCDeviceControlTypeHealthDataMeasurementResult = 0x0E,
   YCDeviceControlTypeReportWarningValue = 0x0F,
+  YCDeviceControlTypeAccurateBloodPressureMeasurementStop = 0x10,
   YCDeviceControlTypeDeviceFirmwareDownloadState = 0x11,
   YCDeviceControlTypePpi = 0x12,
 };
@@ -1042,8 +1066,19 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCECGManager
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+@class YCECGMeasurementResult;
 
 @interface YCECGManager (SWIFT_EXTENSION(YCProductSDK))
+/// 获取ECG结果
+/// \param peripheral 已连接设备
+///
+/// \param deviceHeartRate 设备使用的心率, 没有使用 0或负数
+///
+/// \param deviceHRV 设备的HRV，没有使用0或负数
+///
+/// \param completion 测试结果
+///
+- (void)getECGMeasurementResult:(CBPeripheral * _Nullable)peripheral deviceHeartRate:(NSInteger)deviceHeartRate deviceHRV:(NSInteger)deviceHRV completion:(void (^ _Nonnull)(YCECGMeasurementResult * _Nonnull))completion;
 /// 获取情绪指数
 - (YCBodyIndexResult * _Nonnull)getPhysicalIndexParameters SWIFT_WARN_UNUSED_RESULT;
 @end
@@ -1082,12 +1117,14 @@ SWIFT_CLASS("_TtC12YCProductSDK22YCECGMeasurementResult")
 @interface YCECGMeasurementResult : NSObject
 /// 心率
 @property (nonatomic, readonly) NSInteger hearRate;
-/// ECG结果
-@property (nonatomic, readonly) enum YCECGResultType ecgMeasurementType;
 /// hrv值
 @property (nonatomic, readonly) NSInteger hrv;
 /// qrsType(兼容旧代码使用)
 @property (nonatomic, readonly) NSInteger qrsType;
+/// qrsType(兼容旧代码使用)
+@property (nonatomic, readonly) BOOL afflag;
+/// ECG结果
+@property (nonatomic, readonly) enum YCECGResultType ecgMeasurementType;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -1484,6 +1521,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 - (void)reconnectedDevice;
 @end
 
+
 enum YCProductLogLevel : NSInteger;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1493,29 +1531,6 @@ enum YCProductLogLevel : NSInteger;
 /// \param saveLevel 保存日志等级
 ///
 + (void)setLogLevel:(enum YCProductLogLevel)printLevel saveLevel:(enum YCProductLogLevel)saveLevel;
-@end
-
-
-
-enum YCQueryHealthDataType : uint8_t;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询健康数据
-/// \param peripheral 当前设备
-///
-/// \param datatType 数据类型
-///
-/// \param completion 调用结果
-///
-+ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除健康数据
-/// \param peripheral 当前连接的设备
-///
-/// \param datatType 删除的数据类型
-///
-/// \param completion 删除是否成功
-///
-+ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 
@@ -1536,6 +1551,27 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 结果
 ///
 + (void)bootLogoTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+enum YCQueryHealthDataType : uint8_t;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 查询健康数据
+/// \param peripheral 当前设备
+///
+/// \param datatType 数据类型
+///
+/// \param completion 调用结果
+///
++ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCQueryHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除健康数据
+/// \param peripheral 当前连接的设备
+///
+/// \param datatType 删除的数据类型
+///
+/// \param completion 删除是否成功
+///
++ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 
@@ -1569,6 +1605,7 @@ enum YCQueryHealthDataType : uint8_t;
 @end
 
 
+
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
 /// 清理队列
 - (void)clearQueue;
@@ -1589,6 +1626,26 @@ enum YCQueryHealthDataType : uint8_t;
 ///
 + (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
+
+@class NSError;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 连接设备
+/// \param peripheral <#peripheral description#>
+///
++ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
+/// 断开连接
+/// \param peripheral <#peripheral description#>
+///
++ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
+/// 开始扫描设备
+/// \param delayTime 延时停止，默认3秒
+///
+/// \param completion 返回结果
+///
++ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
+@end
+
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1615,26 +1672,6 @@ enum YCQueryHealthDataType : uint8_t;
 ///
 + (void)sendAddressBook:(CBPeripheral * _Nullable)peripheral phone:(NSString * _Nonnull)phone name:(NSString * _Nonnull)name completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
-
-@class NSError;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 连接设备
-/// \param peripheral <#peripheral description#>
-///
-+ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
-/// 断开连接
-/// \param peripheral <#peripheral description#>
-///
-+ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
-/// 开始扫描设备
-/// \param delayTime 延时停止，默认3秒
-///
-/// \param completion 返回结果
-///
-+ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
-@end
-
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1727,6 +1764,8 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 接收到的数据
 ///
 + (void)queryCollectDataInfo:(CBPeripheral * _Nullable)peripheral dataType:(enum YCCollectDataType)dataType index:(uint16_t)index uploadEnable:(BOOL)uploadEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 通过时间戳查询 (有些手环会出现莫名奇妙的问题，统一用索引比较好)
++ (void)queryCollectDataInfo:(CBPeripheral * _Nullable)peripheral dataType:(enum YCCollectDataType)dataType timeStamp:(uint32_t)timeStamp uploadEnable:(BOOL)uploadEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 按索引删除
 /// \param peripheral 连接设备
 ///
@@ -1737,6 +1776,16 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 删除结果
 ///
 + (void)deleteCollectData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCCollectDataType)dataType index:(uint16_t)index completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 按时间戳删除
+/// \param peripheral <#peripheral description#>
+///
+/// \param dataType <#dataType description#>
+///
+/// \param timeStamp <#timeStamp description#>
+///
+/// \param completion <#completion description#>
+///
++ (void)deleteCollectData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCCollectDataType)dataType timeStamp:(uint32_t)timeStamp completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 @class CBCharacteristic;
@@ -2349,6 +2398,28 @@ enum YCWarningInformationType : uint8_t;
 /// \param completion 结果
 ///
 + (void)deviceMeasurementDataWriteBack:(CBPeripheral * _Nullable)peripheral dataType:(enum YCMeasurementDataWritebackType)dataType values:(NSArray<NSNumber *> * _Nonnull)values completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 开启或关闭精准血压实时测量
+/// \param peripheral 连接外设
+///
+/// \param isEnable 开启或关闭
+///
+/// \param systolicBloodPressure 收缩压
+///
+/// \param diastolicBloodPressure 舒张压
+///
+/// \param heartRate 心率
+///
+/// \param height 身高 单位: cm
+///
+/// \param weight 体重 单位: kg
+///
+/// \param age 年龄
+///
+/// \param gender 性别
+///
+/// \param completion 设置结果
+///
++ (void)controlAccurateBloodPessureRealTimeMeasure:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable systolicBloodPressure:(uint8_t)systolicBloodPressure diastolicBloodPressure:(uint8_t)diastolicBloodPressure heartRate:(uint8_t)heartRate height:(uint8_t)height weight:(uint8_t)weight age:(uint8_t)age gender:(enum YCDeviceGender)gender completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 启动健康数据测量
 /// \param peripheral 连接设备
 ///
@@ -3460,6 +3531,7 @@ typedef SWIFT_ENUM(uint8_t, YCReceivedRealTimeDataType, open) {
   YCReceivedRealTimeDataTypeSchedule = 11,
   YCReceivedRealTimeDataTypeEvent = 12,
   YCReceivedRealTimeDataTypeRealTimeMonitoringMode = 13,
+  YCReceivedRealTimeDataTypeAccurateBloodPressureWaveform = 14,
 };
 
 

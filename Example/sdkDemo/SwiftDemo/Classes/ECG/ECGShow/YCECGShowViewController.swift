@@ -11,12 +11,8 @@ import YCProductSDK
 
 class YCECGShowViewController: UIViewController {
     
-    /// ecg 信息
-    var heartRate = 0
-    var hrv = 0
-    var systolicBloodPressure = 0
-    var diastolicBloodPressure = 0
-    var ecgDatas = [Int32]()
+    /// ECG的数据信息
+    var ecgInfo = YCHealthLocalECGInfo()
     
     var ecgLineView = YCECGDrawLineView()
     
@@ -40,21 +36,21 @@ class YCECGShowViewController: UIViewController {
     /// 设置显示值
     private func setupShowValue() {
         
-        if diastolicBloodPressure > 0 &&
-            systolicBloodPressure > 0{
+        if ecgInfo.diastolicBloodPressure > 0 &&
+            ecgInfo.systolicBloodPressure > 0{
             
             bloodPressureLabel.text =
-                "blood pressure:  \(systolicBloodPressure)/\(diastolicBloodPressure)"
+            "blood pressure:  \(ecgInfo.systolicBloodPressure)/\(ecgInfo.diastolicBloodPressure)"
         }
         
         
-        if heartRate > 0 {
+        if ecgInfo.heartRate > 0 {
             heartRateLabel.text =
-                "heart: \(heartRate)"
+            "heart: \(ecgInfo.heartRate)"
         }
         
-        if hrv > 0 {
-            hrvLabel.text = "hrv: \(hrv)"
+        if ecgInfo.hrv > 0 {
+            hrvLabel.text = "hrv: \(ecgInfo.hrv)"
         }
     }
  
@@ -62,7 +58,7 @@ class YCECGShowViewController: UIViewController {
     private func drawECGLine() {
         
         let drawECGDatas =
-        YCECGManager.getDrawECGLineData(ecgDatas, gridSize: Float(CELL_SIZE), count: 20)
+        YCECGManager.getDrawECGLineData(ecgInfo.ecgDatas, gridSize: Float(CELL_SIZE), count: 20)
         
         // 每个数据的宽度 0.1 X 格子 X 3(逢三取一)
         let width = CELL_SIZE * 0.3

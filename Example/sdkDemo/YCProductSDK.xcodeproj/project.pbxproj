@@ -44,6 +44,17 @@
 		CA5DB46E27564DE2008AFB6F /* YCWatchFaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */; };
 		CA5DB47027571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
 		CA5DB47127571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
+		CA8AB867288005B800B91963 /* YCECGReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8AB853288005B800B91963 /* YCECGReportViewController.xib */; };
+		CA8AB868288005B800B91963 /* YCECGReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB854288005B800B91963 /* YCECGReportViewController.swift */; };
+		CA8AB869288005B800B91963 /* YCHealthECGData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB856288005B800B91963 /* YCHealthECGData.swift */; };
+		CA8AB86A288005B800B91963 /* YCECGResultViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8AB859288005B800B91963 /* YCECGResultViewCell.xib */; };
+		CA8AB86B288005B800B91963 /* YCECGResultViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB85A288005B800B91963 /* YCECGResultViewCell.swift */; };
+		CA8AB86C288005B800B91963 /* YCECGDiseaseScreeningViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB85C288005B800B91963 /* YCECGDiseaseScreeningViewCell.swift */; };
+		CA8AB86D288005B800B91963 /* YCECGDiseaseScreeningViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8AB85D288005B800B91963 /* YCECGDiseaseScreeningViewCell.xib */; };
+		CA8AB86E288005B800B91963 /* YCECGReportBigPictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB860288005B800B91963 /* YCECGReportBigPictureView.m */; };
+		CA8AB86F288005B800B91963 /* YCECGReportPictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB864288005B800B91963 /* YCECGReportPictureView.m */; };
+		CA8AB870288005B800B91963 /* YCECGPhotoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8AB865288005B800B91963 /* YCECGPhotoViewCell.xib */; };
+		CA8AB871288005B800B91963 /* YCECGPhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB866288005B800B91963 /* YCECGPhotoViewCell.swift */; };
 		CAB7B83E27579D2B001B53A7 /* YCECGShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */; };
 		CAB7B83F27579D2B001B53A7 /* YCECGShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */; };
 		CAC2B7E0277D69AE00CF3247 /* ecg_tip.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */; };
@@ -101,6 +112,19 @@
 		CA5DB46B27564DE2008AFB6F /* YCWatchFaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCWatchFaceViewController.swift; sourceTree = "<group>"; };
 		CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCWatchFaceViewController.xib; sourceTree = "<group>"; };
 		CA5DB46F27571E4E008AFB6F /* customE80.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = customE80.bin; sourceTree = "<group>"; };
+		CA8AB853288005B800B91963 /* YCECGReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGReportViewController.xib; sourceTree = "<group>"; };
+		CA8AB854288005B800B91963 /* YCECGReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGReportViewController.swift; sourceTree = "<group>"; };
+		CA8AB856288005B800B91963 /* YCHealthECGData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCHealthECGData.swift; sourceTree = "<group>"; };
+		CA8AB859288005B800B91963 /* YCECGResultViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGResultViewCell.xib; sourceTree = "<group>"; };
+		CA8AB85A288005B800B91963 /* YCECGResultViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGResultViewCell.swift; sourceTree = "<group>"; };
+		CA8AB85C288005B800B91963 /* YCECGDiseaseScreeningViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGDiseaseScreeningViewCell.swift; sourceTree = "<group>"; };
+		CA8AB85D288005B800B91963 /* YCECGDiseaseScreeningViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGDiseaseScreeningViewCell.xib; sourceTree = "<group>"; };
+		CA8AB860288005B800B91963 /* YCECGReportBigPictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCECGReportBigPictureView.m; sourceTree = "<group>"; };
+		CA8AB861288005B800B91963 /* YCECGReportBigPictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCECGReportBigPictureView.h; sourceTree = "<group>"; };
+		CA8AB863288005B800B91963 /* YCECGReportPictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCECGReportPictureView.h; sourceTree = "<group>"; };
+		CA8AB864288005B800B91963 /* YCECGReportPictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCECGReportPictureView.m; sourceTree = "<group>"; };
+		CA8AB865288005B800B91963 /* YCECGPhotoViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGPhotoViewCell.xib; sourceTree = "<group>"; };
+		CA8AB866288005B800B91963 /* YCECGPhotoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGPhotoViewCell.swift; sourceTree = "<group>"; };
 		CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGShowViewController.swift; sourceTree = "<group>"; };
 		CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGShowViewController.xib; sourceTree = "<group>"; };
 		CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ecg_tip.m4a; sourceTree = "<group>"; };
@@ -257,6 +281,7 @@
 		CA1582392754FD500073C514 /* ECG */ = {
 			isa = PBXGroup;
 			children = (
+				CA8AB851288005B800B91963 /* ECGReport */,
 				CAB7B83B27579D2B001B53A7 /* ECGShow */,
 				CA15823E2754FDE00073C514 /* ECGMeasure */,
 			);
@@ -343,6 +368,90 @@
 				CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */,
 			);
 			path = WathFace;
+			sourceTree = "<group>";
+		};
+		CA8AB851288005B800B91963 /* ECGReport */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB852288005B800B91963 /* Controller */,
+				CA8AB855288005B800B91963 /* Model */,
+				CA8AB857288005B800B91963 /* View */,
+			);
+			path = ECGReport;
+			sourceTree = "<group>";
+		};
+		CA8AB852288005B800B91963 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB853288005B800B91963 /* YCECGReportViewController.xib */,
+				CA8AB854288005B800B91963 /* YCECGReportViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CA8AB855288005B800B91963 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB856288005B800B91963 /* YCHealthECGData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CA8AB857288005B800B91963 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB858288005B800B91963 /* Result */,
+				CA8AB85B288005B800B91963 /* DiseaseScreening */,
+				CA8AB85E288005B800B91963 /* Photo */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CA8AB858288005B800B91963 /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB859288005B800B91963 /* YCECGResultViewCell.xib */,
+				CA8AB85A288005B800B91963 /* YCECGResultViewCell.swift */,
+			);
+			path = Result;
+			sourceTree = "<group>";
+		};
+		CA8AB85B288005B800B91963 /* DiseaseScreening */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB85C288005B800B91963 /* YCECGDiseaseScreeningViewCell.swift */,
+				CA8AB85D288005B800B91963 /* YCECGDiseaseScreeningViewCell.xib */,
+			);
+			path = DiseaseScreening;
+			sourceTree = "<group>";
+		};
+		CA8AB85E288005B800B91963 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB85F288005B800B91963 /* BigPicture */,
+				CA8AB862288005B800B91963 /* DrawPhoto */,
+				CA8AB865288005B800B91963 /* YCECGPhotoViewCell.xib */,
+				CA8AB866288005B800B91963 /* YCECGPhotoViewCell.swift */,
+			);
+			path = Photo;
+			sourceTree = "<group>";
+		};
+		CA8AB85F288005B800B91963 /* BigPicture */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB860288005B800B91963 /* YCECGReportBigPictureView.m */,
+				CA8AB861288005B800B91963 /* YCECGReportBigPictureView.h */,
+			);
+			path = BigPicture;
+			sourceTree = "<group>";
+		};
+		CA8AB862288005B800B91963 /* DrawPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				CA8AB863288005B800B91963 /* YCECGReportPictureView.h */,
+				CA8AB864288005B800B91963 /* YCECGReportPictureView.m */,
+			);
+			path = DrawPhoto;
 			sourceTree = "<group>";
 		};
 		CAB7B83B27579D2B001B53A7 /* ECGShow */ = {
@@ -444,10 +553,14 @@
 				CA5DB46027562F36008AFB6F /* YCCollectDataViewController.xib in Resources */,
 				CA1582492754FDE00073C514 /* YCECGMeasureViewController.xib in Resources */,
 				CA1581922754C6B40073C514 /* LaunchScreen.storyboard in Resources */,
+				CA8AB867288005B800B91963 /* YCECGReportViewController.xib in Resources */,
 				CAC2B7E0277D69AE00CF3247 /* ecg_tip.m4a in Resources */,
 				CA15818F2754C6B40073C514 /* Assets.xcassets in Resources */,
 				CA15818D2754C6B20073C514 /* Main.storyboard in Resources */,
 				CA1F854B275DB4640060C475 /* YCAppControlViewController.xib in Resources */,
+				CA8AB86A288005B800B91963 /* YCECGResultViewCell.xib in Resources */,
+				CA8AB86D288005B800B91963 /* YCECGDiseaseScreeningViewCell.xib in Resources */,
+				CA8AB870288005B800B91963 /* YCECGPhotoViewCell.xib in Resources */,
 				CA5DB46E27564DE2008AFB6F /* YCWatchFaceViewController.xib in Resources */,
 				CAB7B83F27579D2B001B53A7 /* YCECGShowViewController.xib in Resources */,
 			);
@@ -519,20 +632,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA8AB871288005B800B91963 /* YCECGPhotoViewCell.swift in Sources */,
 				CA1582482754FDE00073C514 /* YCECGMeasureViewController.swift in Sources */,
 				CA15824A2754FDE00073C514 /* YCGradientProgressView.swift in Sources */,
+				CA8AB868288005B800B91963 /* YCECGReportViewController.swift in Sources */,
 				CAB7B83E27579D2B001B53A7 /* YCECGShowViewController.swift in Sources */,
 				CA15818A2754C6B20073C514 /* ViewController.swift in Sources */,
+				CA8AB86E288005B800B91963 /* YCECGReportBigPictureView.m in Sources */,
 				CA1582012754C85B0073C514 /* YCHealthDataViewController.swift in Sources */,
 				CA1581862754C6B20073C514 /* AppDelegate.swift in Sources */,
 				CA1582042754C85B0073C514 /* YCQueryViewController.swift in Sources */,
 				CA15824B2754FDE00073C514 /* YCECGDrawLineView.m in Sources */,
 				CA1581FF2754C85B0073C514 /* YCSearchDeviceViewController.swift in Sources */,
 				CA1581882754C6B20073C514 /* SceneDelegate.swift in Sources */,
+				CA8AB869288005B800B91963 /* YCHealthECGData.swift in Sources */,
 				CA1F854F275DC17F0060C475 /* YCSettingViewController.swift in Sources */,
 				CA5DB46D27564DE2008AFB6F /* YCWatchFaceViewController.swift in Sources */,
 				CA1F854A275DB4640060C475 /* YCAppControlViewController.swift in Sources */,
 				CA5DB45F27562F36008AFB6F /* YCCollectDataViewController.swift in Sources */,
+				CA8AB86F288005B800B91963 /* YCECGReportPictureView.m in Sources */,
+				CA8AB86C288005B800B91963 /* YCECGDiseaseScreeningViewCell.swift in Sources */,
+				CA8AB86B288005B800B91963 /* YCECGResultViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

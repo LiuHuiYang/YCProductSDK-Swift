@@ -11,42 +11,40 @@ import YCProductSDK
 import AVFoundation
 
 public let SCREEN_WIDTH = UIScreen.main.bounds.width
-
 public let SCREEN_HEIGHT = UIScreen.main.bounds.height
-
 public let HRV_LIMIT_VALUE = 150
 
 
 // https://news.medlive.cn/heart/info-progress/show-139154_129.html
 
-/// 测量心电最少数量
+/// 测量心电数据最少数量 Measure the minimum amount of ECG data
 public let MEASURE_DATA_LIMIT_COUNT = 2800
 
-/// 测量中断直接补0的个数
+/// 测量中断直接补0的个数 Measure the number of interrupts directly filled with 0
 private let FILL_DATA_COUNT = 250
 
-/// 测量时间为60秒
+/// 测量时间为60秒 Measurement time is 60 seconds
 private let MEASURE_TIME = 60
 
 class YCECGMeasureViewController: UIViewController {
     
-    // MARK: - 测试结果
+    // MARK: - 测试结果 measure Results
     
-    /// 测试hrv
+    /// 测试hrv measure hrv
     private var hrvValue = 0
     
-    /// 测试心率
+    /// 测试心率 measure heart rate
     private var heartRate = 0
     
-    /// 测试收缩压
+    /// 测试收缩压 measure systolic blood pressure
     private var systolicBloodPressure = 0
     
-    /// 测试舒张压
+    /// 测试舒张压 measure diastolic blood pressure
     private var diastolicBloodPressure = 0
     
     
      
-    // MARK: - 测试过程
+    // MARK: - 测试过程 Measurement process
     
     
     /// 正在测量
@@ -198,10 +196,37 @@ class YCECGMeasureViewController: UIViewController {
         
         setupUI()
  
-        // 设置肤色
+        /**
+         
+         @objc public enum YCDeviceSkinColorLevel: UInt8 {
+           case white
+           case whiteYellow
+           case yellow
+           case brown
+           case darkBrown
+           case black
+           case other
+         }
+         
+         */
+        
+        // set skin tone
+        ///   - level: color
         YCProduct.setDeviceSkinColor(level: .yellow) { state, response in
              
-            // 左右手
+            /**
+             
+             /// Wearing position
+             @objc public enum YCDeviceWearingPositionType : UInt8 {
+                 case left   // Left hand
+                 case right  // Right hand
+             }
+             
+             */
+            
+            // 设置左右手佩戴位置
+            // Set the left and right hand wearing position
+            ///   - wearingPosition: Wearing position
             YCProduct.setDeviceWearingPosition(wearingPosition: .left) { state, response in
                  
                 if state == .succeed {
@@ -251,7 +276,7 @@ extension YCECGMeasureViewController {
             "electrode ok", for: .normal
         )
         
-        electrodeStateButton.backgroundColor = UIColor.white
+        electrodeStateButton.backgroundColor = UIColor(red: 0, green: 196.0/255.0, blue: 149.0/255.0, alpha: 1.0)
           
         electrodeStateButton.isHidden = true
          
@@ -513,10 +538,7 @@ extension YCECGMeasureViewController {
                 // 刚开始还没有数据
                 if drawLineDatas.isEmpty {
                     
-                    // 开启定时器
                     setupMeasurementTimer()
-                    
-                    // 开始绘图
                     setupDarwEcgLineTimer()
                 }
                 
@@ -564,7 +586,8 @@ extension YCECGMeasureViewController {
             
             if healthData.hrv > 0 {
                 
-                if healthData.hrv > 0 && healthData.hrv <= HRV_LIMIT_VALUE {
+                if healthData.hrv > 0 &&
+                    healthData.hrv <= HRV_LIMIT_VALUE {
                 
                     isUseDeviceHRV = true
                     hrvValueLabel.text = "\(healthData.hrv)"
@@ -598,7 +621,7 @@ extension YCECGMeasureViewController {
  
     }
     
-    
+
     /// 销毁ECG通知
     private func destoryECGNotification() {
         
@@ -606,30 +629,27 @@ extension YCECGMeasureViewController {
     }
 }
 
-// MARK: - ECG 测试
+// MARK: - ECG Measure
 extension YCECGMeasureViewController {
     
-    /// 显示ECG测试报告
-    private func showECGMeaaurementReport(_ time: Int) {
+    /// 显示ECG测试报告 show Report
+    private func showECGMeaaurementReport(_ result: YCECGMeasurementResult) {
         
+        let vc = YCECGReportViewController()
+        let ecgInfo = YCHealthLocalECGInfo()
         
-        let vc = YCECGShowViewController()
-        vc.heartRate = heartRate
-        vc.hrv = hrvValue
-        vc.systolicBloodPressure = systolicBloodPressure
-        vc.diastolicBloodPressure = diastolicBloodPressure
-        vc.ecgDatas = ecgOriginalDatas
+        ecgInfo.heartRate = heartRate
+        ecgInfo.hrv = hrvValue
+        ecgInfo.systolicBloodPressure = systolicBloodPressure
+        ecgInfo.diastolicBloodPressure = diastolicBloodPressure
+        ecgInfo.ecgDatas = ecgOriginalDatas
+        ecgInfo.qrsType = result.qrsType
+        ecgInfo.afflag = result.afflag
+        
+        vc.ecgInfo = ecgInfo
         
         navigationController?.pushViewController(vc, animated: true)
-        
-         
-//        let reportViewController =
-//            YCECGReportViewController()
-//
-//        reportViewController.ecgInfo = ecgInfo
-//
-//        self?.navigationController?.pushViewController(
-//            reportViewController, animated: true)
+  
     }
     
     /// 结束测试
@@ -667,6 +687,7 @@ extension YCECGMeasureViewController {
             return
         }
         
+        // get ecg result
         ecgAlgorithmManager.getECGMeasurementResult(deviceHeartRate: heartRate > 0 ? heartRate : nil, deviceHRV: hrvValue > 0 ? hrvValue : nil) { result in
             
             print(result.hearRate,
@@ -675,23 +696,23 @@ extension YCECGMeasureViewController {
             )
             
             
-            let bodyInfo =
-            self.ecgAlgorithmManager.getPhysicalIndexParameters()
-            
-            if bodyInfo.isAvailable {
-                
-                print("heavyLoad = \(bodyInfo.heavyLoad), pressure = \(bodyInfo.pressure), hrvNorm = \(bodyInfo.hrvNorm), body = \(bodyInfo.body) ")
-            }
+//            let bodyInfo =
+//            self.ecgAlgorithmManager.getPhysicalIndexParameters()
+//
+//            if bodyInfo.isAvailable {
+//
+//                print("heavyLoad = \(bodyInfo.heavyLoad), pressure = \(bodyInfo.pressure), hrvNorm = \(bodyInfo.hrvNorm), body = \(bodyInfo.body) ")
+//            }
             
           
             // 展示测试报告
             self.showECGMeaaurementReport(
-                Int(Date().timeIntervalSince1970)
+                result
             )
             
         }
         
-        // 显示界面
+
         hrvValueLabel.text = "\(hrvValue)"
         
         if heartRate > 0 {
@@ -739,8 +760,7 @@ extension YCECGMeasureViewController {
         
         ecgAlgorithmManager.setupManagerInfo { [weak self] rr, heartRate in
             
-            //  检查到RR间隔
-            print("=== 播放音效")
+            //  检查到RR间隔 
             self?.audioPlayer.play()
             
         } hrv: {  [weak self] hrv in
@@ -778,7 +798,6 @@ extension YCECGMeasureViewController {
             stopMeasuringECG()
             return
         }
-         
         
         measurementTipsView.isHidden = false
     }
@@ -788,15 +807,18 @@ extension YCECGMeasureViewController {
         
         if isMeasuring {
             
-            startMeasuringButton.setTitle("Stop", for: .normal)
+            startMeasuringButton.setTitle(
+                "Stop",
+                for: .normal
+            )
             
         } else {
             
             startMeasuringButton.setTitle(
                 "Start",
-                for: .normal)
+                for: .normal
+            )
             
-            // 进度条
             measureProgressView.layer.cornerRadius = 0
             measureProgressView.progressCornerRadius = 0
             measureProgressView.progressColors = [UIColor.red]

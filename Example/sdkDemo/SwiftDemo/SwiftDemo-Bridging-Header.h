@@ -3,4 +3,6 @@
 //
 
 #import "YCECGDrawLineView.h"
+#import "YCECGReportBigPictureView.h"
+#import "YCECGReportPictureView.h"
 #import "MBProgressHUD+WJExtension.h"
