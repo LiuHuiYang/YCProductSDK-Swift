@@ -8,6 +8,7 @@
 #import "ViewController.h"
 @import YCProductSDK;
 @import CoreBluetooth;
+#import "ObjcDemo-Swift.h"
 
 @interface ViewController ()
 
@@ -47,14 +48,35 @@
 - (void)bleStateChanged:(NSNotification *)ntf {
 
     NSDictionary *info = ntf.userInfo;
+//    CBPeripheral *obj = info[YCProduct.connectDeviceKey];
+ 
+//    NSLog(@" == %@, %@", obj.name, @(state));
     
-    CBPeripheral *obj = info[YCProduct.connectDeviceKey];
+     id obj = info[YCProduct.connecteStateKey];
+     
+   NSInteger st =  [YCDeviceTools getSwiftValueRawValue:obj];
     
-    NSLog(@" == %@", obj.name);
+    NSLog(@"st = %zd", st);
 }
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [YCProduct queryDeviceElectrodePosition:nil completion:^(enum YCProductState state, id _Nullable response)  {
+        
+        NSLog(@"==== %@", response);
+        
+    }];
+//    
+//    return;
+    
+//    [YCProduct queryDeviceRealTimeTemperature:nil completion:^(enum YCProductState state, id _Nullable response) {
+//
+//        NSLog(@"==== %@", response);
+//
+//    }];
+    
+    return;
     
     [YCProduct startECGMeasurement:YCProduct.shared.currentPeripheral completion:^(enum YCProductState state, id _Nullable response) {
         

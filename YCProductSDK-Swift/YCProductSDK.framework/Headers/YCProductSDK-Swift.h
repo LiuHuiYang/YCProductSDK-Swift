@@ -1522,6 +1522,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 @end
 
 
+
 enum YCProductLogLevel : NSInteger;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1532,6 +1533,7 @@ enum YCProductLogLevel : NSInteger;
 ///
 + (void)setLogLevel:(enum YCProductLogLevel)printLevel saveLevel:(enum YCProductLogLevel)saveLevel;
 @end
+
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1574,7 +1576,6 @@ enum YCQueryHealthDataType : uint8_t;
 + (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral datatType:(enum YCDeleteHealthDataType)datatType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
-
 @class NSData;
 @class UIImage;
 @class YCWatchFaceDataBmpInfo;
@@ -1604,11 +1605,35 @@ enum YCQueryHealthDataType : uint8_t;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
 @end
 
-
+enum YCWeatherPeriodType : uint8_t;
+enum YCWeatherCodeType : uint8_t;
+enum YCWeatherMoonType : uint8_t;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 清理队列
-- (void)clearQueue;
+/// 发送天气
+/// \param peripheral 连接外设
+///
+/// \param whichDay 今天还是明天的天气
+///
+/// \param lowestTemperature 最低温度 摄氏度
+///
+/// \param highestTemperature 最高温度 摄氏度
+///
+/// \param realTimeTemperature 当前天气温度 摄氏度
+///
+/// \param weatherType 天气类型
+///
+/// \param windDirection 风向
+///
+/// \param windPower 风力
+///
+/// \param location 城市
+///
+/// \param moonType 月相
+///
+/// \param completion 发送结果
+///
++ (void)sendWeatherData:(CBPeripheral * _Nullable)peripheral whichDay:(enum YCWeatherPeriodType)whichDay lowestTemperature:(int8_t)lowestTemperature highestTemperature:(int8_t)highestTemperature realTimeTemperature:(int8_t)realTimeTemperature weatherType:(enum YCWeatherCodeType)weatherType windDirection:(NSString * _Nonnull)windDirection windPower:(NSString * _Nonnull)windPower location:(NSString * _Nonnull)location moonType:(enum YCWeatherMoonType)moonType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 
@@ -1627,23 +1652,10 @@ enum YCQueryHealthDataType : uint8_t;
 + (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
-@class NSError;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 连接设备
-/// \param peripheral <#peripheral description#>
-///
-+ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
-/// 断开连接
-/// \param peripheral <#peripheral description#>
-///
-+ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
-/// 开始扫描设备
-/// \param delayTime 延时停止，默认3秒
-///
-/// \param completion 返回结果
-///
-+ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
+/// 清理队列
+- (void)clearQueue;
 @end
 
 
@@ -1671,6 +1683,25 @@ enum YCQueryHealthDataType : uint8_t;
 /// \param completion 结果
 ///
 + (void)sendAddressBook:(CBPeripheral * _Nullable)peripheral phone:(NSString * _Nonnull)phone name:(NSString * _Nonnull)name completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+@class NSError;
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 连接设备
+/// \param peripheral <#peripheral description#>
+///
++ (void)connectDevice:(CBPeripheral * _Nonnull)peripheral completion:(void (^ _Nullable)(enum YCProductState, NSError * _Nullable))completion;
+/// 断开连接
+/// \param peripheral <#peripheral description#>
+///
++ (void)disconnectDevice:(CBPeripheral * _Nullable)peripheral;
+/// 开始扫描设备
+/// \param delayTime 延时停止，默认3秒
+///
+/// \param completion 返回结果
+///
++ (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
 @end
 
 
@@ -3693,6 +3724,12 @@ typedef SWIFT_ENUM(uint8_t, YCWeatherMoonType, open) {
   YCWeatherMoonTypeFirstQuarterMoon = 6,
   YCWeatherMoonTypeCrescentMoon = 7,
   YCWeatherMoonTypeUnknown = 8,
+};
+
+/// 天气时段
+typedef SWIFT_ENUM(uint8_t, YCWeatherPeriodType, open) {
+  YCWeatherPeriodTypeToday = 0,
+  YCWeatherPeriodTypeTomorrow = 1,
 };
 
 /// 3.5.2.1 星期表示

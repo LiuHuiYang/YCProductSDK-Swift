@@ -55,6 +55,7 @@
 		CA8AB86F288005B800B91963 /* YCECGReportPictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB864288005B800B91963 /* YCECGReportPictureView.m */; };
 		CA8AB870288005B800B91963 /* YCECGPhotoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8AB865288005B800B91963 /* YCECGPhotoViewCell.xib */; };
 		CA8AB871288005B800B91963 /* YCECGPhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB866288005B800B91963 /* YCECGPhotoViewCell.swift */; };
+		CA8AB873288192E400B91963 /* YCDeviceTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB872288192E300B91963 /* YCDeviceTools.swift */; };
 		CAB7B83E27579D2B001B53A7 /* YCECGShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */; };
 		CAB7B83F27579D2B001B53A7 /* YCECGShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */; };
 		CAC2B7E0277D69AE00CF3247 /* ecg_tip.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */; };
@@ -125,6 +126,7 @@
 		CA8AB864288005B800B91963 /* YCECGReportPictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCECGReportPictureView.m; sourceTree = "<group>"; };
 		CA8AB865288005B800B91963 /* YCECGPhotoViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGPhotoViewCell.xib; sourceTree = "<group>"; };
 		CA8AB866288005B800B91963 /* YCECGPhotoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGPhotoViewCell.swift; sourceTree = "<group>"; };
+		CA8AB872288192E300B91963 /* YCDeviceTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCDeviceTools.swift; sourceTree = "<group>"; };
 		CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGShowViewController.swift; sourceTree = "<group>"; };
 		CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGShowViewController.xib; sourceTree = "<group>"; };
 		CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ecg_tip.m4a; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				CA15820F2754E0440073C514 /* SceneDelegate.m */,
 				CA1582112754E0440073C514 /* ViewController.h */,
 				CA1582122754E0440073C514 /* ViewController.m */,
+				CA8AB872288192E300B91963 /* YCDeviceTools.swift */,
 				CA1582242754E11D0073C514 /* swiftFile.swift */,
 				CA1582142754E0440073C514 /* Main.storyboard */,
 				CA1582172754E0450073C514 /* Assets.xcassets */,
@@ -661,6 +664,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1582132754E0440073C514 /* ViewController.m in Sources */,
+				CA8AB873288192E400B91963 /* YCDeviceTools.swift in Sources */,
 				CA15820D2754E0440073C514 /* AppDelegate.m in Sources */,
 				CA15821E2754E0450073C514 /* main.m in Sources */,
 				CA1582252754E11D0073C514 /* swiftFile.swift in Sources */,

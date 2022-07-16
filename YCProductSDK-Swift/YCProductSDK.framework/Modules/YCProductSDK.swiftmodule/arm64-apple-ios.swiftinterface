@@ -1273,7 +1273,8 @@ extension YCProductSDK.YCProduct {
   @objc public static func sendAddressBook(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, phone: Swift.String, name: Swift.String, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
 }
 extension YCProductSDK.YCProduct {
-  public static func sendWeatherData(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isTomorrow: Swift.Bool = false, lowestTemperature: Swift.Int8, highestTemperature: Swift.Int8, realTimeTemperature: Swift.Int8, weatherType: YCProductSDK.YCWeatherCodeType, windDirection: Swift.String?, windPower: Swift.String?, location: Swift.String?, moonType: YCProductSDK.YCWeatherMoonType?, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  @objc public static func sendWeatherData(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, whichDay: YCProductSDK.YCWeatherPeriodType = .today, lowestTemperature: Swift.Int8, highestTemperature: Swift.Int8, realTimeTemperature: Swift.Int8, weatherType: YCProductSDK.YCWeatherCodeType, windDirection: Swift.String = "", windPower: Swift.String = "", location: Swift.String = "", moonType: YCProductSDK.YCWeatherMoonType = .unknown, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
+  public static func sendWeatherData(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isTomorrow: Swift.Bool = false, lowestTemperature: Swift.Int8, highestTemperature: Swift.Int8, realTimeTemperature: Swift.Int8, weatherType: YCProductSDK.YCWeatherCodeType, windDirection: Swift.String? = nil, windPower: Swift.String? = nil, location: Swift.String? = nil, moonType: YCProductSDK.YCWeatherMoonType? = nil, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
 }
 extension YCProductSDK.YCProduct {
   @objc public static func downloadWatchFace(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, isEnable: Swift.Bool, data: Foundation.NSData, dialID: Swift.UInt32, blockCount: Swift.UInt16, dialVersion: Swift.UInt16, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
@@ -1565,6 +1566,15 @@ extension YCProductSDK.YCProduct {
   case ppg = 0
   case ecg
   case multiAxisSensor
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc public enum YCWeatherPeriodType : Swift.UInt8 {
+  case today = 0
+  case tomorrow
   public init?(rawValue: Swift.UInt8)
   public typealias RawValue = Swift.UInt8
   public var rawValue: Swift.UInt8 {
@@ -2945,6 +2955,9 @@ extension YCProductSDK.YCWaveDataType : Swift.RawRepresentable {}
 extension YCProductSDK.YCQuerySampleRateType : Swift.Equatable {}
 extension YCProductSDK.YCQuerySampleRateType : Swift.Hashable {}
 extension YCProductSDK.YCQuerySampleRateType : Swift.RawRepresentable {}
+extension YCProductSDK.YCWeatherPeriodType : Swift.Equatable {}
+extension YCProductSDK.YCWeatherPeriodType : Swift.Hashable {}
+extension YCProductSDK.YCWeatherPeriodType : Swift.RawRepresentable {}
 extension YCProductSDK.YCWeatherCodeType : Swift.Equatable {}
 extension YCProductSDK.YCWeatherCodeType : Swift.Hashable {}
 extension YCProductSDK.YCWeatherCodeType : Swift.RawRepresentable {}
