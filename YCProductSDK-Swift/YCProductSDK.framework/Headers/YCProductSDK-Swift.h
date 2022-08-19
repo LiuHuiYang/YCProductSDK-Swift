@@ -337,6 +337,7 @@ typedef SWIFT_ENUM(uint8_t, YCCollectDataType, open) {
   YCCollectDataTypeNineAxisSensor = 4,
   YCCollectDataTypeTriaxialMagnetometer = 5,
   YCCollectDataTypeInflationBloodPressure = 6,
+  YCCollectDataTypePpi = 7,
 };
 
 /// 删除健康数据的类型定义

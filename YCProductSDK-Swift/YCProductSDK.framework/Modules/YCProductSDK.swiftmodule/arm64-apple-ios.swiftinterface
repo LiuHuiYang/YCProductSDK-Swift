@@ -554,6 +554,7 @@ extension YCProductSDK.YCProductUserConfiguration {
   case nineAxisSensor
   case triaxialMagnetometer
   case inflationBloodPressure
+  case ppi
   public var toString: Swift.String {
     get
   }
