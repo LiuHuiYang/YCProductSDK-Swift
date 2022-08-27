@@ -337,6 +337,7 @@ typedef SWIFT_ENUM(uint8_t, YCCollectDataType, open) {
   YCCollectDataTypeNineAxisSensor = 4,
   YCCollectDataTypeTriaxialMagnetometer = 5,
   YCCollectDataTypeInflationBloodPressure = 6,
+  YCCollectDataTypePpi = 7,
 };
 
 /// 删除健康数据的类型定义
@@ -3245,6 +3246,8 @@ SWIFT_CLASS("_TtC12YCProductSDK29YCProductFunctionSupportItems")
 @property (nonatomic, readonly) BOOL isSupportVibrationIntensitySetting;
 /// 亮屏时间设置
 @property (nonatomic, readonly) BOOL isSupportScreenTimeSetting;
+/// 亮屏亮度调节
+@property (nonatomic, readonly) BOOL isSupportScreenBrightnessAdjust;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

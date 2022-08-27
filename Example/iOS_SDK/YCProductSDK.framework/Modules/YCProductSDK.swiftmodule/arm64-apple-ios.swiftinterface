@@ -543,6 +543,9 @@ extension YCProductSDK.YCProductUserConfiguration {
   @objc public var isSupportScreenTimeSetting: Swift.Bool {
     get
   }
+  @objc public var isSupportScreenBrightnessAdjust: Swift.Bool {
+    get
+  }
   @objc override dynamic public init()
   @objc deinit
 }
@@ -554,6 +557,7 @@ extension YCProductSDK.YCProductUserConfiguration {
   case nineAxisSensor
   case triaxialMagnetometer
   case inflationBloodPressure
+  case ppi
   public var toString: Swift.String {
     get
   }

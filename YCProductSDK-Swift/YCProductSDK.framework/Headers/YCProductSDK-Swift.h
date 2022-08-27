@@ -3246,6 +3246,8 @@ SWIFT_CLASS("_TtC12YCProductSDK29YCProductFunctionSupportItems")
 @property (nonatomic, readonly) BOOL isSupportVibrationIntensitySetting;
 /// 亮屏时间设置
 @property (nonatomic, readonly) BOOL isSupportScreenTimeSetting;
+/// 亮屏亮度调节
+@property (nonatomic, readonly) BOOL isSupportScreenBrightnessAdjust;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
