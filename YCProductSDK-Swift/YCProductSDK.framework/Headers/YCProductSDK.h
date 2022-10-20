@@ -18,5 +18,3 @@ FOUNDATION_EXPORT const unsigned char YCProductSDKVersionString[];
 #import "YCWatchFaceManager.h"
 #import "YCECGAlgorithmManager.h"
 
-// 杰理的BLE基础库
-#import "JL_BLEKit.h"
