@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		19914F0ACEF80BB6D38EE68F /* libPods-SwiftDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E870874FA04E877CD9D2884B /* libPods-SwiftDemo.a */; };
-		CA154681285871E2003265FD /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA154680285871E2003265FD /* YCProductSDK.framework */; };
-		CA154682285871E2003265FD /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA154680285871E2003265FD /* YCProductSDK.framework */; };
 		CA1581862754C6B20073C514 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1581852754C6B20073C514 /* AppDelegate.swift */; };
 		CA1581882754C6B20073C514 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1581872754C6B20073C514 /* SceneDelegate.swift */; };
 		CA15818A2754C6B20073C514 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1581892754C6B20073C514 /* ViewController.swift */; };
@@ -34,6 +32,8 @@
 		CA1582492754FDE00073C514 /* YCECGMeasureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1582412754FDE00073C514 /* YCECGMeasureViewController.xib */; };
 		CA15824A2754FDE00073C514 /* YCGradientProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1582442754FDE00073C514 /* YCGradientProgressView.swift */; };
 		CA15824B2754FDE00073C514 /* YCECGDrawLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1582472754FDE00073C514 /* YCECGDrawLineView.m */; };
+		CA15C3BB290AAAA9000E687B /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA15C3BA290AAAA9000E687B /* YCProductSDK.framework */; };
+		CA15C3BC290AAAA9000E687B /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA15C3BA290AAAA9000E687B /* YCProductSDK.framework */; };
 		CA1F854A275DB4640060C475 /* YCAppControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F8548275DB4640060C475 /* YCAppControlViewController.swift */; };
 		CA1F854B275DB4640060C475 /* YCAppControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1F8549275DB4640060C475 /* YCAppControlViewController.xib */; };
 		CA1F854F275DC17F0060C475 /* YCSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F854D275DC17F0060C475 /* YCSettingViewController.swift */; };
@@ -69,7 +69,6 @@
 		A75B1B61EE37F0A3F5C14301 /* Pods-ObjcDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjcDemo.release.xcconfig"; path = "Target Support Files/Pods-ObjcDemo/Pods-ObjcDemo.release.xcconfig"; sourceTree = "<group>"; };
 		AA999FD1E4B8A9FF39FE17CC /* Pods-ObjcDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjcDemo.debug.xcconfig"; path = "Target Support Files/Pods-ObjcDemo/Pods-ObjcDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C8C475C791BC3BEBB8BE75EB /* Pods-SwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDemo.release.xcconfig"; path = "Target Support Files/Pods-SwiftDemo/Pods-SwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
-		CA154680285871E2003265FD /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CA1581832754C6B20073C514 /* SwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1581852754C6B20073C514 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA1581872754C6B20073C514 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +103,7 @@
 		CA1582442754FDE00073C514 /* YCGradientProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCGradientProgressView.swift; sourceTree = "<group>"; };
 		CA1582462754FDE00073C514 /* YCECGDrawLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCECGDrawLineView.h; sourceTree = "<group>"; };
 		CA1582472754FDE00073C514 /* YCECGDrawLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCECGDrawLineView.m; sourceTree = "<group>"; };
+		CA15C3BA290AAAA9000E687B /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CA1F8548275DB4640060C475 /* YCAppControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCAppControlViewController.swift; sourceTree = "<group>"; };
 		CA1F8549275DB4640060C475 /* YCAppControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCAppControlViewController.xib; sourceTree = "<group>"; };
 		CA1F854D275DC17F0060C475 /* YCSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCSettingViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19914F0ACEF80BB6D38EE68F /* libPods-SwiftDemo.a in Frameworks */,
-				CA154681285871E2003265FD /* YCProductSDK.framework in Frameworks */,
+				CA15C3BB290AAAA9000E687B /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC71D1AEEF0D8A8693B1B7D1 /* libPods-ObjcDemo.a in Frameworks */,
-				CA154682285871E2003265FD /* YCProductSDK.framework in Frameworks */,
+				CA15C3BC290AAAA9000E687B /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,10 +194,10 @@
 		CA1581842754C6B20073C514 /* SwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
-				CA154680285871E2003265FD /* YCProductSDK.framework */,
 				CA1581852754C6B20073C514 /* AppDelegate.swift */,
 				CA1581872754C6B20073C514 /* SceneDelegate.swift */,
 				CA1581892754C6B20073C514 /* ViewController.swift */,
+				CA15C3BA290AAAA9000E687B /* YCProductSDK.framework */,
 				CA1581F52754C85B0073C514 /* Classes */,
 				CA15818B2754C6B20073C514 /* Main.storyboard */,
 				CA15818E2754C6B40073C514 /* Assets.xcassets */,

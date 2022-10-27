@@ -76,9 +76,9 @@ class ViewController: UIViewController {
     
     @objc private func searchDevice() {
         
-        if YCProduct.shared.currentPeripheral != nil {
-            return
-        }
+//        if YCProduct.shared.currentPeripheral != nil {
+//            return
+//        }
         
         navigationController?.pushViewController(
             YCSearchDeviceViewController(),
@@ -169,7 +169,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 //            }
             
             // 断开连接
-            YCProduct.disconnectDevice()
+            YCProduct.disconnectDevice { state, error in
+                
+            }
             
             break
         }

@@ -227,26 +227,6 @@ enum YCDeviceMCUType : uint8_t;
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
-/// 杰理固件升级状态
-typedef SWIFT_ENUM(NSInteger, JLDeviceUpdateState, open) {
-  JLDeviceUpdateStateStart = 0,
-  JLDeviceUpdateStateResourceUpdating = 1,
-  JLDeviceUpdateStateUpdateResourceFinished = 2,
-  JLDeviceUpdateStateUiUpdating = 3,
-  JLDeviceUpdateStateUpdateUIFinished = 4,
-  JLDeviceUpdateStateUpgrading = 5,
-  JLDeviceUpdateStateSuccess = 6,
-  JLDeviceUpdateStateFailed = 7,
-};
-
-/// 表盘安装状态
-typedef SWIFT_ENUM(NSInteger, JLDeviceWatchFaceState, open) {
-  JLDeviceWatchFaceStateNoSpace = 0,
-  JLDeviceWatchFaceStateInstalling = 1,
-  JLDeviceWatchFaceStateSuccess = 2,
-  JLDeviceWatchFaceStateFailed = 3,
-};
-
 /// App 启动测量数据的测量方式
 typedef SWIFT_ENUM(uint8_t, YCAppControlHealthDataMeasureType, open) {
   YCAppControlHealthDataMeasureTypeOff = 0,
@@ -513,21 +493,6 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceBreathScreenInterval, open) {
   YCDeviceBreathScreenIntervalTwenty = 4,
   YCDeviceBreathScreenIntervalTwentyFive = 5,
 };
-
-
-/// 通讯录信息
-SWIFT_CLASS("_TtC12YCProductSDK19YCDeviceContactItem")
-@interface YCDeviceContactItem : NSObject
-/// 姓名
-@property (nonatomic, copy) NSString * _Nonnull name;
-/// 电话
-@property (nonatomic, copy) NSString * _Nonnull phone;
-/// 是否存在于设备中
-@property (nonatomic) BOOL isExistDevice;
-- (nonnull instancetype)initWithName:(NSString * _Nonnull)name phone:(NSString * _Nonnull)phone isExist:(BOOL)isExist OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
 
 
 /// 精准血压测量结束测量返回信息
@@ -1507,20 +1472,6 @@ typedef SWIFT_ENUM(uint8_t, YCHealthState, open) {
   YCHealthStateInvalid = 0xFF,
 };
 
-
-/// 表盘版本信息
-SWIFT_CLASS("_TtC12YCProductSDK30YCJLDeviceWatchFaceVersionInfo")
-@interface YCJLDeviceWatchFaceVersionInfo : NSObject
-/// 表盘名称
-@property (nonatomic, copy) NSString * _Nonnull name;
-/// 表盘的id
-@property (nonatomic, copy) NSString * _Nonnull dialID;
-/// 表盘的版本
-@property (nonatomic, copy) NSString * _Nonnull version;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
 /// 健康数据回写类型
 typedef SWIFT_ENUM(uint8_t, YCMeasurementDataWritebackType, open) {
   YCMeasurementDataWritebackTypeHeartRate = 0,
@@ -1545,7 +1496,6 @@ typedef SWIFT_ENUM(uint8_t, YCPersonalInfoType, open) {
 };
 
 enum YCProductState : NSInteger;
-@class JL_Assist;
 
 /// SDK的公共类
 SWIFT_CLASS("_TtC12YCProductSDK9YCProduct")
@@ -1561,14 +1511,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) YCProduct * 
 @property (nonatomic, readonly, strong) CBPeripheral * _Nullable currentPeripheral;
 /// 当前连接的所有的外设 (保留参数，扩展使用)
 @property (nonatomic, readonly, copy) NSArray<CBPeripheral *> * _Nonnull connectedPeripherals;
-/// 杰理的工具类
-@property (nonatomic, readonly, strong) JL_Assist * _Nonnull jlAssist;
 /// 初始化配置
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 /// 回连
 - (void)reconnectedDevice;
 @end
+
 
 
 enum YCProductLogLevel : NSInteger;
@@ -1583,18 +1532,46 @@ enum YCProductLogLevel : NSInteger;
 @end
 
 
+
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 更新资源
-/// \param filePath 升级文件路径
+/// 预置表盘下载任务
+/// \param peripheral 连接的设备
 ///
-/// \param dialCachee 表盘信息
+/// \param isEnable 开启或关闭
 ///
-/// \param completion 更新结果
+/// \param completion 结果
 ///
-+ (void)updateJLDeviceResourceWithFilePath:(NSString * _Nonnull)filePath dialCache:(NSArray<NSString *> * _Nonnull)dialCache completion:(void (^ _Nullable)(enum JLDeviceUpdateState, float))completion;
++ (void)presetWathcFaceTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 开机Logo下载任务
+/// \param peripheral 连接的设备
+///
+/// \param isEnable 开启或关闭
+///
+/// \param completion 结果
+///
++ (void)bootLogoTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
+enum YCQueryHealthDataType : uint8_t;
 
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 查询健康数据
+/// \param peripheral 当前设备
+///
+/// \param dataType 数据类型
+///
+/// \param completion 调用结果
+///
++ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCQueryHealthDataType)dataType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 删除健康数据
+/// \param peripheral 当前连接的设备
+///
+/// \param dataType 删除的数据类型
+///
+/// \param completion 删除是否成功
+///
++ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCDeleteHealthDataType)dataType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
 
 @class NSData;
 @class UIImage;
@@ -1623,102 +1600,6 @@ enum YCProductLogLevel : NSInteger;
 /// 表盘文件
 + (NSData * _Nonnull)generateCustomDialData:(NSData * _Nonnull)dialData backgroundImage:(UIImage * _Nullable)backgroundImage thumbnail:(UIImage * _Nullable)thumbnail timePosition:(CGPoint)timePosition redColor:(uint8_t)redColor greenColor:(uint8_t)greenColor blueColor:(uint8_t)blueColor isFlipColor:(BOOL)isFlipColor SWIFT_WARN_UNUSED_RESULT;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
-@end
-
-enum YCQueryHealthDataType : uint8_t;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询健康数据
-/// \param peripheral 当前设备
-///
-/// \param dataType 数据类型
-///
-/// \param completion 调用结果
-///
-+ (void)queryHealthData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCQueryHealthDataType)dataType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 删除健康数据
-/// \param peripheral 当前连接的设备
-///
-/// \param dataType 删除的数据类型
-///
-/// \param completion 删除是否成功
-///
-+ (void)deleteHealthData:(CBPeripheral * _Nullable)peripheral dataType:(enum YCDeleteHealthDataType)dataType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 预置表盘下载任务
-/// \param peripheral 连接的设备
-///
-/// \param isEnable 开启或关闭
-///
-/// \param completion 结果
-///
-+ (void)presetWathcFaceTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 开机Logo下载任务
-/// \param peripheral 连接的设备
-///
-/// \param isEnable 开启或关闭
-///
-/// \param completion 结果
-///
-+ (void)bootLogoTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询杰理的当前显示表盘
-/// \param completion 表盘名称
-///
-+ (void)queryJLDeviceCurrentWatchFace:(void (^ _Nullable)(NSString * _Nonnull))completion;
-/// 查询杰理表盘的当前表盘信息
-/// \param completion isSuccess: 查询是否成功, dials: 表盘名称, customDials: 自定义表盘名称
-///
-+ (void)queryJLDeviceLocalWatchFaceInfo:(void (^ _Nullable)(BOOL, NSArray<NSString *> * _Nonnull, NSArray<NSString *> * _Nonnull))completion;
-/// 查询表盘的版本信息
-/// \param dials <#dials description#>
-///
-/// \param completion <#completion description#>
-///
-+ (void)queryJLDeviceWatchVersionInfo:(NSArray<NSString *> * _Nonnull)dials completion:(void (^ _Nullable)(NSArray<YCJLDeviceWatchFaceVersionInfo *> * _Nonnull))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 是否强制升级
-///
-/// returns:
-/// true 强制升级
-+ (BOOL)isJLDeviceForceOTA SWIFT_WARN_UNUSED_RESULT;
-/// 杰理设备升级文件
-/// \param filePath 升级文件路径
-///
-/// \param completion state 升级状态, progerss：进度 0 ~ 1.0, didSend: 已发送字节数
-///
-+ (void)jlDeviceUpgradeFirmwareWithFilePath:(NSString * _Nonnull)filePath completion:(void (^ _Nullable)(enum JLDeviceUpdateState, float, float))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 清理队列
-- (void)clearQueue;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 开始ECG测量
-/// \param peripheral 连接设备
-///
-/// \param completion 是否开启成功
-///
-+ (void)startECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 关闭ECG测量
-/// \param peripheral 连接设备
-///
-/// \param completion 是否关闭成功
-///
-+ (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 enum YCWeatherPeriodType : uint8_t;
@@ -1754,28 +1635,24 @@ enum YCWeatherMoonType : uint8_t;
 
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 安装杰理表盘
-/// \param watchFaceName 表盘名称
+/// 开始ECG测量
+/// \param peripheral 连接设备
 ///
-/// \param dialData 表盘数据
+/// \param completion 是否开启成功
 ///
-/// \param completion 安装进度progress 0 ~ 1.0 与结果 state
++ (void)startECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 关闭ECG测量
+/// \param peripheral 连接设备
 ///
-+ (void)installJLDeviceWatchFace:(NSString * _Nonnull)watchFaceName dialData:(NSData * _Nonnull)dialData completion:(void (^ _Nonnull)(enum JLDeviceWatchFaceState, float))completion;
-/// 删除表盘
-/// \param watchFaceName 表盘名称
+/// \param completion 是否关闭成功
 ///
-/// \param compleiton 删除是否成功
-///
-+ (void)deleteJLDeviceWatchFace:(NSString * _Nonnull)watchFaceName completion:(void (^ _Nullable)(BOOL))completion;
-/// 设置杰理表盘
-/// \param watchFaceName 表盘名称
-///
-/// \param isCustomWatchFace 是否为自定义表盘
-///
-/// \param completion 设置是否成功
-///
-+ (void)settingJLDeviceWatchFace:(NSString * _Nonnull)watchFaceName isCustomWatchFace:(BOOL)isCustomWatchFace completion:(void (^ _Nullable)(BOOL))completion;
++ (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 清理队列
+- (void)clearQueue;
 @end
 
 
@@ -1805,40 +1682,6 @@ enum YCWeatherMoonType : uint8_t;
 + (void)sendAddressBook:(CBPeripheral * _Nullable)peripheral phone:(NSString * _Nonnull)phone name:(NSString * _Nonnull)name completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 转换自定义表盘
-/// \param watchName 表盘名称
-///
-/// \param backgroudImage 背景图片
-///
-/// \param completion customWatchName - 自定义表盘名称， dialData - 表盘文件
-///
-+ (void)convertJLCustomWatchFaceInfo:(NSString * _Nonnull)watchName backgroudImage:(UIImage * _Nonnull)backgroudImage completion:(void (^ _Nonnull)(NSString * _Nonnull, NSData * _Nullable))completion;
-/// 恢复自定义表盘默认图片
-/// \param completion 执行结果
-///
-+ (void)recoverJLCustomWatchFace:(NSString * _Nonnull)watchName completion:(void (^ _Nullable)(BOOL))completion;
-/// 恢复资源
-+ (void)recoveryResource;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 外设固件升级
-/// \param peripheral 连接的设备
-///
-/// \param isEnable 开启或关闭
-///
-/// \param firmwareType 固件类型
-///
-/// \param data 数据
-///
-/// \param completion 下载进度
-///
-+ (void)embeddedPeripheralFirmwareUpgrade:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable firmwareType:(enum YCEmbeddedPeripheralFirmwareType)firmwareType data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
 @class NSError;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1865,6 +1708,22 @@ enum YCWeatherMoonType : uint8_t;
 + (void)scanningDeviceWithDelayTime:(NSTimeInterval)delayTime completion:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull, NSError * _Nullable))completion;
 /// 停止扫描(SDK会自动调用)
 + (void)stopSearchDevice;
+@end
+
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 外设固件升级
+/// \param peripheral 连接的设备
+///
+/// \param isEnable 开启或关闭
+///
+/// \param firmwareType 固件类型
+///
+/// \param data 数据
+///
+/// \param completion 下载进度
+///
++ (void)embeddedPeripheralFirmwareUpgrade:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable firmwareType:(enum YCEmbeddedPeripheralFirmwareType)firmwareType data:(NSData * _Nonnull)data completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 @class CBCentralManager;
@@ -2043,50 +1902,6 @@ enum YCWeatherMoonType : uint8_t;
 + (void)deleteWatchFace:(CBPeripheral * _Nullable)peripheral dialID:(uint32_t)dialID completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 查询设备联系人信息
-/// \param completion <#completion description#>
-///
-+ (void)queryJLDeviceContactData:(void (^ _Nonnull)(NSArray<YCDeviceContactItem *> * _Nonnull))completion;
-/// 发送联系人信息到设备
-/// \param datas 联系人信息列表
-///
-/// \param completion 发送状态 isSuccess 成功还是失败, progress 0 ~ 1
-///
-+ (void)syncJLContactInfoToDevice:(NSArray<YCDeviceContactItem *> * _Nonnull)datas completion:(void (^ _Nonnull)(BOOL, float))completion;
-@end
-
-@class JL_ManagerM;
-@class JL_FlashOperateManager;
-@class JL_FileManager;
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 命令管理器
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) JL_ManagerM * _Nonnull jlCmdManager;)
-+ (JL_ManagerM * _Nonnull)jlCmdManager SWIFT_WARN_UNUSED_RESULT;
-/// flash管理器
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) JL_FlashOperateManager * _Nonnull jlFlashManager;)
-+ (JL_FlashOperateManager * _Nonnull)jlFlashManager SWIFT_WARN_UNUSED_RESULT;
-/// 文件管理器
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) JL_FileManager * _Nonnull jlFileManager;)
-+ (JL_FileManager * _Nonnull)jlFileManager SWIFT_WARN_UNUSED_RESULT;
-/// 杰理通讯录信息长度
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSInteger jlContactInfoContentLimitLength;)
-+ (NSInteger)jlContactInfoContentLimitLength SWIFT_WARN_UNUSED_RESULT;
-/// 杰理通讯录数量 (10个)
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSInteger jlContactsLimitCount;)
-+ (NSInteger)jlContactsLimitCount SWIFT_WARN_UNUSED_RESULT;
-/// 杰理设备连接初始化
-/// \param completion <#completion description#>
-///
-+ (void)jlDevicePairedInit:(void (^ _Nullable)(BOOL, BOOL))completion;
-/// 打开文件系统
-/// \param completion 打开是否成功
-///
-+ (void)openJLDialFileSystem:(void (^ _Nullable)(BOOL))completion;
-@end
-
 @class NSSet;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -2233,12 +2048,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 /// 杰理设备配对通知
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull jlDevicePariedNotification;)
 + (NSNotificationName _Nonnull)jlDevicePariedNotification SWIFT_WARN_UNUSED_RESULT;
-/// 杰理表盘切换通知
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull jlDeviceWachFaceChangeNotification;)
-+ (NSNotificationName _Nonnull)jlDeviceWachFaceChangeNotification SWIFT_WARN_UNUSED_RESULT;
-/// 杰理表盘切换有key
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull jlDeviceWatcFaceChangeKey;)
-+ (NSString * _Nonnull)jlDeviceWatcFaceChangeKey SWIFT_WARN_UNUSED_RESULT;
 /// 设备状态变化的通知
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull deviceStateNotification;)
 + (NSNotificationName _Nonnull)deviceStateNotification SWIFT_WARN_UNUSED_RESULT;
@@ -2675,9 +2484,9 @@ enum YCWarningInformationType : uint8_t;
 /// 血糖校准
 /// \param peripheral 连接设备
 ///
-/// \param bloodGlucoseInteger 血糖整数
+/// \param temperaturerInteger 血糖整数
 ///
-/// \param bloodGlucoseDecimal 血糖小数
+/// \param temperaturerDecimal 血糖小数
 ///
 /// \param completion 回调
 ///
@@ -3460,8 +3269,6 @@ SWIFT_CLASS("_TtC12YCProductSDK29YCProductFunctionSupportItems")
 @property (nonatomic, readonly) BOOL isSupportScreenBrightnessAdjust;
 /// 血糖测量
 @property (nonatomic, readonly) BOOL isSupportBloodGlucose;
-/// 运动暂停
-@property (nonatomic, readonly) BOOL isSupportSportPause;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

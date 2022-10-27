@@ -58,7 +58,7 @@ extension YCHealthDataViewController {
     
         switch index {
         case 0:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.step) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.step) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataStep] {
                     
@@ -78,7 +78,7 @@ extension YCHealthDataViewController {
             }
             
         case 1:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.sleep) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.sleep) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataSleep] {
                     
@@ -99,7 +99,7 @@ extension YCHealthDataViewController {
             }
             
         case 2:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.heartRate) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.heartRate) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataHeartRate] {
                     
@@ -120,7 +120,7 @@ extension YCHealthDataViewController {
             }
             
         case 3:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.bloodPressure) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.bloodPressure) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataBloodPressure] {
                     
@@ -141,7 +141,7 @@ extension YCHealthDataViewController {
             }
             
         case 4:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.combinedData) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.combinedData) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataCombinedData] {
                     
@@ -162,7 +162,7 @@ extension YCHealthDataViewController {
             }
             
         case 5:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.bloodOxygen) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.bloodOxygen) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataBloodOxygen] {
                     
@@ -183,7 +183,7 @@ extension YCHealthDataViewController {
             }
             
         case 6:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.temperatureHumidity) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.temperatureHumidity) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataTemperatureHumidity] {
                     
@@ -204,7 +204,7 @@ extension YCHealthDataViewController {
             }
             
         case 7:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.bodyTemperature) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.bodyTemperature) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataBodyTemperature] {
                     
@@ -225,7 +225,7 @@ extension YCHealthDataViewController {
             }
             
         case 8:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.ambientLight) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.ambientLight) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataAmbientLight] {
                     
@@ -247,7 +247,7 @@ extension YCHealthDataViewController {
             }
             
         case 9:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.wearState) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.wearState) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataWearStateHistory] {
                     
@@ -268,7 +268,7 @@ extension YCHealthDataViewController {
             }
             
         case 10:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.healthMonitoringData) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.healthMonitoringData) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataMonitor] {
                     
@@ -289,7 +289,7 @@ extension YCHealthDataViewController {
             }
             
         case 11:
-            YCProduct.queryHealthData(datatType: YCQueryHealthDataType.sportModeHistoryData) { state, response in
+            YCProduct.queryHealthData(dataType: YCQueryHealthDataType.sportModeHistoryData) { state, response in
                     
                 if state == .succeed, let datas = response as? [YCHealthDataSportModeHistory] {
                     
@@ -319,73 +319,73 @@ extension YCHealthDataViewController {
         
         switch index {
         case 0:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.step) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.step) { state, response in
                 
                 self.showState(state)
             }
             
         case 1:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.sleep) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.sleep) { state, response in
                 
                 self.showState(state)
             }
             
         case 2:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.heartRate) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.heartRate) { state, response in
                 
                 self.showState(state)
             }
             
         case 3:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.bloodPressure) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.bloodPressure) { state, response in
                 
                 self.showState(state)
             }
             
         case 4:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.combinedData) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.combinedData) { state, response in
                 
                 self.showState(state)
             }
             
         case 5:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.bloodOxygen) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.bloodOxygen) { state, response in
                 
                 self.showState(state)
             }
             
         case 6:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.temperatureHumidity) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.temperatureHumidity) { state, response in
                 
                 self.showState(state)
             }
             
         case 7:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.bodyTemperature) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.bodyTemperature) { state, response in
                 
                 self.showState(state)
             }
             
         case 8:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.ambientLight) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.ambientLight) { state, response in
                 
                 self.showState(state)
             }
             
         case 9:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.wearState) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.wearState) { state, response in
                 
                 self.showState(state)
             }
             
         case 10:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.healthMonitoringData) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.healthMonitoringData) { state, response in
                 
                 self.showState(state)
             }
             
         case 11:
-            YCProduct.deleteHealthData(datatType: YCDeleteHealthDataType.sportModeHistoryData) { state, response in
+            YCProduct.deleteHealthData(dataType: YCDeleteHealthDataType.sportModeHistoryData) { state, response in
                 
                 self.showState(state)
             }

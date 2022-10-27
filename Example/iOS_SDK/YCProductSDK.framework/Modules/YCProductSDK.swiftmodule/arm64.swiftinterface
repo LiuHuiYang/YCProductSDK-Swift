@@ -1,16 +1,13 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7 effective-4.2 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)
-// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -module-name YCProductSDK
-// swift-module-flags-ignorable: -enable-bare-slash-regex
+// swift-compiler-version: Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)
+// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name YCProductSDK
 import CoreBluetooth
 import Foundation
-import JL_BLEKit
 import MobileCoreServices
 import Swift
 import UIKit
 @_exported import YCProductSDK
 import _Concurrency
-import _StringProcessing
 extension CoreBluetooth.CBPeripheral {
   @objc dynamic public var supportItems: YCProductSDK.YCProductFunctionSupportItems {
     @objc get
@@ -1218,7 +1215,6 @@ extension YCProductSDK.YCProductUserConfiguration {
   @objc public var connectedPeripherals: [CoreBluetooth.CBPeripheral] {
     get
   }
-  @objc public var jlAssist: JL_BLEKit.JL_Assist
   @objc public func reconnectedDevice()
   @objc deinit
 }
@@ -1299,7 +1295,7 @@ extension YCProductSDK.YCProduct {
   @objc public static func deleteWatchFace(_ peripheral: CoreBluetooth.CBPeripheral? = YCProduct.shared.currentPeripheral, dialID: Swift.UInt32, completion: ((_ state: YCProductSDK.YCProductState, _ response: Any?) -> ())?)
 }
 extension YCProductSDK.YCProduct {
-  @objc public static func generateCustomDialData(_ dialData: Foundation.Data, backgroundImage: UIKit.UIImage?, thumbnail: UIKit.UIImage?, timePosition: CoreFoundation.CGPoint, redColor: Swift.UInt8, greenColor: Swift.UInt8, blueColor: Swift.UInt8, isFlipColor: Swift.Bool = false) -> Foundation.Data
+  @objc public static func generateCustomDialData(_ dialData: Foundation.Data, backgroundImage: UIKit.UIImage?, thumbnail: UIKit.UIImage?, timePosition: CoreGraphics.CGPoint, redColor: Swift.UInt8, greenColor: Swift.UInt8, blueColor: Swift.UInt8, isFlipColor: Swift.Bool = false) -> Foundation.Data
   @objc public static func queryDeviceBmpInfo(_ dialData: Foundation.Data) -> YCProductSDK.YCWatchFaceDataBmpInfo
 }
 extension YCProductSDK.YCProduct {
