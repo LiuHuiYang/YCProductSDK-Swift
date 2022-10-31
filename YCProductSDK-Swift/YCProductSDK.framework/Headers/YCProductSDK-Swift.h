@@ -259,6 +259,16 @@ typedef SWIFT_ENUM(uint8_t, YCAppControlMeasureMode, open) {
   YCAppControlMeasureModeMonitor = 2,
 };
 
+/// 血糖校准模式
+typedef SWIFT_ENUM(uint8_t, YCBloodGlucoseCalibrationaMode, open) {
+  YCBloodGlucoseCalibrationaModeFasting = 0,
+  YCBloodGlucoseCalibrationaModeAfterBreakfast = 1,
+  YCBloodGlucoseCalibrationaModeBeforeLunch = 2,
+  YCBloodGlucoseCalibrationaModeAfterLunch = 3,
+  YCBloodGlucoseCalibrationaModeBeforeDinner = 4,
+  YCBloodGlucoseCalibrationaModeAfterDinner = 5,
+};
+
 
 /// 身体结果参数
 SWIFT_CLASS("_TtC12YCProductSDK17YCBodyIndexResult")
@@ -460,6 +470,12 @@ typedef SWIFT_ENUM(uint8_t, YCDeviceBatterystate, open) {
   YCDeviceBatterystateLow = 1,
   YCDeviceBatterystateCharging = 2,
   YCDeviceBatterystateFull = 3,
+};
+
+/// 血糖单位
+typedef SWIFT_ENUM(uint8_t, YCDeviceBloodGlucoseType, open) {
+  YCDeviceBloodGlucoseTypeMillimolePerLiter = 0,
+  YCDeviceBloodGlucoseTypeMilligramsPerDeciliterer = 1,
 };
 
 
@@ -1531,27 +1547,6 @@ enum YCProductLogLevel : NSInteger;
 + (void)setLogLevel:(enum YCProductLogLevel)printLevel saveLevel:(enum YCProductLogLevel)saveLevel;
 @end
 
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 预置表盘下载任务
-/// \param peripheral 连接的设备
-///
-/// \param isEnable 开启或关闭
-///
-/// \param completion 结果
-///
-+ (void)presetWathcFaceTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 开机Logo下载任务
-/// \param peripheral 连接的设备
-///
-/// \param isEnable 开启或关闭
-///
-/// \param completion 结果
-///
-+ (void)bootLogoTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
 enum YCQueryHealthDataType : uint8_t;
 
 @interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
@@ -1602,6 +1597,49 @@ enum YCQueryHealthDataType : uint8_t;
 + (YCWatchFaceDataBmpInfo * _Nonnull)queryDeviceBmpInfo:(NSData * _Nonnull)dialData SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 预置表盘下载任务
+/// \param peripheral 连接的设备
+///
+/// \param isEnable 开启或关闭
+///
+/// \param completion 结果
+///
++ (void)presetWathcFaceTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 开机Logo下载任务
+/// \param peripheral 连接的设备
+///
+/// \param isEnable 开启或关闭
+///
+/// \param completion 结果
+///
++ (void)bootLogoTask:(CBPeripheral * _Nullable)peripheral isEnable:(BOOL)isEnable completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
+
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 清理队列
+- (void)clearQueue;
+@end
+
+
+@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
+/// 开始ECG测量
+/// \param peripheral 连接设备
+///
+/// \param completion 是否开启成功
+///
++ (void)startECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// 关闭ECG测量
+/// \param peripheral 连接设备
+///
+/// \param completion 是否关闭成功
+///
++ (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+@end
+
 enum YCWeatherPeriodType : uint8_t;
 enum YCWeatherCodeType : uint8_t;
 enum YCWeatherMoonType : uint8_t;
@@ -1631,28 +1669,6 @@ enum YCWeatherMoonType : uint8_t;
 /// \param completion 发送结果
 ///
 + (void)sendWeatherData:(CBPeripheral * _Nullable)peripheral whichDay:(enum YCWeatherPeriodType)whichDay lowestTemperature:(int8_t)lowestTemperature highestTemperature:(int8_t)highestTemperature realTimeTemperature:(int8_t)realTimeTemperature weatherType:(enum YCWeatherCodeType)weatherType windDirection:(NSString * _Nonnull)windDirection windPower:(NSString * _Nonnull)windPower location:(NSString * _Nonnull)location moonType:(enum YCWeatherMoonType)moonType completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 开始ECG测量
-/// \param peripheral 连接设备
-///
-/// \param completion 是否开启成功
-///
-+ (void)startECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-/// 关闭ECG测量
-/// \param peripheral 连接设备
-///
-/// \param completion 是否关闭成功
-///
-+ (void)stopECGMeasurement:(CBPeripheral * _Nullable)peripheral completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
-@end
-
-
-@interface YCProduct (SWIFT_EXTENSION(YCProductSDK))
-/// 清理队列
-- (void)clearQueue;
 @end
 
 
@@ -2045,9 +2061,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 /// 光电传感器状态
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull photoelectricSensorStateKey;)
 + (NSString * _Nonnull)photoelectricSensorStateKey SWIFT_WARN_UNUSED_RESULT;
-/// 杰理设备配对通知
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull jlDevicePariedNotification;)
-+ (NSNotificationName _Nonnull)jlDevicePariedNotification SWIFT_WARN_UNUSED_RESULT;
 /// 设备状态变化的通知
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull deviceStateNotification;)
 + (NSNotificationName _Nonnull)deviceStateNotification SWIFT_WARN_UNUSED_RESULT;
@@ -2484,13 +2497,15 @@ enum YCWarningInformationType : uint8_t;
 /// 血糖校准
 /// \param peripheral 连接设备
 ///
-/// \param temperaturerInteger 血糖整数
+/// \param bloodGlucoseInteger 血糖整数
 ///
-/// \param temperaturerDecimal 血糖小数
+/// \param bloodGlucoseDecimal 血糖小数
 ///
-/// \param completion 回调
+/// \param mode 校准模式
 ///
-+ (void)bloodGlucoseCalibration:(CBPeripheral * _Nullable)peripheral bloodGlucoseInteger:(int8_t)bloodGlucoseInteger bloodGlucoseDecimal:(int8_t)bloodGlucoseDecimal completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// \param completion 结果
+///
++ (void)bloodGlucoseCalibration:(CBPeripheral * _Nullable)peripheral bloodGlucoseInteger:(int8_t)bloodGlucoseInteger bloodGlucoseDecimal:(int8_t)bloodGlucoseDecimal mode:(enum YCBloodGlucoseCalibrationaMode)mode completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 @end
 
 enum YCWeekDay : uint8_t;
@@ -2609,9 +2624,11 @@ enum YCTemperatureType : uint8_t;
 ///
 /// \param timeFormat 时间格式12小时制/24小时制
 ///
-/// \param completion <#completion description#>
+/// \param bloodGlucose 血糖单位
 ///
-+ (void)setDeviceUnit:(CBPeripheral * _Nullable)peripheral distance:(enum YCDeviceDistanceType)distance weight:(enum YCDeviceWeightType)weight temperature:(enum YCDeviceTemperatureType)temperature timeFormat:(enum YCDeviceTimeType)timeFormat completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
+/// \param completion 设置结果
+///
++ (void)setDeviceUnit:(CBPeripheral * _Nullable)peripheral distance:(enum YCDeviceDistanceType)distance weight:(enum YCDeviceWeightType)weight temperature:(enum YCDeviceTemperatureType)temperature timeFormat:(enum YCDeviceTimeType)timeFormat bloodGlucose:(enum YCDeviceBloodGlucoseType)bloodGlucose completion:(void (^ _Nullable)(enum YCProductState, id _Nullable))completion;
 /// 久坐提醒
 /// \param peripheral 连接时间
 ///
@@ -3269,6 +3286,8 @@ SWIFT_CLASS("_TtC12YCProductSDK29YCProductFunctionSupportItems")
 @property (nonatomic, readonly) BOOL isSupportScreenBrightnessAdjust;
 /// 血糖测量
 @property (nonatomic, readonly) BOOL isSupportBloodGlucose;
+/// 运动暂停
+@property (nonatomic, readonly) BOOL isSupportSportPause;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
