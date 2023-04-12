@@ -99,7 +99,7 @@ class YCECGMeasureViewController: UIViewController {
     private var ecgLineView: YCECGDrawLineView = YCECGDrawLineView()
     
     /// ecg算法工具类
-    private var ecgAlgorithmManager = YCECGManager.shared
+    private var ecgAlgorithmManager = YCECGManager()
     
     /// 测量ECG声音
     private let audioPlayer: AVAudioPlayer = {
@@ -758,6 +758,7 @@ extension YCECGMeasureViewController {
         ecgLineView.setNeedsLayout()
         ecgLineView.setNeedsDisplay()
         
+        ecgAlgorithmManager = YCECGManager()
         ecgAlgorithmManager.setupManagerInfo { [weak self] rr, heartRate in
             
             //  检查到RR间隔 
