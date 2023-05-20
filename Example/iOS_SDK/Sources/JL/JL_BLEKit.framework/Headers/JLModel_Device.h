@@ -3,18 +3,20 @@
 //  JL_BLEKit
 //
 //  Created by 杰理科技 on 2021/10/15.
+//  Modify by EzioChan on 2023/03/16
 //  Copyright © 2021 www.zh-jieli.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "JL_TypeEnum.h"
-#import "JLModel_Flash.h"
-#import "JLModel_ANC.h"
-#import "JLModel_RTC.h"
-#import "JLModel_FM.h"
-#import "JLModel_File.h"
-#import "JLModel_EQ.h"
-#import "JLDhaFitting.h""
+#import <JL_BLEKit/JL_TypeEnum.h>
+#import <JL_BLEKit/JLModel_Flash.h>
+#import <JL_BLEKit/JLModel_ANC.h>
+#import <JL_BLEKit/JLModel_RTC.h>
+#import <JL_BLEKit/JLModel_FM.h>
+#import <JL_BLEKit/JLModel_File.h>
+#import <JL_BLEKit/JLModel_EQ.h>
+#import <JL_BLEKit/JLDhaFitting.h>
+#import <JL_OTALib/JL_OTALib.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -47,26 +49,9 @@ typedef NS_ENUM(UInt8, JL_FunctionCode) {
     JL_FunctionCodeFMTX             = 6,    //发射频点
     JL_FunctionCodeCOMMON           = 0xff, //通用
 };
-typedef NS_ENUM(UInt8, JL_Partition) {
-    JL_PartitionSingle              = 0,    //固件单备份
-    JL_PartitionDouble              = 1,    //固件双备份
-};
-typedef NS_ENUM(UInt8, JL_OtaHeadset) {
-    JL_OtaHeadsetNO                 = 0,    //耳机单备份 正常升级
-    JL_OtaHeadsetYES                = 1,    //耳机单备份 强制升级
-};
-typedef NS_ENUM(UInt8, JL_OtaWatch) {
-    JL_OtaWatchNO                   = 0,    //手表资源 正常升级
-    JL_OtaWatchYES                  = 1,    //手表资源 强制升级
-};
-typedef NS_ENUM(UInt8, JL_OtaStatus) {
-    JL_OtaStatusNormal              = 0,    //正常升级
-    JL_OtaStatusForce               = 1,    //强制升级
-};
-typedef NS_ENUM(UInt8, JL_BootLoader) {
-    JL_BootLoaderNO                 = 0,    //不需要下载Bootloader
-    JL_BootLoaderYES                = 1,    //需要下载BootLoader
-};
+
+
+
 typedef NS_ENUM(UInt8, JL_OtaBleAllowConnect) {
     JL_OtaBleAllowConnectYES        = 0,    //OTA 允许BLE连接
     JL_OtaBleAllowConnectNO         = 1,    //OTA 禁止BLE连接
@@ -232,14 +217,26 @@ typedef NS_ENUM(UInt8, JL_FMMode) {
     JL_FMModeUnknown,
 };
 
+typedef NS_ENUM(UInt8,JL_ReverberationType) {
+    JL_ReverberationTypeNormal      = 0,     //混响
+    JL_ReverberationTypeDynamic     = 1,     //限幅器
+};
+
 
 @interface JLModel_Device : NSObject<NSCopying>
 @property (copy,  nonatomic) NSString           *mBLE_UUID;       //设备UUID
-
 @property (copy,  nonatomic) NSString           *versionProtocol;       //协议版本
 @property (copy,  nonatomic) NSString           *versionFirmware;       //固件版本
+/// 单包固件最大发送值，APP单次能收到最大的值
+@property (assign,nonatomic) NSInteger          getMtu;
+/// 单包固件最大接收值（MaxMtu）APP单次可发送最大值
+@property (assign,nonatomic) NSInteger          sendMtu;
 @property (assign,nonatomic) JL_SDKType         sdkType;                //SDK类型
 @property (assign,nonatomic) NSUInteger         battery;                //电量0~9
+/// 是否支持音量同步
+@property (assign,nonatomic) BOOL               isSyncVoice;
+/// 最低允许升级资源/OTA电量
+@property (assign,nonatomic) NSInteger          lowBattery;
 @property (assign,nonatomic) NSUInteger         currentVol;             //当前音量
 @property (assign,nonatomic) NSUInteger         maxVol;                 //最大音量
 @property (copy,  nonatomic) NSString           *btAddr;                //经典蓝牙地址
@@ -277,12 +274,29 @@ typedef NS_ENUM(UInt8, JL_FMMode) {
 /// 是否支持辅听设置
 @property (assign,nonatomic) BOOL               isSupportDhaFitting;
 ///验配信息交互：版本、通道数、通道频率
+///Fitting information interaction: version, channel number, channel frequency
 @property (strong,nonatomic) DhaFittingInfo     *dhaFitInfo;
+/// 验配中断/开启的对象，仅限于监听
+/// Fitting interrupted/opened object, only for listening
+@property (strong,nonatomic) DhaFittingSwitch   *dhaFitSwitch;
 /// 通道增益值数组,先左耳后右耳，个数和验配信息中返回的一致
+/// Array of channel gain values, first left ear then right ear, the number is the same as the one returned in the fitting information
 @property (strong,nonatomic) NSArray<NSNumber *> *dhaFittingList;
+
+/// 是否支持获取设备配置信息
+@property (assign,nonatomic) BOOL               isSupportDevConfigInfo;
+
+/// 是否支持自适应ANC
+@property (assign,nonatomic) BOOL               isSupportAutoANC;
+
 @property (assign,nonatomic) int                pitchLow;               //低音
 @property (assign,nonatomic) int                pitchHigh;              //高音
 @property (copy,  nonatomic) JLModel_Flash      *flashInfo;             //外挂flash信息
+
+/// 设备信息中指明，外部SD卡/U盘引脚是否被复用
+/// Specify in the device information, whether the external SD card/U disk pins are multiplexed
+@property (assign,nonatomic) BOOL               devPinMultiplex;
+
 
 /*--- File INFO ---*/
 @property (assign,nonatomic) JL_FileHandleType        currentFileHandleType;                        //当前文件传输句柄
@@ -327,17 +341,31 @@ typedef NS_ENUM(UInt8, JL_FMMode) {
 @property (assign,nonatomic) uint64_t           kalaokMask;                 //卡拉OK 固件返回的掩码
 @property (strong,nonatomic) NSArray            *mKaraokeMicFrequencyArray; //卡拉OK 频率数组
 @property (strong,nonatomic) NSArray            *mKaraokeMicEQArray;        //卡拉OK EQ数组
-@property (assign,nonatomic) JL_LightState      lightState;             // 0:关闭 1：打开 2：设置模式(彩色/闪烁/情景)
-@property (assign,nonatomic) JL_LightMode       lightMode;              // 0：彩色 1:闪烁 2: 情景
-@property (assign,nonatomic) uint8_t            lightRed;               // 灯光红色
-@property (assign,nonatomic) uint8_t            lightGreen;             // 灯光绿色
-@property (assign,nonatomic) uint8_t            lightBlue;              // 灯光蓝色
-@property (assign,nonatomic) JL_LightFlashModeIndex lightFlashIndex;        // 闪烁模式Index
-@property (assign,nonatomic) JL_LightFlashModeFrequency lightFrequencyIndex;    // 闪烁频率Index
-@property (assign,nonatomic) JL_LightSceneMode  lightSceneIndex;        // 情景模式Index
-@property (assign,nonatomic) uint16_t           lightHue;               // 色调，范围0-360
-@property (assign,nonatomic) uint8_t            lightSat;               // 饱和度，0-100
-@property (assign,nonatomic) uint8_t            lightLightness;         // 亮度，0-100
+
+//MARK: - 灯光属性列表
+/// 0:关闭 1：打开 2：设置模式(彩色/闪烁/情景)
+@property (assign,nonatomic) JL_LightState      lightState __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 0：彩色 1:闪烁 2: 情景
+@property (assign,nonatomic) JL_LightMode       lightMode __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 灯光红色
+@property (assign,nonatomic) uint8_t            lightRed __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 灯光绿色
+@property (assign,nonatomic) uint8_t            lightGreen __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 灯光蓝色
+@property (assign,nonatomic) uint8_t            lightBlue __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 闪烁模式Index
+@property (assign,nonatomic) JL_LightFlashModeIndex lightFlashIndex __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 闪烁频率Index
+@property (assign,nonatomic) JL_LightFlashModeFrequency lightFrequencyIndex __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 情景模式Index
+@property (assign,nonatomic) JL_LightSceneMode  lightSceneIndex __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 色调，范围0-360
+@property (assign,nonatomic) uint16_t           lightHue __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 饱和度，0-100
+@property (assign,nonatomic) uint8_t            lightSat __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+/// 亮度，0-100
+@property (assign,nonatomic) uint8_t            lightLightness __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_LightManager class instead, this property is about to become invalid")));
+
 
 /*--- BT INFO ---*/
 @property (strong,nonatomic) NSString           *ID3_Title;
@@ -361,11 +389,21 @@ typedef NS_ENUM(UInt8, JL_FMMode) {
 @property (copy,  nonatomic) NSString           *typeSupport;           //解码音频格式
     
 /*--- RTC INFO ---*/
-@property (assign,nonatomic) uint8_t             rtcVersion;            //RTC 版本
-@property (assign,nonatomic) JL_RTCAlarmType     rtcAlarmType;          //是否支持闹铃设置
-@property (strong,nonatomic) JLModel_RTC         *rtcModel;             //设备当前时间
-@property (strong,nonatomic) NSMutableArray      *rtcAlarms;            //设备闹钟数组
-@property (strong,nonatomic) NSMutableArray      *rtcDfRings;           //默认铃声
+
+///RTC 版本
+@property (assign,nonatomic) uint8_t             rtcVersion __attribute__((deprecated ( "Use the instance property rtcVersion of the JL_AlarmClockManager class instead, this property is about to become invalid")));
+
+///是否支持闹铃设置
+@property (assign,nonatomic) JL_RTCAlarmType     rtcAlarmType __attribute__((deprecated ( "Use the instance property rtcAlarmType of the JL_AlarmClockManager class instead, this property is about to become invalid")));
+
+///设备当前时间
+@property (strong,nonatomic) JLModel_RTC         *rtcModel __attribute__((deprecated ( "Use the instance property rtcModel of the JL_AlarmClockManager class instead, this property is about to become invalid")));
+
+///设备闹钟数组
+@property (strong,nonatomic) NSMutableArray      *rtcAlarms __attribute__((deprecated ( "Use the instance property rtcAlarms of the JL_AlarmClockManager class instead, this property is about to become invalid")));
+
+///默认铃声
+@property (strong,nonatomic) NSMutableArray      *rtcDfRings __attribute__((deprecated ( "Use the instance property rtcDfRings of the JL_AlarmClockManager class instead, this property is about to become invalid")));
 
 /*--- LineIn INFO ---*/
 @property (assign,nonatomic) JL_LineInStatus    lineInStatus;           //LineIn状态

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JL_TypeEnum.h"
+#import <JL_BLEKit/JL_TypeEnum.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,6 +44,14 @@ typedef NS_ENUM(UInt8, DhaFittingType) {
 @property(nonatomic,strong)NSArray *ch_freq;
 
 - (instancetype)initWithData:(NSData *)basicData;
+
+@end
+
+@interface DhaFittingSwitch : NSObject
+
+@property(nonatomic,assign)BOOL leftOn;
+
+@property(nonatomic,assign)BOOL rightOn;
 
 @end
 
@@ -86,6 +94,10 @@ typedef void(^DhaInfoBlock)(DhaFittingInfo *info,NSArray <NSNumber *>*gains);
 /// @param result 设备工作状态回调
 -(void)auxiCheckByStep:(DhaFittingData *)dhaFit Manager:(JL_ManagerM*)manager Result:(JL_CMD_RESPOND __nullable)result;
 
+/// 退出辅听验配
+/// @param manager 命令对象
+/// @param result 设备工作状态回调
+-(void)auxiCloseManager:(JL_ManagerM*)manager Result:(JL_CMD_RESPOND __nullable)result;
 
 /// 保存验配设置
 /// @param gains 验配的增益数组

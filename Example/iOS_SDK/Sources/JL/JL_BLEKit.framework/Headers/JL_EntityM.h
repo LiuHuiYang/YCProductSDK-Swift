@@ -10,8 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <UIKit/UIKit.h>
-#import "JL_Tools.h"
-#import "JL_ManagerM.h"
+#import <JL_BLEKit/JL_Tools.h>
+#import <JL_BLEKit/JL_ManagerM.h>
+#import <JL_AdvParse/JLAdvParse.h>
 
 NS_ASSUME_NONNULL_BEGIN
 //@class JL_EntityM;

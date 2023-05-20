@@ -42,8 +42,6 @@
 		CA5DB46E27564DE2008AFB6F /* YCWatchFaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */; };
 		CA5DB47027571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
 		CA5DB47127571E4E008AFB6F /* customE80.bin in Resources */ = {isa = PBXBuildFile; fileRef = CA5DB46F27571E4E008AFB6F /* customE80.bin */; };
-		CA5E1CAE2948839100E98BAE /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5E1CAD2948839100E98BAE /* YCProductSDK.framework */; };
-		CA5E1CAF2948839100E98BAE /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5E1CAD2948839100E98BAE /* YCProductSDK.framework */; };
 		CA8AB867288005B800B91963 /* YCECGReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8AB853288005B800B91963 /* YCECGReportViewController.xib */; };
 		CA8AB868288005B800B91963 /* YCECGReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB854288005B800B91963 /* YCECGReportViewController.swift */; };
 		CA8AB869288005B800B91963 /* YCHealthECGData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB856288005B800B91963 /* YCHealthECGData.swift */; };
@@ -56,6 +54,7 @@
 		CA8AB870288005B800B91963 /* YCECGPhotoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA8AB865288005B800B91963 /* YCECGPhotoViewCell.xib */; };
 		CA8AB871288005B800B91963 /* YCECGPhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB866288005B800B91963 /* YCECGPhotoViewCell.swift */; };
 		CA8AB873288192E400B91963 /* YCDeviceTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8AB872288192E300B91963 /* YCDeviceTools.swift */; };
+		CAA7A9FB2A03D0FC005CE620 /* YCProductSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAA7A9FA2A03D0FC005CE620 /* YCProductSDK.framework */; };
 		CAB7B83E27579D2B001B53A7 /* YCECGShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */; };
 		CAB7B83F27579D2B001B53A7 /* YCECGShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */; };
 		CAC2B7E0277D69AE00CF3247 /* ecg_tip.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */; };
@@ -112,7 +111,6 @@
 		CA5DB46B27564DE2008AFB6F /* YCWatchFaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCWatchFaceViewController.swift; sourceTree = "<group>"; };
 		CA5DB46C27564DE2008AFB6F /* YCWatchFaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YCWatchFaceViewController.xib; sourceTree = "<group>"; };
 		CA5DB46F27571E4E008AFB6F /* customE80.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = customE80.bin; sourceTree = "<group>"; };
-		CA5E1CAD2948839100E98BAE /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CA8AB853288005B800B91963 /* YCECGReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGReportViewController.xib; sourceTree = "<group>"; };
 		CA8AB854288005B800B91963 /* YCECGReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGReportViewController.swift; sourceTree = "<group>"; };
 		CA8AB856288005B800B91963 /* YCHealthECGData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCHealthECGData.swift; sourceTree = "<group>"; };
@@ -127,6 +125,7 @@
 		CA8AB865288005B800B91963 /* YCECGPhotoViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGPhotoViewCell.xib; sourceTree = "<group>"; };
 		CA8AB866288005B800B91963 /* YCECGPhotoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGPhotoViewCell.swift; sourceTree = "<group>"; };
 		CA8AB872288192E300B91963 /* YCDeviceTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YCDeviceTools.swift; sourceTree = "<group>"; };
+		CAA7A9FA2A03D0FC005CE620 /* YCProductSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCProductSDK.framework; sourceTree = "<group>"; };
 		CAB7B83C27579D2B001B53A7 /* YCECGShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCECGShowViewController.swift; sourceTree = "<group>"; };
 		CAB7B83D27579D2B001B53A7 /* YCECGShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCECGShowViewController.xib; sourceTree = "<group>"; };
 		CAC2B7DF277D69AE00CF3247 /* ecg_tip.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = ecg_tip.m4a; sourceTree = "<group>"; };
@@ -142,7 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19914F0ACEF80BB6D38EE68F /* libPods-SwiftDemo.a in Frameworks */,
-				CA5E1CAE2948839100E98BAE /* YCProductSDK.framework in Frameworks */,
+				CAA7A9FB2A03D0FC005CE620 /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +150,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC71D1AEEF0D8A8693B1B7D1 /* libPods-ObjcDemo.a in Frameworks */,
-				CA5E1CAF2948839100E98BAE /* YCProductSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,7 +195,7 @@
 				CA1581852754C6B20073C514 /* AppDelegate.swift */,
 				CA1581872754C6B20073C514 /* SceneDelegate.swift */,
 				CA1581892754C6B20073C514 /* ViewController.swift */,
-				CA5E1CAD2948839100E98BAE /* YCProductSDK.framework */,
+				CAA7A9FA2A03D0FC005CE620 /* YCProductSDK.framework */,
 				CA1581F52754C85B0073C514 /* Classes */,
 				CA15818B2754C6B20073C514 /* Main.storyboard */,
 				CA15818E2754C6B40073C514 /* Assets.xcassets */,
@@ -512,7 +510,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					CA1581822754C6B20073C514 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -762,7 +760,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -820,7 +818,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -840,8 +838,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = JQ97STDGA6;
+				DEVELOPMENT_TEAM = 762B93YY5P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -871,8 +868,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = JQ97STDGA6;
+				DEVELOPMENT_TEAM = 762B93YY5P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -907,6 +903,7 @@
 					"$(PROJECT_DIR)/SwiftDemo",
 				);
 				INFOPLIST_FILE = ObjcDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -935,6 +932,7 @@
 					"$(PROJECT_DIR)/SwiftDemo",
 				);
 				INFOPLIST_FILE = ObjcDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/DialManager.h</key>
 		<data>
-		PsGU/U0NBNzDm10roN9m7igZHvM=
+		SmDvp2WhrQDPUIWJMkZ31TCt64s=
 		</data>
 		<key>Headers/FatfsObject.h</key>
 		<data>
@@ -14,11 +14,11 @@
 		</data>
 		<key>Headers/JLDialUnit.h</key>
 		<data>
-		oE+cbu7ru605R2V3KhE/PM4C/7w=
+		PrFRckFbpojd6PWEmojEznXaX6Q=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		YzugtuNAB/KcNf8yC7zpYgsGEn8=
+		ySrwlLBZ3Si8kChgsnxWZ8jG3Q8=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -31,11 +31,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PsGU/U0NBNzDm10roN9m7igZHvM=
+			SmDvp2WhrQDPUIWJMkZ31TCt64s=
 			</data>
 			<key>hash2</key>
 			<data>
-			pP8l5/CrA3l1Q5GnlX1S8JQI4UTA73b7P8LuuUpJJ8g=
+			BoeokFVq2CuyLG+cuopojzHBKFg3s0REJu6cUlHCvwU=
 			</data>
 		</dict>
 		<key>Headers/FatfsObject.h</key>
@@ -53,11 +53,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			oE+cbu7ru605R2V3KhE/PM4C/7w=
+			PrFRckFbpojd6PWEmojEznXaX6Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			ne0un06RzV8LIQoe82Goj8RMBxj+vZhN35evZDEUSmE=
+			xsGQvOAo5WL6wymLp0VLYSJNNYZABGtjWtkyv3DfNVg=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

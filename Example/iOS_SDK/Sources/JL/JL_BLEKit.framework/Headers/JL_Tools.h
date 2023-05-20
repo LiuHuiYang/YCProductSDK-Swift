@@ -122,6 +122,14 @@ typedef void(^JL_Timer_BK)(void);
 +(void)post:(NSString*)name Object:(id __nullable)object;
 
 /**
+ 发出通知事件
+ 
+ @param name 通知名字
+ @param object 传递的对象
+ @param info     传递的信息
+ */
++(void)post:(NSString*)name Object:(id __nullable)object UserInfo:(NSDictionary* __nullable)info;
+/**
  监听通知事件
  
  @param name 通知名字
@@ -360,6 +368,13 @@ typedef void(^JL_Timer_BK)(void);
  *  返回时间戳（单位：秒）
  */
 +(long)dateCurrent;
+
+
+/// 把data变成LTV格式
+/// @param type 类型
+/// @param data 数据
++(NSData *)beLtv:(uint8_t)type Data:(NSData*)data;
+
 /**
  *  开启打印
  */

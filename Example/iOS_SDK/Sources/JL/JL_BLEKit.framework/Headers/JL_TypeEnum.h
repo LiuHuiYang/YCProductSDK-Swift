@@ -39,29 +39,6 @@ typedef void(^JL_CMD_RESPOND)(JL_CMDStatus status, uint8_t sn, NSData* __nullabl
 
 //---------------------------------------------------------//
 
-typedef NS_ENUM(UInt8,JL_ReverberationType) {
-    JL_ReverberationTypeNormal      = 0,     //混响
-    JL_ReverberationTypeDynamic     = 1,     //限幅器
-};
-typedef NS_ENUM(UInt8,JL_AdvType) {
-    JL_AdvTypeSoundBox              = 0,     //音箱类型
-    JL_AdvTypeChargingBin           = 1,     //充电仓类型
-    JL_AdvTypeTWS                   = 2,     //TWS耳机类型
-    JL_AdvTypeHeadset               = 3,     //普通耳机类型
-    JL_AdvTypeSoundCard             = 4,     //声卡类型
-    JL_AdvTypeWatch                 = 5,     //手表类型
-    JL_AdvTypeTradition             = 6,     //传统设备类型
-};
-typedef NS_ENUM(NSInteger,JL_DeviceType) {
-    JL_DeviceTypeSoundBox           = 0,     //AI音箱类型
-    JL_DeviceTypeChargingBin        = 1,     //充电仓类型
-    JL_DeviceTypeTWS                = 2,     //TWS耳机类型
-    JL_DeviceTypeHeadset            = 3,     //普通耳机类型
-    JL_DeviceTypeSoundCard          = 4,     //声卡类型
-    JL_DeviceTypeWatch              = 5,     //手表类型
-    JL_DeviceTypeTradition          = -1,    //传统设备类型
-};
-
 typedef NS_ENUM(UInt8,JLDevSpecialType) {
     ///普通正常设备
     JLDevSpecialType_Normal = 0x00,
@@ -69,10 +46,38 @@ typedef NS_ENUM(UInt8,JLDevSpecialType) {
     JLDevSpecialType_Reconnect = 0x01,
 };
 
+typedef NS_ENUM(int64_t,JL_CLASS) {
+    JL_CLASS_SmallFile      = 0,
+    JL_CLASS_File           = 1,
+    JL_CLASS_OTA            = 2,
+    JL_CLASS_Flash          = 3,
+    JL_CLASS_ChargingBin    = 4,
+    JL_CLASS_AlarmClock     = 5,
+    JL_CLASS_Light          = 6,
+    JL_CLASS_Tws            = 7,
+    JL_CLASS_SoundCard      = 8,
+    JL_CLASS_Call           = 9,
+    JL_CLASS_Speex          = 10,
+    JL_CLASS_Lrc            = 11,
+    JL_CLASS_FindDevice     = 12,
+    JL_CLASS_MusicControl   = 13,
+    JL_CLASS_Fm             = 14,
+    JL_CLASS_SystemEQ       = 15,
+    JL_CLASS_SystemTime     = 16,
+    JL_CLASS_SystemVolume   = 17,
+    JL_CLASS_Custom         = 18,
+    JL_CLASS_Batch          = 19,
+    JL_CLASS_DeviceLogs     = 20,
+    JL_CLASS_BigData        = 21,
+};
+
 //---------------------------------------------------------//
 
 
-
-//---------------------------------------------------------//
-
-
+///命令发起者
+typedef NS_ENUM(UInt8, JLCMDOriginator) {
+    ///SDK端发起
+    JLCMDOriginatorApp = 0x00,
+    ///设备端发起
+    JLCMDOriginatorDevice = 0x01
+};

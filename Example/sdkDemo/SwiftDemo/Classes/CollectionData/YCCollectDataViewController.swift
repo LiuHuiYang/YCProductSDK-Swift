@@ -41,7 +41,7 @@ extension YCCollectDataViewController: UITableViewDelegate {
         
         switch indexPath.row {
         case 0:
-            YCProduct.queryCollectDataBasicinfo(dataType: .ecg) { state, response in
+            YCProduct.queryCollectDataBasicinfo(dataType: .ppg) { state, response in
 
                 guard state == .succeed,
                         let datas = response as? [YCCollectDataBasicInfo] else {
@@ -58,10 +58,12 @@ extension YCCollectDataViewController: UITableViewDelegate {
                 detail += "]"
                 
                 self.textView.text = detail
-            }
+                
+                debugPrint("==== \(datas.count)")
+            } 
             
         case 1:
-            YCProduct.queryCollectDataInfo( dataType: .ecg, index: 0, uploadEnable: true) { state, response in
+            YCProduct.queryCollectDataInfo( dataType: .ppg, index: 0, uploadEnable: true) { state, response in
                 
                 if state == .succeed,
                 let info = response as? YCCollectDataInfo {

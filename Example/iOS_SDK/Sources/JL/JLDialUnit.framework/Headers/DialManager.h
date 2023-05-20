@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, DialUpdateResult) {
     DialUpdateResultAdd         = 5,    //资源新增
     DialUpdateResultNoSpace     = 6,    //空间不足
     DialUpdateResultZipError    = 7,    //ZIP资源文件错误
+    DialUpdateResultCompareFail = 8,    //表盘资源对比失败
 };
 typedef void(^DialOperateBK)(DialOperateType type, float progress);
 typedef void(^DialListBK)(DialOperateType type, NSArray* __nullable array);

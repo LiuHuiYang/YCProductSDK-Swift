@@ -63,12 +63,12 @@
     [self combineFileParse];
     [self packFileParse];
     
-/*
- 不检查升级文件版本
+ 
+// 不检查升级文件版本
     self.upgradeTask.olderImageAllowed = YES;
- 设置升级模式为普通升级
+// 设置升级模式为普通升级
     [(RTKDFUUpgradeGATT*)self.upgradeTask setPrefersUpgradeUsingOTAMode:YES];
- */
+ 
 
     self.upgradeTask.usingStrictImageCheckMechanism = YES;  //严格检查升级文件版本
     self.upgradeTask.batteryLevelLimit = 0; //电量检查

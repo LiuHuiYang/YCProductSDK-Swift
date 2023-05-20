@@ -2,7 +2,8 @@
 //  JLDialUnit.h
 //  JLDialUnit
 //
-//  Created by 杰理科技 on 2021/7/20.
+//  Created by EzioChan on 2023/2/28.
+//  Copyright © 2023 www.zh-jieli.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -17,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char JLDialUnitVersionString[];
 
 #import <JLDialUnit/DialManager.h>
 #import <JLDialUnit/FatfsObject.h>
+

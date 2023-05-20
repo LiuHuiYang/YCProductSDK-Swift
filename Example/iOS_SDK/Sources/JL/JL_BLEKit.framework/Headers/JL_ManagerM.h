@@ -3,6 +3,7 @@
 //  JL_BLEKit
 //
 //  Created by 杰理科技 on 2020/9/4.
+//  Modify By EzioChan on 2023/03/27.
 //  Copyright © 2020 www.zh-jieli.com. All rights reserved.
 //
 
@@ -27,7 +28,6 @@
 #import <JL_BLEKit/JL_FunctionBaseManager.h>
 #import <JL_BLEKit/JL_SmallFileManager.h>
 #import <JL_BLEKit/JL_FileManager.h>
-#import <JL_BLEKit/JL_OTAManager.h>
 #import <JL_BLEKit/JL_FlashOperateManager.h>
 #import <JL_BLEKit/JL_BinChargeManager.h>
 #import <JL_BLEKit/JL_AlarmClockManager.h>
@@ -44,8 +44,11 @@
 #import <JL_BLEKit/JL_SystemTime.h>
 #import <JL_BLEKit/JL_SystemVolume.h>
 #import <JL_BLEKit/JL_CustomManager.h>
-#import <JL_BLEKit/JL_BatchManger.h>
+#import <JL_BLEKit/JL_BigDataManager.h>
 #import <JL_BLEKit/JL_DeviceLogs.h>
+#import <JL_BLEKit/JL_BatchManger.h>
+#import <JL_OTALib/JL_OTALib.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,7 +65,6 @@ extern NSString *kJL_MANAGER_KEY_OBJECT;    //KEY --> 对象
 @protocol JL_ManagerMDelegate <NSObject>
 @optional
 -(void)onManagerSendPackage:(JL_PKG*)pkg;
-
 @end
 
 @class JL_EntityM;
@@ -95,7 +97,10 @@ extern NSString *kJL_MANAGER_KEY_OBJECT;    //KEY --> 对象
 @property(nonatomic,strong)JL_BatchManger           *mBatchManger;
 @property(nonatomic,strong)JL_DeviceLogs            *mDeviceLogs;
 
+@property(nonatomic,strong)JL_BigDataManager        *mBigDataManager;
 
+
+-(void)setPropertyUpdate:(BOOL)isUpdate;
 -(void)setBleUuid:(NSString*)uuid;
 -(void)setBleName:(NSString*)name;
 -(void)inputPKG:(JL_PKG*)pkg;
@@ -140,7 +145,12 @@ extern NSString *kJL_MANAGER_KEY_OBJECT;    //KEY --> 对象
 -(uint8_t)xmCommandSN;
 
 #pragma mark ---> 取出设备信息
+
+/// copy出来的原值
 -(JLModel_Device *)outputDeviceModel;
+
+/// 取出原本的值
+-(JLModel_Device *)getDeviceModel;
 
 #pragma mark ---> 获取设备信息
 extern NSString *kJL_MANAGER_TARGET_INFO;

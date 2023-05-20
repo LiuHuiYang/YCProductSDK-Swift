@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <JL_BLEKit/JLModel_File.h>
-#import "JL_FunctionBaseManager.h"
-#import "JL_Tools.h"
+#import <JL_BLEKit/JL_FunctionBaseManager.h>
+#import <JL_BLEKit/JL_Tools.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -76,6 +76,9 @@ typedef void(^JL_BIGFILE_BK)(NSArray* __nullable array);
 typedef void(^JL_BIGFILE_RT)(JL_BigFileResult result, float progress);
 
 @interface JL_FileManager : JL_FunctionBaseManager
+
+/// 超时时间
+@property(nonatomic,assign)NSInteger maxTimeout;
 
 - (void)closeTimer;
 
@@ -172,6 +175,13 @@ typedef void(^JL_BIGFILE_RT)(JL_BigFileResult result, float progress);
 
 #pragma mark ---> 取消读取外置卡的文件内容
 -(void)cmdFileReadContentCancel;
+
+//MARK: - 设置当前使用的存储设备
+/// 设置当前使用的存储设备
+/// @param devHandle 存储设备句柄
+/// 可参考JLModel_Device 中获取到的设备句柄内容
+/// @param result 命令回调结果
+-(void)cmdSetDeviceStorage:(NSData *)devHandle Result:(JL_CMD_RESPOND)result;
 
 @end
 
