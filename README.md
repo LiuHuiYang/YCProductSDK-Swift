@@ -60,6 +60,5 @@ import YCProductSDK
 View Chinese and English document descriptions in Docs
 
 
-
-
+> 自 2024年1月1日起，将不再维护此代码。
 
